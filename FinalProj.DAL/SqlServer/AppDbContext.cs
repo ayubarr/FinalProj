@@ -26,7 +26,7 @@ namespace FinalApp.DAL.SqlServer
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-            Database.EnsureCreated();
+            //Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -41,33 +41,39 @@ namespace FinalApp.DAL.SqlServer
             modelBuilder.Ignore<ApplicationUser>();
 
             modelBuilder.Entity<Client>()
-                 .HasMany(client => client.Requests)
-                 .WithOne(request => request.Client)
-                 .HasForeignKey(request => request.ClientId);
+                .HasMany(client => client.Requests)
+                .WithOne(request => request.Client)
+                .OnDelete(DeleteBehavior.NoAction)
+                .HasForeignKey(request => request.ClientId);
 
             modelBuilder.Entity<SupportOperator>()
                  .HasMany(support => support.Requests)
                  .WithOne(request => request.SupportOperator)
+                 .OnDelete(DeleteBehavior.NoAction)
                  .HasForeignKey(request => request.OperatorId);
 
             modelBuilder.Entity<RecyclingPlant>()
                 .HasMany(plant => plant.Requests)
                 .WithOne(request => request.RecyclingPlant)
+                .OnDelete(DeleteBehavior.NoAction)
                 .HasForeignKey(request => request.PlantId);
 
             modelBuilder.Entity<Review>()
                  .HasOne(review => review.Request)
                  .WithOne(request => request.Review)
+                 .OnDelete(DeleteBehavior.NoAction)
                  .HasForeignKey<Request>(request => request.ReviewId);
 
             modelBuilder.Entity<TechTeam>()
                 .HasOne(team => team.Request)
                 .WithOne(request => request.TechnicalTeam)
+                .OnDelete(DeleteBehavior.NoAction)
                 .HasForeignKey<Request>(request => request.TechTeamId);
 
             modelBuilder.Entity<Location>()
                 .HasOne(location => location.Request)
                 .WithOne(request => request.Location)
+                .OnDelete(DeleteBehavior.NoAction)
                 .HasForeignKey<Request>(request => request.LocationId);
 
 

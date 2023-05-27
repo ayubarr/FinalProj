@@ -10,6 +10,6 @@ namespace FinalApp.Domain.Models.Entities.Persons.WorkTeams
         public Roles Position { get; set; } = Roles.TechnicalWorker;
 
         public ICollection<TechnicalTeamWorker> TechnicalTeams { get; set; }
-        public int? TechTeamId { get; set; }
+        public string? TechTeamId { get; set; }
     }
 }

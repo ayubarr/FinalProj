@@ -15,17 +15,17 @@ namespace FinalApp.Domain.Models.Entities.Requests.RequestsInfo
         public override Status RequestStatus { get; set; }
 
         public Client Client { get; set; }
-        public Guid? ClientId { get; set; }
+        public string? ClientId { get; set; }
         public RecyclingPlant RecyclingPlant { get; set; }
         public Guid? PlantId { get; set;}
         public Location Location { get; set; }
         public Guid? LocationId { get; set; }
         public SupportOperator SupportOperator { get; set; }
-        public Guid? OperatorId { get; set; }
+        public string? OperatorId { get; set; }
         public Review Review { get; set; }
         public Guid? ReviewId { get; set; }
         public TechTeam TechnicalTeam { get; set; }
-        public Guid? TechTeamId { get; set; }
+        public string? TechTeamId { get; set; }
 
 
         public List<RequestStatusHistory> StatusHistory { get; set; }
