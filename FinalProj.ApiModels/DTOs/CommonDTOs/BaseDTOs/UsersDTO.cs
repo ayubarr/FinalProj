@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-
+﻿
 namespace FinalApp.ApiModels.DTOs.CommonDTOs.BaseDTOs
 {
     public class BaseUserDTO : BaseEntityDTO
