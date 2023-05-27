@@ -12,10 +12,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FinalProj.Services.Implemintations.UserServices
 {
-    public class ClientService : BaseUserService<Client>, IClientService
+    public class ClientService : IClientService
     {
-        public ClientService(IBaseAsyncRepository<Request> repository, UserManager<Client> userManager) : base(repository, userManager)
+        protected readonly UserManager<Client> _userManager;
+
+        public ClientService( UserManager<Client> userManager) 
         {
+            _userManager = userManager;
         }
  
         public async Task<IBaseResponse<IEnumerable<Client>>> GetClientsWithRequests()

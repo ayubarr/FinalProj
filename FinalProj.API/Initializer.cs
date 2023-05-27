@@ -30,6 +30,8 @@ namespace FinalApp.Api
             services.AddScoped<IClientService, ClientService>();
             services.AddScoped<IBaseUserService<TechTeam>, BaseUserService<TechTeam>>();
             services.AddScoped<IBaseUserService<SupportOperator>, BaseUserService<SupportOperator>>();
+            services.AddScoped<IBaseUserService<Client>, BaseUserService<Client>>();
+
             #endregion
 
             #region Request_Services

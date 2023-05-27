@@ -28,6 +28,36 @@ namespace FinalProj.Services.Implemintations.UserServices
 
         }
 
+        public async Task<IBaseResponse<bool>> SetUserAsAdminAsync(string userId)
+        {
+            try
+            {
+                var user = await _userManager.FindByIdAsync(userId);
+
+                ObjectValidator<T>.CheckIsNotNullObject(user);
+               
+                var role = Roles.Administrator.ToString(); 
+                var result = await _userManager.AddToRoleAsync(user, role);
+
+                if (result.Succeeded)
+                {
+                    return ResponseFactory<bool>.CreateSuccessResponse(true);
+                }
+                else
+                {
+                    return ResponseFactory<bool>.CreateErrorResponse(new Exception("Failed to set user as admin."));
+                }                       
+            }
+            catch (ArgumentException argException)
+            {
+                return ResponseFactory<bool>.CreateNotFoundResponse(argException);
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory<bool>.CreateErrorResponse(ex);
+            }
+        }
+
         public async Task<IBaseResponse<IEnumerable<RequestDTO>>> GetActiveRequests(string Id)
         {
             try
