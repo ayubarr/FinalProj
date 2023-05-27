@@ -12,7 +12,7 @@ namespace FinalApp.Domain.Models.Entities.Persons.Users
         public Request? Request { get; set; }
 
         public ICollection<TechnicalTeamWorker> Workers { get; set; }
-        public int? WorkerId { get; set; }
+        public Guid? WorkerId { get; set; }
 
     }
 }

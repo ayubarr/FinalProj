@@ -32,7 +32,7 @@ namespace FinalApp.DAL.Repository.Implemintations
         {
             return await Task.FromResult(_dbSet);
         }
-        public T ReadById(int id)
+        public T ReadById(Guid id)
         {
             var entity = ReadAll().FirstOrDefault(x => x.Id == id);
 
@@ -40,7 +40,7 @@ namespace FinalApp.DAL.Repository.Implemintations
              ? throw new ArgumentNullException(nameof(id), $"Entity not found by id {id}")
              : entity;
         }
-        public async Task<T> ReadByIdAsync(int id)
+        public async Task<T> ReadByIdAsync(Guid id)
         {
             var entity = await ReadAllAsync().Result.FirstOrDefaultAsync(x => x.Id == id);
 
@@ -61,7 +61,7 @@ namespace FinalApp.DAL.Repository.Implemintations
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteByIdAsync(int id)
+        public async Task DeleteByIdAsync(Guid id)
         {
             var entity = await ReadByIdAsync(id);
             await DeleteAsync(entity);

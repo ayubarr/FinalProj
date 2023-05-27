@@ -33,14 +33,14 @@ namespace FinalApp.DAL.Repository.Interfaces
         /// </summary>
         /// <param name="id">The identifier of the entity.</param>
         /// <returns>The entity with the specified identifier.</returns>
-        public T ReadById(int id);
+        public T ReadById(Guid id);
 
         /// <summary>
         /// Asynchronously retrieves an entity by the specified identifier.
         /// </summary>
         /// <param name="id">The identifier of the entity.</param>
         /// <returns>A task that returns the entity with the specified identifier.</returns>
-        public Task<T> ReadByIdAsync(int id);
+        public Task<T> ReadByIdAsync(Guid id);
 
         /// <summary>
         /// Updates the specified entity in the database.
@@ -61,7 +61,7 @@ namespace FinalApp.DAL.Repository.Interfaces
         /// </summary>
         /// <param name="id">The identifier of the entity.</param>
         /// <returns></returns>
-        public Task DeleteByIdAsync(int id);
+        public Task DeleteByIdAsync(Guid id);
 
 
     }

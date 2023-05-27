@@ -8,9 +8,9 @@ namespace FinalApp.Domain.Models.Entities.Requests.EcoBoxInfo
         public int WearDegree { get; set; }
 
         public Location Location { get; set; }
-        public int? LocationId { get; set; }
+        public Guid? LocationId { get; set; }
 
         public EcoBoxTemplate Template { get; set; }
-        public int? TemplateId { get; set; }
+        public Guid? TemplateId { get; set; }
     }
 }

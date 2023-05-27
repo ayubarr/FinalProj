@@ -5,8 +5,8 @@ namespace FinalApp.Domain.Models.Entities.Requests.RequestsInfo
 {
     public class RequestStatusHistory : BaseEntity
     {
-        public int RequestId { get; set; }
-        public int UserId { get; set; }
+        public Guid RequestId { get; set; }
+        public Guid UserId { get; set; }
         public DateTime Timestamp { get; set; }
         public Status PreviousStatus { get; set; }
         public Status NewStatus { get; set; }

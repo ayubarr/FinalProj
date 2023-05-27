@@ -11,7 +11,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FinalProj.ValidationHelper\FinalProj.ValidationHelper.csproj" />
     <ProjectReference Include="..\FinalProj\FinalProj.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DTOs\Response\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
   </ItemGroup>
 
 </Project>

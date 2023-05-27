@@ -12,6 +12,6 @@ namespace FinalApp.Domain.Models.Entities.Requests.EcoBoxInfo
         public ICollection<EcoBox>? EcoBoxes { get; set; }
 
         public SupplierCompany SupplierCompany { get; set; }
-        public int? SupplierId { get; set; } 
+        public Guid? SupplierId { get; set; } 
     }
 }
