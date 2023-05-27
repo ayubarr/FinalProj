@@ -1,9 +1,14 @@
 ﻿using FinalApp.Domain.Models.Abstractions.BaseUsers;
+using FinalApp.Domain.Models.Entities.Persons.Users;
+using FinalApp.Domain.Models.Entities.Persons.WorkTeams;
+using FinalApp.Domain.Models.Entities.Requests.EcoBoxInfo;
+using FinalApp.Domain.Models.Entities.Requests.RequestsInfo;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace FinalApp.DAL.SqlServer
 {
-    public class AppDbContext : DbContext<ApplicationUser>
+    public class AppDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Client> Clients { get; set; }
         public DbSet<SupportOperator> SupportOperators { get; set; }
