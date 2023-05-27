@@ -11,7 +11,7 @@ namespace FinalApp.Services.Helpers
     public static class TypeHelper<T>
         where T : ApplicationUser
     {
-        public static async Task<IEnumerable<Request>> CheckUserTypeForActiveRequest(int Id, IBaseAsyncRepository<Request> _repository)
+        public static async Task<IEnumerable<Request>> CheckUserTypeForActiveRequest(string Id, IBaseAsyncRepository<Request> _repository)
         {
             if (typeof(T) == typeof(TechTeam))
             {
@@ -30,7 +30,7 @@ namespace FinalApp.Services.Helpers
             else throw new ArgumentException();
         }
 
-        public static async Task<IEnumerable<Request>> CheckUserTypeForClosedRequest(int Id, IBaseAsyncRepository<Request> repository)
+        public static async Task<IEnumerable<Request>> CheckUserTypeForClosedRequest(string Id, IBaseAsyncRepository<Request> repository)
         {
             if (typeof(T) == typeof(TechTeam))
             {
@@ -49,7 +49,7 @@ namespace FinalApp.Services.Helpers
             else throw new ArgumentException();
         }
 
-        public static async Task<Request> CheckUserTypeForAcceptRequest(int requestId, int Id, IBaseAsyncRepository<Request> repository)
+        public static async Task<Request> CheckUserTypeForAcceptRequest(Guid requestId, string Id, IBaseAsyncRepository<Request> repository)
         {
             var request = await repository.ReadByIdAsync(requestId);
             if (typeof(T) == typeof(TechTeam))

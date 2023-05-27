@@ -39,14 +39,14 @@ namespace FinalApp.Services.Interfaces
         /// </summary>
         /// <param name="id">The ID of the entity to retrieve.</param>
         /// <returns>A response containing the retrieved entity.</returns>
-        IBaseResponse<T> ReadById(int id);
+        IBaseResponse<T> ReadById(Guid id);
 
         /// <summary>
         /// Retrieves an entity by its ID asynchronously.
         /// </summary>
         /// <param name="id">The ID of the entity to retrieve.</param>
         /// <returns>An asynchronous operation that returns a response containing the retrieved entity.</returns>
-        Task<IBaseResponse<T>> ReadByIdAsync(int id);
+        Task<IBaseResponse<T>> ReadByIdAsync(Guid id);
 
         /// <summary>
         /// Updates an existing entity asynchronously.
@@ -67,6 +67,6 @@ namespace FinalApp.Services.Interfaces
         /// </summary>
         /// <param name="id">The ID of the entity to delete.</param>
         /// <returns>An asynchronous operation that returns a response indicating the success of the deletion.</returns>
-        Task<IBaseResponse<bool>> DeleteByIdAsync(int id);
+        Task<IBaseResponse<bool>> DeleteByIdAsync(Guid id);
     }
 }
