@@ -27,7 +27,7 @@ namespace FinalApp.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public IActionResult Get(Guid id)
         {
             var response = _service.ReadById(id);
             return Ok(response.Data);
@@ -48,7 +48,7 @@ namespace FinalApp.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(Guid id)
         {
             await _service.DeleteByIdAsync(id);
             return Ok();

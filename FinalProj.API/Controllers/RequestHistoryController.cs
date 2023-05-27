@@ -15,7 +15,7 @@ namespace FinalApp.Api.Controllers
         }
 
         [HttpGet("GetStatus/{requestId}")]
-        public async Task<IActionResult> GetStatus(int requestId)
+        public async Task<IActionResult> GetStatus(Guid requestId)
         {
             var response = await _historyService.GetRequestHistoryStatus(requestId);
             return Ok(response.Data);

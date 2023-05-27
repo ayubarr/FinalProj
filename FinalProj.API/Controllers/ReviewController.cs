@@ -25,7 +25,7 @@ namespace FinalApp.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public IActionResult Get(Guid id)
         {
             var response = _service.ReadById(id);
             return Ok(response.Data);
@@ -46,7 +46,7 @@ namespace FinalApp.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(Guid id)
         {
             await _service.DeleteByIdAsync(id);
             return Ok();
@@ -60,35 +60,35 @@ namespace FinalApp.Api.Controllers
         }
 
         [HttpGet("GetReviewsByRequestId/{requestid}")]
-        public async Task<IActionResult> GetReviewsByRequestId(int requestId)
+        public async Task<IActionResult> GetReviewsByRequestId(Guid requestId)
         {
             var response = await _reviewService.GetReviewsByRequestId(requestId);
             return Ok(response);
         }
 
         [HttpPost("CreateReview/{requestId}/{reviewText}/{evaluation}")]
-        public async Task<IActionResult> CreateReview(int requestId, string reviewText, int evaluation)
+        public async Task<IActionResult> CreateReview(Guid requestId, string reviewText, int evaluation)
         {
             var response = await _reviewService.CreateReview(requestId, reviewText, evaluation);
             return Ok(response);
         }
 
         [HttpPost("CanCreateReview/{requestId}")]
-        public async Task<IActionResult> CanCreateReview(int requestId)
+        public async Task<IActionResult> CanCreateReview(Guid requestId)
         {
             var response = await _reviewService.CanCreateReview(requestId);
             return Ok(response);
         }
 
         [HttpPost("CanUpdateReview/{reviewId}")]
-        public async Task<IActionResult> CanUpdateReview(int reviewId)
+        public async Task<IActionResult> CanUpdateReview(Guid reviewId)
         {
             var response = await _reviewService.CanUpdateReview(reviewId);
             return Ok(response);
         }
 
         [HttpPut("UpdateReview/{requestId}/{reviewText}/{evaluation}")]
-        public async Task<IActionResult> UpdateReview(int requestId, string reviewText, int evaluation)
+        public async Task<IActionResult> UpdateReview(Guid requestId, string reviewText, int evaluation)
         {
             var response = _reviewService.UpdateReview(requestId, reviewText, evaluation);
             return Ok(response);

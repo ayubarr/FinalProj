@@ -1,15 +1,12 @@
-﻿using FinalApp.ApiModels.DTOs.EntitiesDTOs.RequestsDTO;
-using FinalApp.ApiModels.DTOs.EntitiesDTOs.UsersDTOs;
+﻿using FinalApp.ApiModels.DTOs.EntitiesDTOs.UsersDTOs;
 using FinalApp.ApiModels.Response.Helpers;
 using FinalApp.ApiModels.Response.Interfaces;
-using FinalApp.DAL.Repository.Implemintations;
 using FinalApp.DAL.Repository.Interfaces;
 using FinalApp.Domain.Models.Entities.Persons.Users;
 using FinalApp.Domain.Models.Entities.Requests.RequestsInfo;
 using FinalApp.Domain.Models.Enums;
 using FinalApp.Services.Helpers;
 using FinalApp.Services.Interfaces;
-using FinalApp.Services.Mapping.Helpers;
 using FinallApp.ValidationHelper;
 using FinalProj.Services.Mapping.Helpers;
 using Microsoft.EntityFrameworkCore;
@@ -51,7 +48,7 @@ namespace FinalApp.Services.Implemintations
             try
             {
                 ObjectValidator<ClientDTO>.CheckIsNotNullObject(client);
-                    //TODO: Check and refact this method 
+                //TODO: Check and refact this method 
                 var newClient = MapperHelperForUser<ClientDTO, Client>.Map(client);
                 newClient.Password = HashHelper.HashPassword(client.Password);
 
