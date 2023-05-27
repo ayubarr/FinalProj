@@ -10,7 +10,7 @@ using FinalApp.Services.Interfaces;
 using FinalApp.Services.Mapping.Helpers;
 using FinallApp.ValidationHelper;
 
-namespace FinalApp.Services.Implemintations
+namespace FinalProj.Services.Implemintations.UserServices
 {
     public class BaseUserService<T> : IBaseUserService<T>
         where T : ApplicationUser

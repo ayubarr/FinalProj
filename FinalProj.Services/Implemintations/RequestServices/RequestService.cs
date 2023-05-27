@@ -10,7 +10,7 @@ using FinalApp.Services.Mapping.Helpers;
 using FinallApp.ValidationHelper;
 using Microsoft.EntityFrameworkCore;
 
-namespace FinalApp.Services.Implemintations
+namespace FinalProj.Services.Implemintations.RequestServices
 {
     public class RequestService : IRequestService
     {
@@ -43,7 +43,7 @@ namespace FinalApp.Services.Implemintations
                 IEnumerable<RequestDTO> unassignedRequestsDTO = MapperHelperForDto<Request, RequestDTO>.Map(unassignedRequests);
 
                 return ResponseFactory<IEnumerable<RequestDTO>>.CreateSuccessResponse(unassignedRequestsDTO);
-            }           
+            }
             catch (ArgumentException argException)
             {
                 return ResponseFactory<IEnumerable<RequestDTO>>.CreateNotFoundResponse(argException);
@@ -223,23 +223,23 @@ namespace FinalApp.Services.Implemintations
                   .FirstOrDefaultAsync(request => request.Id == requestId);
 
                 ObjectValidator<Request>.CheckIsNotNullObject(request);
-    
-                    if (request.Location != null && request.Location.EcoBoxes != null && request.Location.EcoBoxes.Any())
-                    {
-                        var template = await _templateRepository.ReadByIdAsync(templateId);
-                        ObjectValidator<EcoBoxTemplate>.CheckIsNotNullObject(template);
-                        var ecoBoxesToUpdate = request.Location.EcoBoxes.Take(quantity);
-                        foreach (var ecoBox in ecoBoxesToUpdate)
-                        {
-                            ecoBox.Template = template;
-                        }                                            
-                    }
-                    else
-                    {
-                        throw new InvalidOperationException("The Location or EcoBoxes associated with the Request are not available.");
-                    }
 
-                    await _repository.UpdateAsync(request);
+                if (request.Location != null && request.Location.EcoBoxes != null && request.Location.EcoBoxes.Any())
+                {
+                    var template = await _templateRepository.ReadByIdAsync(templateId);
+                    ObjectValidator<EcoBoxTemplate>.CheckIsNotNullObject(template);
+                    var ecoBoxesToUpdate = request.Location.EcoBoxes.Take(quantity);
+                    foreach (var ecoBox in ecoBoxesToUpdate)
+                    {
+                        ecoBox.Template = template;
+                    }
+                }
+                else
+                {
+                    throw new InvalidOperationException("The Location or EcoBoxes associated with the Request are not available.");
+                }
+
+                await _repository.UpdateAsync(request);
 
                 return ResponseFactory<bool>.CreateSuccessResponse(true);
             }
@@ -303,7 +303,7 @@ namespace FinalApp.Services.Implemintations
                 return ResponseFactory<bool>.CreateErrorResponse(exception);
             }
         }
-   
+
 
 
     }

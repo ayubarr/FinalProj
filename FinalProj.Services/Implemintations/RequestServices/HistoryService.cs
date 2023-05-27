@@ -6,7 +6,7 @@ using FinalApp.Domain.Models.Entities.Requests.RequestsInfo;
 using FinalApp.Services.Interfaces;
 using FinallApp.ValidationHelper;
 
-namespace FinalApp.Services.Implemintations
+namespace FinalProj.Services.Implemintations.RequestServices
 {
     public class RequestHistoryService : IRequestHistoryService
     {

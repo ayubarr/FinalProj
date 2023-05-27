@@ -9,7 +9,7 @@ using FinalApp.Services.Mapping.Helpers;
 using FinallApp.ValidationHelper;
 using Microsoft.EntityFrameworkCore;
 
-namespace FinalApp.Services.Implemintations
+namespace FinalProj.Services.Implemintations.RequestServices
 {
     public class ReviewService : IReviewService
     {
@@ -39,9 +39,9 @@ namespace FinalApp.Services.Implemintations
 
                 return ResponseFactory<IEnumerable<ReviewDTO>>.CreateSuccessResponse(reviewsDTO);
             }
-            catch (ArgumentException argException) 
+            catch (ArgumentException argException)
             {
-                return ResponseFactory<IEnumerable<ReviewDTO>>.CreateNotFoundResponse(argException); 
+                return ResponseFactory<IEnumerable<ReviewDTO>>.CreateNotFoundResponse(argException);
             }
             catch (Exception excpetion)
             {
@@ -53,7 +53,7 @@ namespace FinalApp.Services.Implemintations
         {
             try
             {
-                ObjectValidator<Guid>.CheckIsNotNullObject(requestId); 
+                ObjectValidator<Guid>.CheckIsNotNullObject(requestId);
 
                 var reviews = await _repository.ReadAllAsync().Result
                     .Where(request => request.Request.Id == requestId)
@@ -64,7 +64,7 @@ namespace FinalApp.Services.Implemintations
 
                 return ResponseFactory<IEnumerable<ReviewDTO>>.CreateSuccessResponse(reviewsDTO);
             }
-            catch (ArgumentException argException) 
+            catch (ArgumentException argException)
             {
                 return ResponseFactory<IEnumerable<ReviewDTO>>.CreateNotFoundResponse(argException);
             }
@@ -136,8 +136,8 @@ namespace FinalApp.Services.Implemintations
             {
                 return ResponseFactory<ReviewDTO>.CreateInvalidOperationResponse(invException);
             }
-            catch (ArgumentException argException) 
-            { 
+            catch (ArgumentException argException)
+            {
                 return ResponseFactory<ReviewDTO>.CreateNotFoundResponse(argException);
             }
             catch (Exception exception)

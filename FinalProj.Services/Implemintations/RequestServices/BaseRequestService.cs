@@ -8,7 +8,7 @@ using FinalApp.Services.Mapping.Helpers;
 using FinallApp.ValidationHelper;
 using Microsoft.EntityFrameworkCore;
 
-namespace FinalApp.Services.Implemintations
+namespace FinalProj.Services.Implemintations.RequestServices
 {
     public class BaseRequestService<T, Tmodel> : IBaseRequestService<T, Tmodel>
         where T : BaseEntity

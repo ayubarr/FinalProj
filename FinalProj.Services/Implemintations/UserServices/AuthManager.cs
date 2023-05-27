@@ -5,7 +5,7 @@ using FinalApp.Services.Interfaces;
 using FinallApp.ValidationHelper;
 using Microsoft.EntityFrameworkCore;
 
-namespace FinalApp.Services.Implemintations
+namespace FinalProj.Services.Implemintations.UserServices
 {
     //public class AuthManager<T> : IAuthManager<T>
     //    where T : User
