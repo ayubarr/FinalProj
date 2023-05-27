@@ -9,6 +9,8 @@ using FinalApp.Services.Helpers;
 using FinalApp.Services.Interfaces;
 using FinalApp.Services.Mapping.Helpers;
 using FinallApp.ValidationHelper;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace FinalProj.Services.Implemintations.UserServices
 {
@@ -16,10 +18,14 @@ namespace FinalProj.Services.Implemintations.UserServices
         where T : ApplicationUser
     {
         private readonly IBaseAsyncRepository<Request> _repository;
+        protected readonly UserManager<T> _userManager;
 
-        public BaseUserService(IBaseAsyncRepository<Request> repository)
+
+        public BaseUserService(IBaseAsyncRepository<Request> repository, UserManager<T> userManager)
         {
             _repository = repository;
+            _userManager = userManager;
+
         }
 
         public async Task<IBaseResponse<IEnumerable<RequestDTO>>> GetActiveRequests(string Id)
@@ -138,5 +144,158 @@ namespace FinalProj.Services.Implemintations.UserServices
             }
         }
 
+        public async Task<IBaseResponse<bool>> CreateAsync(T user, string password)
+        {
+            try
+            {
+                ObjectValidator<ApplicationUser>.CheckIsNotNullObject(user);
+
+                var result = await _userManager.CreateAsync(user, password);
+
+                if (result.Succeeded)
+                {
+                    return ResponseFactory<bool>.CreateSuccessResponse(true);
+                }
+                else
+                {
+                    return ResponseFactory<bool>.CreateErrorResponse(new Exception("Failed to create user."));
+                }
+            }
+            catch (ArgumentNullException ex)
+            {
+                return ResponseFactory<bool>.CreateNotFoundResponse(ex);
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory<bool>.CreateErrorResponse(ex);
+            }
+        }
+
+        public async Task<IBaseResponse<IEnumerable<T>>> ReadAllAsync()
+        {
+            try
+            {
+                var users = await _userManager.Users.ToListAsync();
+                return ResponseFactory<IEnumerable<T>>.CreateSuccessResponse(users);
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory<IEnumerable<T>>.CreateErrorResponse(ex);
+            }
+        }
+
+        public async Task<IBaseResponse<T>> ReadByIdAsync(string userId)
+        {
+            try
+            {
+                var user = await _userManager.FindByIdAsync(userId);
+
+                if (user != null)
+                {
+                    return ResponseFactory<T>.CreateSuccessResponse(user);
+                }
+                else
+                {
+                    throw new ArgumentNullException();
+                }
+            }
+            catch (ArgumentNullException ex)
+            {
+                return ResponseFactory<T>.CreateNotFoundResponse(ex);
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory<T>.CreateErrorResponse(ex);
+            }
+        }
+
+        public async Task<IBaseResponse<bool>> UpdateAsync(T user)
+        {
+            try
+            {
+                ObjectValidator<ApplicationUser>.CheckIsNotNullObject(user);
+
+                var result = await _userManager.UpdateAsync(user);
+
+                if (result.Succeeded)
+                {
+                    return ResponseFactory<bool>.CreateSuccessResponse(true);
+                }
+                else
+                {
+                    return ResponseFactory<bool>.CreateErrorResponse(new Exception("Failed to update user."));
+                }
+            }
+            catch (ArgumentNullException ex)
+            {
+                return ResponseFactory<bool>.CreateNotFoundResponse(ex);
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory<bool>.CreateErrorResponse(ex);
+            }
+        }
+
+        public async Task<IBaseResponse<bool>> DeleteAsync(T user)
+        {
+            try
+            {
+                ObjectValidator<ApplicationUser>.CheckIsNotNullObject(user);
+
+                var result = await _userManager.DeleteAsync(user);
+
+                if (result.Succeeded)
+                {
+                    return ResponseFactory<bool>.CreateSuccessResponse(true);
+                }
+                else
+                {
+                    return ResponseFactory<bool>.CreateErrorResponse(new Exception("Failed to delete user."));
+                }
+            }
+            catch (ArgumentNullException ex)
+            {
+                return ResponseFactory<bool>.CreateNotFoundResponse(ex);
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory<bool>.CreateErrorResponse(ex);
+            }
+        }
+
+        public async Task<IBaseResponse<bool>> DeleteByIdAsync(string userId)
+        {
+            try
+            {
+                var user = await _userManager.FindByIdAsync(userId);
+
+                if (user != null)
+                {
+                    var result = await _userManager.DeleteAsync(user);
+
+                    if (result.Succeeded)
+                    {
+                        return ResponseFactory<bool>.CreateSuccessResponse(true);
+                    }
+                    else
+                    {
+                        return ResponseFactory<bool>.CreateErrorResponse(new Exception("Failed to delete user."));
+                    }
+                }
+                else
+                {
+                    throw new ArgumentNullException();
+                }
+            }
+            catch (ArgumentNullException ex)
+            {
+                return ResponseFactory<bool>.CreateNotFoundResponse(ex);
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory<bool>.CreateErrorResponse(ex);
+            }
+        }
     }
 }
+

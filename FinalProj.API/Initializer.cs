@@ -4,8 +4,9 @@ using FinalApp.DAL.Repository.Implemintations;
 using FinalApp.DAL.Repository.Interfaces;
 using FinalApp.Domain.Models.Entities.Persons.Users;
 using FinalApp.Domain.Models.Entities.Requests.RequestsInfo;
-using FinalApp.Services.Implemintations;
 using FinalApp.Services.Interfaces;
+using FinalProj.Services.Implemintations.RequestServices;
+using FinalProj.Services.Implemintations.UserServices;
 
 namespace FinalApp.Api
 {
