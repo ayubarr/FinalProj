@@ -39,9 +39,9 @@ namespace FinalApp.Services.Implemintations
 
                 return ResponseFactory<IEnumerable<ReviewDTO>>.CreateSuccessResponse(reviewsDTO);
             }
-            catch (ArgumentNullException argNullException)
+            catch (ArgumentException argException) 
             {
-                return ResponseFactory<IEnumerable<ReviewDTO>>.CreateNotFoundResponse(argNullException);
+                return ResponseFactory<IEnumerable<ReviewDTO>>.CreateNotFoundResponse(argException); 
             }
             catch (Exception excpetion)
             {
@@ -64,9 +64,9 @@ namespace FinalApp.Services.Implemintations
 
                 return ResponseFactory<IEnumerable<ReviewDTO>>.CreateSuccessResponse(reviewsDTO);
             }
-            catch (ArgumentNullException argNullException)
+            catch (ArgumentException argException) 
             {
-                return ResponseFactory<IEnumerable<ReviewDTO>>.CreateNotFoundResponse(argNullException);
+                return ResponseFactory<IEnumerable<ReviewDTO>>.CreateNotFoundResponse(argException);
             }
             catch (Exception exception)
             {
@@ -95,9 +95,9 @@ namespace FinalApp.Services.Implemintations
             {
                 return ResponseFactory<bool>.CreateInvalidOperationResponse(invException);
             }
-            catch (ArgumentNullException argNullException)
+            catch (ArgumentException argException)
             {
-                return ResponseFactory<bool>.CreateNotFoundResponse(argNullException);
+                return ResponseFactory<bool>.CreateNotFoundResponse(argException);
             }
             catch (Exception exception)
             {
@@ -115,7 +115,6 @@ namespace FinalApp.Services.Implemintations
 
                 Request request = await _requestRepository.ReadAllAsync().Result
                     .FirstOrDefaultAsync(r => r.Id == requestId);
-
 
                 if (request == null || request.RequestStatus != Status.Completed || request.Review != null)
                     throw new InvalidOperationException("Unable to create review for the specified request.");
@@ -137,9 +136,9 @@ namespace FinalApp.Services.Implemintations
             {
                 return ResponseFactory<ReviewDTO>.CreateInvalidOperationResponse(invException);
             }
-            catch (ArgumentNullException argNullException)
-            {
-                return ResponseFactory<ReviewDTO>.CreateNotFoundResponse(argNullException);
+            catch (ArgumentException argException) 
+            { 
+                return ResponseFactory<ReviewDTO>.CreateNotFoundResponse(argException);
             }
             catch (Exception exception)
             {
