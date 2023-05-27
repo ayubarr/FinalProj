@@ -25,7 +25,6 @@ namespace FinalApp.DAL.SqlServer
 
         public AppDbContext(DbContextOptions<AppDbContext> options = null) : base(options)
         {
-            Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
