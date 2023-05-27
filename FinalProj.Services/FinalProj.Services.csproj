@@ -16,4 +16,8 @@
     <PackageReference Include="AutoMapper" Version="12.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FinalProj.ApiModels\FinalProj.ApiModels.csproj" />
+  </ItemGroup>
+
 </Project>

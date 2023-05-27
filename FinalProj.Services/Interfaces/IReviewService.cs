@@ -1,5 +1,4 @@
 ﻿using FinalApp.ApiModels.DTOs.EntitiesDTOs.RequestsDTO;
-using FinalApp.ApiModels.Response.Interfaces;
 
 namespace FinalApp.Services.Interfaces
 {

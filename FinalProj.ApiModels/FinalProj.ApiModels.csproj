@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="DTOs\EntitiesDTOs\RequestsDTO\RequestHistoryDTO.cs~RFbfa126d.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\FinalProj\FinalProj.Domain.csproj" />
   </ItemGroup>
 

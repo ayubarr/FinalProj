@@ -3,6 +3,7 @@ using FinalApp.Domain.Models.Entities.Persons.Users;
 using FinalApp.Domain.Models.Entities.Persons.WorkTeams;
 using FinalApp.Domain.Models.Entities.Requests.EcoBoxInfo;
 using FinalApp.Domain.Models.Entities.Requests.RequestsInfo;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,12 +24,21 @@ namespace FinalApp.DAL.SqlServer
         public DbSet<Review> Reviews { get; set; }
         public DbSet<RequestStatusHistory> RequestStatusHistories { get; set; }
 
-        public AppDbContext(DbContextOptions<AppDbContext> options = null) : base(options)
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Ignore<IdentityUserLogin<string>>();
+            modelBuilder.Ignore<IdentityUserRole<string>>();
+            modelBuilder.Ignore<IdentityUserClaim<string>>();
+            modelBuilder.Ignore<IdentityUserToken<string>>();
+            modelBuilder.Ignore<IdentityUser<string>>();
+            modelBuilder.Ignore<ApplicationUser>();
+
             modelBuilder.Entity<Client>()
                  .HasMany(client => client.Requests)
                  .WithOne(request => request.Client)
