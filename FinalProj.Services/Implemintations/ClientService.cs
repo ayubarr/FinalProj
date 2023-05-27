@@ -69,11 +69,11 @@ namespace FinalApp.Services.Implemintations
                 return ResponseFactory<bool>.CreateErrorResponse(exception);
             }
         }
-        public async Task<IBaseResponse<IEnumerable<Request>>> GetActiveRequests(int clientId)
+        public async Task<IBaseResponse<IEnumerable<Request>>> GetActiveRequests(string clientId)
         {
             try
             {
-                NumberValidator<int>.IsPositive(clientId);
+                StringValidator.CheckIsNotNull(clientId);
 
                 var client = await _repository.ReadByIdAsync(clientId);
                 ObjectValidator<Client>.CheckIsNotNullObject(client);
@@ -92,11 +92,11 @@ namespace FinalApp.Services.Implemintations
             }
         }
 
-        public async Task<IBaseResponse<IEnumerable<Request>>> GetClosedRequests(int clientId)
+        public async Task<IBaseResponse<IEnumerable<Request>>> GetClosedRequests(string clientId)
         {
             try
             {
-                NumberValidator<int>.IsPositive(clientId);
+                StringValidator.CheckIsNotNull(clientId);
 
                 var client = await _repository.ReadByIdAsync(clientId);
                 ObjectValidator<Client>.CheckIsNotNullObject(client);
