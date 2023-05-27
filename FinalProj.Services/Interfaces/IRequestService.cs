@@ -20,14 +20,14 @@ namespace FinalApp.Services.Interfaces
         /// </summary>
         /// <param name="operatorId">The ID of the operator.</param>
         /// <returns>An asynchronous operation that returns the list of closed requests.</returns>
-        public Task<IBaseResponse<IEnumerable<RequestDTO>>> GetClosedRequestsByOperatorId(int operatorId);
+        public Task<IBaseResponse<IEnumerable<RequestDTO>>> GetClosedRequestsByOperatorId(string operatorId);
 
         /// <summary>
         /// Retrieves a list of active requests assigned to the specified operator.
         /// </summary>
         /// <param name="operatorId">The ID of the operator.</param>
         /// <returns>An asynchronous operation that returns the list of active requests.</returns>
-        public Task<IBaseResponse<IEnumerable<RequestDTO>>> GetActiveRequestsByOperatorId(int operatorId);
+        public Task<IBaseResponse<IEnumerable<RequestDTO>>> GetActiveRequestsByOperatorId(string operatorId);
 
         /// <summary>
         /// Assigns a request to a team.
@@ -35,7 +35,7 @@ namespace FinalApp.Services.Interfaces
         /// <param name="requestId">The ID of the request to assign.</param>
         /// <param name="teamId">The ID of the team to assign the request to.</param>
         /// <returns>An asynchronous operation that returns a response indicating the success or failure of the assignment.</returns>
-        public Task<IBaseResponse<bool>> AssignRequestToTeam(int requestId, int teamId);
+        public Task<IBaseResponse<bool>> AssignRequestToTeam(Guid requestId, string teamId);
 
         /// <summary>
         /// Assigns a request to an operator.
@@ -43,14 +43,14 @@ namespace FinalApp.Services.Interfaces
         /// <param name="requestId">The ID of the request to assign.</param>
         /// <param name="operatorId">The ID of the operator to assign the request to.</param>
         /// <returns>An asynchronous operation that returns a response indicating the success or failure of the assignment.</returns>
-        public Task<IBaseResponse<bool>> AssignRequestToOperator(int requestId, int operatorId);
+        public Task<IBaseResponse<bool>> AssignRequestToOperator(Guid requestId, string operatorId);
 
         /// <summary>
         /// Marks a request as completed.
         /// </summary>
         /// <param name="requestId">The ID of the request to mark as completed.</param>
         /// <returns>An asynchronous operation that returns a response indicating the success or failure of marking the request as completed.</returns>
-        public Task<IBaseResponse<bool>> MarkRequestAsCompleted(int requestId);
+        public Task<IBaseResponse<bool>> MarkRequestAsCompleted(Guid requestId);
 
         /// <summary>
         /// Assigns a location to a request.
@@ -58,7 +58,7 @@ namespace FinalApp.Services.Interfaces
         /// <param name="requestId">The ID of the request to assign the location to.</param>
         /// <param name="locationId">The ID of the location to assign to the request.</param>
         /// <returns>An asynchronous operation that returns a response indicating the success or failure of assigning the location to the request.</returns>
-        public Task<IBaseResponse<bool>> AssignLocationToRequest(int requestId, int locationId);
+        public Task<IBaseResponse<bool>> AssignLocationToRequest(Guid requestId, Guid locationId);
         /// <summary>
         /// Sets the number of ecoboxes and the template for the specified request.
         /// </summary>
@@ -66,12 +66,9 @@ namespace FinalApp.Services.Interfaces
         /// <param name="quantity">The number of eco-boxes.</param>
         /// </// <param name="templates">Template ID.</param>
         /// <returns>An object representing the response to an operation with a Boolean value inside.</returns>
-        public Task<IBaseResponse<bool>> SetEcoBoxQuantityAndTemplate(int requestId, int quantity, int templateId);
+        public Task<IBaseResponse<bool>> SetEcoBoxQuantityAndTemplate(Guid requestId, int quantity, Guid templateId);
 
         public Task<IBaseResponse<bool>> CreateRequest(RequestDTO request);
-        public Task<IBaseResponse<bool>> ChangeRequestStatus(int requestId, Status newStatus);
-     //   public Task<IBaseResponse<IEnumerable<RequestStatusHistoryDTO>>> GetRequestStatusHistory(int requestId);
-
-
+        public Task<IBaseResponse<bool>> ChangeRequestStatus(Guid requestId, Status newStatus);
     }
 }

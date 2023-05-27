@@ -53,11 +53,11 @@ namespace FinalApp.Services.Implemintations
                 return ResponseFactory<IEnumerable<RequestDTO>>.CreateErrorResponse(exception);
             }
         }
-        public async Task<IBaseResponse<IEnumerable<RequestDTO>>> GetClosedRequestsByOperatorId(int operatorId)
+        public async Task<IBaseResponse<IEnumerable<RequestDTO>>> GetClosedRequestsByOperatorId(string operatorId)
         {
             try
             {
-                NumberValidator<int>.IsPositive(operatorId);
+                StringValidator.CheckIsNotNull(operatorId);
 
                 var closedRequests = await _repository
                     .ReadAllAsync().Result
@@ -80,11 +80,11 @@ namespace FinalApp.Services.Implemintations
             }
         }
 
-        public async Task<IBaseResponse<IEnumerable<RequestDTO>>> GetActiveRequestsByOperatorId(int operatorId)
+        public async Task<IBaseResponse<IEnumerable<RequestDTO>>> GetActiveRequestsByOperatorId(string operatorId)
         {
             try
             {
-                NumberValidator<int>.IsPositive(operatorId);
+                StringValidator.CheckIsNotNull(operatorId);
 
                 var activeRequests = await _repository
                     .ReadAllAsync().Result
@@ -107,12 +107,12 @@ namespace FinalApp.Services.Implemintations
             }
         }
 
-        public async Task<IBaseResponse<bool>> AssignRequestToTeam(int requestId, int teamId)
+        public async Task<IBaseResponse<bool>> AssignRequestToTeam(Guid requestId, string teamId)
         {
             try
             {
-                NumberValidator<int>.IsPositive(requestId);
-                NumberValidator<int>.IsPositive(teamId);
+                ObjectValidator<Guid>.CheckIsNotNullObject(requestId);
+                StringValidator.CheckIsNotNull(teamId);
 
                 var request = await _repository.ReadByIdAsync(requestId);
                 ObjectValidator<Request>.CheckIsNotNullObject(request);
@@ -131,12 +131,12 @@ namespace FinalApp.Services.Implemintations
                 return ResponseFactory<bool>.CreateErrorResponse(exception);
             }
         }
-        public async Task<IBaseResponse<bool>> AssignRequestToOperator(int requestId, int operatorId)
+        public async Task<IBaseResponse<bool>> AssignRequestToOperator(Guid requestId, string operatorId)
         {
             try
             {
-                NumberValidator<int>.IsPositive(requestId);
-                NumberValidator<int>.IsPositive(operatorId);
+                ObjectValidator<Guid>.CheckIsNotNullObject(requestId);
+                StringValidator.CheckIsNotNull(operatorId);
 
                 var request = await _repository.ReadByIdAsync(requestId);
 
@@ -157,12 +157,12 @@ namespace FinalApp.Services.Implemintations
             }
         }
 
-        public async Task<IBaseResponse<bool>> MarkRequestAsCompleted(int requestId)
+        public async Task<IBaseResponse<bool>> MarkRequestAsCompleted(Guid requestId)
         {
             try
             {
-                NumberValidator<int>.IsPositive(requestId);
- 
+                ObjectValidator<Guid>.CheckIsNotNullObject(requestId);
+
                 var request = await _repository.ReadByIdAsync(requestId);
 
                 ObjectValidator<Request>.CheckIsNotNullObject(request);
@@ -182,12 +182,12 @@ namespace FinalApp.Services.Implemintations
             }
         }
 
-        public async Task<IBaseResponse<bool>> AssignLocationToRequest(int requestId, int locationId)
+        public async Task<IBaseResponse<bool>> AssignLocationToRequest(Guid requestId, Guid locationId)
         {
             try
             {
-                NumberValidator<int>.IsPositive(requestId);
-                NumberValidator<int>.IsPositive(locationId);
+                ObjectValidator<Guid>.CheckIsNotNullObject(requestId);
+                ObjectValidator<Guid>.CheckIsNotNullObject(locationId);
 
                 var request = await _repository.ReadByIdAsync(requestId);
                 var location = await _locationRepository.ReadByIdAsync(locationId);
@@ -210,12 +210,12 @@ namespace FinalApp.Services.Implemintations
             }
         }
 
-        public async Task<IBaseResponse<bool>> SetEcoBoxQuantityAndTemplate(int requestId, int quantity, int templateId)
+        public async Task<IBaseResponse<bool>> SetEcoBoxQuantityAndTemplate(Guid requestId, int quantity, Guid templateId)
         {
             try
             {
-                NumberValidator<int>.IsPositive(requestId);
-                NumberValidator<int>.IsPositive(templateId);
+                ObjectValidator<Guid>.CheckIsNotNullObject(requestId);
+                ObjectValidator<Guid>.CheckIsNotNullObject(templateId);
 
                 var request = await _repository.ReadAllAsync().Result
                     .Include(r => r.Location)
@@ -280,11 +280,11 @@ namespace FinalApp.Services.Implemintations
             }
         }
 
-        public async Task<IBaseResponse<bool>> ChangeRequestStatus(int requestId, Status newStatus)
+        public async Task<IBaseResponse<bool>> ChangeRequestStatus(Guid requestId, Status newStatus)
         {
             try
             {
-                NumberValidator<int>.IsPositive(requestId);
+                ObjectValidator<Guid>.CheckIsNotNullObject(requestId);
 
                 var request = await _repository.ReadByIdAsync(requestId);
                 ObjectValidator<Request>.CheckIsNotNullObject(request);

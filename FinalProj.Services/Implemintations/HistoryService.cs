@@ -17,11 +17,11 @@ namespace FinalApp.Services.Implemintations
         }
 
 
-        public async Task<IBaseResponse<IEnumerable<RequestStatusHistoryDTO>>> GetRequestHistoryStatus(int requestId)
+        public async Task<IBaseResponse<IEnumerable<RequestStatusHistoryDTO>>> GetRequestHistoryStatus(Guid requestId)
         {
             try
             {
-                NumberValidator<int>.IsPositive(requestId);
+                ObjectValidator<Guid>.CheckIsNotNullObject(requestId);
 
                 var request = await _repository.ReadByIdAsync(requestId);
                 ObjectValidator<Request>.CheckIsNotNullObject(request);

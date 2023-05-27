@@ -5,6 +5,6 @@ namespace FinalApp.Services.Interfaces
 {
     public interface IRequestHistoryService
     {
-        public Task<IBaseResponse<IEnumerable<RequestStatusHistoryDTO>>> GetRequestHistoryStatus(int requestId);
+        public Task<IBaseResponse<IEnumerable<RequestStatusHistoryDTO>>> GetRequestHistoryStatus(Guid requestId);
     }
 }

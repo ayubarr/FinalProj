@@ -9,12 +9,12 @@ namespace FinalApp.ApiModels.DTOs.EntitiesDTOs.RequestsDTO
         /// <summary>
         /// The ID of the request associated with the status history.
         /// </summary>
-        public int RequestId { get; set; }
+        public Guid RequestId { get; set; }
 
         /// <summary>
         /// The ID of the user who made the status change.
         /// </summary>
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         /// <summary>
         /// The timestamp when the status change occurred.
