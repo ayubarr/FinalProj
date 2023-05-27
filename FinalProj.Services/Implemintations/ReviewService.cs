@@ -28,6 +28,8 @@ namespace FinalApp.Services.Implemintations
         {
             try
             {
+                NumberValidator<int>.IsRange(evaluation, MinEvaluation, MaxEvaluation);
+
                 var reviews = await _repository.ReadAllAsync().Result
                     .Where(r => r.Evaluation == evaluation)
                     .ToListAsync();
@@ -47,10 +49,12 @@ namespace FinalApp.Services.Implemintations
             }
         }
 
-        public async Task<IBaseResponse<IEnumerable<ReviewDTO>>> GetReviewsByRequestId(int requestId)
+        public async Task<IBaseResponse<IEnumerable<ReviewDTO>>> GetReviewsByRequestId(Guid requestId)
         {
             try
             {
+                ObjectValidator<Guid>.CheckIsNotNullObject(requestId); 
+
                 var reviews = await _repository.ReadAllAsync().Result
                     .Where(request => request.Request.Id == requestId)
                     .ToListAsync();
@@ -70,10 +74,11 @@ namespace FinalApp.Services.Implemintations
             }
         }
 
-        public async Task<IBaseResponse<bool>> CanCreateReview(int requestId)
+        public async Task<IBaseResponse<bool>> CanCreateReview(Guid requestId)
         {
             try
             {
+                ObjectValidator<Guid>.CheckIsNotNullObject(requestId);
                 var request = await _requestRepository.ReadAllAsync().Result
                     .FirstOrDefaultAsync(r => r.Id == requestId);
 
@@ -100,10 +105,11 @@ namespace FinalApp.Services.Implemintations
             }
         }
 
-        public async Task<IBaseResponse<ReviewDTO>> CreateReview(int requestId, string reviewText, int evaluation)
+        public async Task<IBaseResponse<ReviewDTO>> CreateReview(Guid requestId, string reviewText, int evaluation)
         {
             try
             {
+                ObjectValidator<Guid>.CheckIsNotNullObject(requestId);
                 StringValidator.CheckIsNotNull(reviewText);
                 NumberValidator<int>.IsRange(evaluation, MinEvaluation, MaxEvaluation);
 
@@ -141,10 +147,11 @@ namespace FinalApp.Services.Implemintations
             }
         }
 
-        public async Task<IBaseResponse<bool>> CanUpdateReview(int reviewId)
+        public async Task<IBaseResponse<bool>> CanUpdateReview(Guid reviewId)
         {
             try
             {
+                ObjectValidator<Guid>.CheckIsNotNullObject(reviewId);
                 var review = await _repository.ReadByIdAsync(reviewId);
 
                 ObjectValidator<Review>.CheckIsNotNullObject(review);
@@ -153,9 +160,9 @@ namespace FinalApp.Services.Implemintations
 
                 return ResponseFactory<bool>.CreateSuccessResponse(canUpdateReview);
             }
-            catch (ArgumentNullException argNullException)
+            catch (ArgumentException argException)
             {
-                return ResponseFactory<bool>.CreateNotFoundResponse(argNullException);
+                return ResponseFactory<bool>.CreateNotFoundResponse(argException);
             }
             catch (Exception exception)
             {
@@ -163,10 +170,11 @@ namespace FinalApp.Services.Implemintations
             }
         }
 
-        public async Task<IBaseResponse<ReviewDTO>> UpdateReview(int reviewId, string reviewText, int evaluation)
+        public async Task<IBaseResponse<ReviewDTO>> UpdateReview(Guid reviewId, string reviewText, int evaluation)
         {
             try
             {
+                ObjectValidator<Guid>.CheckIsNotNullObject(reviewId);
                 StringValidator.CheckIsNotNull(reviewText);
                 NumberValidator<int>.IsRange(evaluation, MinEvaluation, MaxEvaluation);
 
@@ -189,9 +197,9 @@ namespace FinalApp.Services.Implemintations
             {
                 return ResponseFactory<ReviewDTO>.CreateInvalidOperationResponse(invException);
             }
-            catch (ArgumentNullException argNullException)
+            catch (ArgumentException argException)
             {
-                return ResponseFactory<ReviewDTO>.CreateNotFoundResponse(argNullException);
+                return ResponseFactory<ReviewDTO>.CreateNotFoundResponse(argException);
             }
             catch (Exception exception)
             {

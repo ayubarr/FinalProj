@@ -11,6 +11,7 @@ using FinalApp.Services.Helpers;
 using FinalApp.Services.Interfaces;
 using FinalApp.Services.Mapping.Helpers;
 using FinallApp.ValidationHelper;
+using FinalProj.Services.Mapping.Helpers;
 using Microsoft.EntityFrameworkCore;
 
 namespace FinalApp.Services.Implemintations
@@ -45,29 +46,29 @@ namespace FinalApp.Services.Implemintations
 
         }
 
-        //public async Task<IBaseResponse<bool>> RegisterClient(ClientDTO client)
-        //{
-        //    try
-        //    {
-        //        ObjectValidator<ClientDTO>.CheckIsNotNullObject(client);
-        //            //TODO: Check and refact this method 
-        //        var newClient = MapperHelperForEntity<ClientDTO, Client>.Map(client);
-        //        newClient.Password = HashHelper.HashPassword(client.Password);
+        public async Task<IBaseResponse<bool>> RegisterClient(ClientDTO client)
+        {
+            try
+            {
+                ObjectValidator<ClientDTO>.CheckIsNotNullObject(client);
+                    //TODO: Check and refact this method 
+                var newClient = MapperHelperForUser<ClientDTO, Client>.Map(client);
+                newClient.Password = HashHelper.HashPassword(client.Password);
 
-        //        await _repository.Create(newClient);
+                await _repository.Create(newClient);
 
-        //        return ResponseFactory<bool>.CreateSuccessResponse(true);
-        //    }
-        //    catch (ArgumentNullException argNullException)
-        //    {
-        //        return ResponseFactory<bool>
-        //            .CreateNotFoundResponse(argNullException);
-        //    }
-        //    catch (Exception exception)
-        //    {
-        //        return ResponseFactory<bool>.CreateErrorResponse(exception);
-        //    }
-        //}
+                return ResponseFactory<bool>.CreateSuccessResponse(true);
+            }
+            catch (ArgumentNullException argNullException)
+            {
+                return ResponseFactory<bool>
+                    .CreateNotFoundResponse(argNullException);
+            }
+            catch (Exception exception)
+            {
+                return ResponseFactory<bool>.CreateErrorResponse(exception);
+            }
+        }
         public async Task<IBaseResponse<IEnumerable<Request>>> GetActiveRequests(int clientId)
         {
             try
