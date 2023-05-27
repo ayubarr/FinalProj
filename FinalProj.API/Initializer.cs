@@ -59,6 +59,10 @@ namespace FinalApp.Api
                 .AddDefaultTokenProviders();
 
             services.AddScoped<RoleManager<IdentityRole>>();
+
+
+
+
             #endregion
         }
 
