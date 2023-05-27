@@ -62,49 +62,49 @@ namespace FinalApp.Api.Controllers
         }
 
         [HttpGet("ClosedRequestsByOperator/{operatorId}")]
-        public async Task<IActionResult> GetClosedRequestsByOperatorId(int operatorId)
+        public async Task<IActionResult> GetClosedRequestsByOperatorId(string operatorId)
         {
             var response = await _requestService.GetClosedRequestsByOperatorId(operatorId);
             return Ok(response.Data);
         }
 
         [HttpGet("ActiveRequestsByOperator/{operatorId}")]
-        public async Task<IActionResult> GetActiveRequestsByOperatorId(int operatorId)
+        public async Task<IActionResult> GetActiveRequestsByOperatorId(string operatorId)
         {
             var response = await _requestService.GetActiveRequestsByOperatorId(operatorId);
             return Ok(response.Data);
         }
 
         [HttpPost("AssignRequestToTechTeam/{requestId}/{teamId}")]
-        public async Task<IActionResult> AssignRequestToTeam(int requestId, int teamId)
+        public async Task<IActionResult> AssignRequestToTeam(Guid requestId, string teamId)
         {
             var response = await _requestService.AssignRequestToTeam(requestId, teamId);
             return Ok(response.Data);
         }
 
         [HttpPost("AssignRequestToOperator/{requestId}/{operatorId}")]
-        public async Task<IActionResult> AssignRequestToOperator(int requestId, int operatorId)
+        public async Task<IActionResult> AssignRequestToOperator(Guid requestId, string operatorId)
         {
             var response = await _requestService.AssignRequestToOperator(requestId, operatorId);
             return Ok(response.Data);
         }
 
         [HttpPost("MarkRequestAsCompleted/{requestId}")]
-        public async Task<IActionResult> MarkRequestAsCompleted(int requestId)
+        public async Task<IActionResult> MarkRequestAsCompleted(Guid requestId)
         {
             var response = await _requestService.MarkRequestAsCompleted(requestId);
             return Ok(response.Data);
         }
 
         [HttpPost("AssignLocationToRequest/{requestId}/{locationId}")]
-        public async Task<IActionResult> AssignLocationToRequest(int requestId, int locationId)
+        public async Task<IActionResult> AssignLocationToRequest(Guid requestId, Guid locationId)
         {
             var response = await _requestService.AssignLocationToRequest(requestId, locationId);
             return Ok(response.Data);
         }
 
         [HttpPost("SetEcoBoxQuantityAndTemplate/{requestId}/{quantity}/{templateId}")]
-        public async Task<IActionResult> SetEcoBoxQuantityAndTemplate(int requestId, int quantity, int templateId)
+        public async Task<IActionResult> SetEcoBoxQuantityAndTemplate(Guid requestId, int quantity, Guid templateId)
         {
             var response = await _requestService.SetEcoBoxQuantityAndTemplate(requestId, quantity, templateId);
             return Ok(response.Data);
@@ -118,7 +118,7 @@ namespace FinalApp.Api.Controllers
         }
 
         [HttpPost("ChangeRequestStatus/{requestId}/{newStatus}")]
-        public async Task<IActionResult> ChangeRequestStatus(int requestId, Status newStatus)
+        public async Task<IActionResult> ChangeRequestStatus(Guid requestId, Status newStatus)
         {
             var response = await _requestService.ChangeRequestStatus(requestId, newStatus);
             return Ok(response.Data);

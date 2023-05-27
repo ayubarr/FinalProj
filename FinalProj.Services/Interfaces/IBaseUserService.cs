@@ -89,6 +89,13 @@ namespace FinalApp.Services.Interfaces
         /// <param name="user">The user object to delete.</param>
         /// <returns>A task representing the asynchronous operation. The task result contains the response indicating the success or failure of the operation.</returns>
         Task<IBaseResponse<bool>> DeleteAsync(T user);
+        /// <summary>
+        /// Deletes the specified user by Id
+        /// </summary>
+        /// <param name="userId">User Id</param>
+        /// <returns></returns>
+        Task<IBaseResponse<bool>> DeleteByIdAsync(string userId);
+
     }
 
 }

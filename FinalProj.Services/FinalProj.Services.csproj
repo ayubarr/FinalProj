@@ -15,8 +15,4 @@
     <ProjectReference Include="..\FinalProj.DAL\FinalProj.DAL.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Implemintations\UserServices\" />
-  </ItemGroup>
-
 </Project>

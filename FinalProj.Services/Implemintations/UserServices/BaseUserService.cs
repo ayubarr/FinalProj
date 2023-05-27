@@ -299,23 +299,18 @@ namespace FinalProj.Services.Implemintations.UserServices
             {
                 var user = await _userManager.FindByIdAsync(userId);
 
-                if (user != null)
-                {
-                    var result = await _userManager.DeleteAsync(user);
+                ObjectValidator<T>.CheckIsNotNullObject(user);
+            
+                var result = await _userManager.DeleteAsync(user);
 
-                    if (result.Succeeded)
-                    {
-                        return ResponseFactory<bool>.CreateSuccessResponse(true);
-                    }
-                    else
-                    {
-                        return ResponseFactory<bool>.CreateErrorResponse(new Exception("Failed to delete user."));
-                    }
+                if (result.Succeeded)
+                {
+                    return ResponseFactory<bool>.CreateSuccessResponse(true);
                 }
                 else
                 {
-                    throw new ArgumentNullException();
-                }
+                    return ResponseFactory<bool>.CreateErrorResponse(new Exception("Failed to delete user."));
+                }                             
             }
             catch (ArgumentNullException ex)
             {

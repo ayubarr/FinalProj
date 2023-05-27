@@ -51,6 +51,40 @@ namespace FinalApp.Api.Controllers
             return Ok(response.Data);
         }
 
+        [HttpPost("Register")]
+        public async Task<IActionResult> PostClient(SupportOperator model, string password)
+        {
+            await _userService.CreateAsync(model, password);
+            return Ok();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var response = await _userService.ReadAllAsync();
+            return Ok(response.Data);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(string id)
+        {
+            var response = await _userService.ReadByIdAsync(id);
+            return Ok(response.Data);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Put(SupportOperator model)
+        {
+            await _userService.UpdateAsync(model);
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(string id)
+        {
+            await _userService.DeleteByIdAsync(id);
+            return Ok();
+        }
 
     }
 }
