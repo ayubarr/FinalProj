@@ -9,6 +9,5 @@ namespace FinalApp.ApiModels.DTOs.EntitiesDTOs.UsersDTOs.PersonsDTO
         public DateTime HireTime { get; set; }
         public Roles Position { get; set; } = Roles.TechnicalWorker;
 
-        public int? TechTeamId { get; set; }
     }
 }

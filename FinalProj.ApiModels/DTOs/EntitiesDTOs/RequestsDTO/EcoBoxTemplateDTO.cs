@@ -8,7 +8,6 @@ namespace FinalApp.ApiModels.DTOs.EntitiesDTOs.RequestsDTO
         public Materials MaterialType { get; set; }
         public TrashTypes TrashType { get; set; }
         public string Capacity { get; set; }
-        public int? SupplierId { get; set; }
 
     }
 }
