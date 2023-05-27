@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\FinalProj.ApiModels\FinalProj.ApiModels.csproj" />
     <ProjectReference Include="..\FinalProj.DAL\FinalProj.DAL.csproj" />
+    <ProjectReference Include="..\FinalProj.ValidationHelper\FinalProj.ValidationHelper.csproj" />
   </ItemGroup>
 
 </Project>

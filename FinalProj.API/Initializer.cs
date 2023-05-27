@@ -2,11 +2,14 @@
 using FinalApp.ApiModels.DTOs.EntitiesDTOs.UsersDTOs;
 using FinalApp.DAL.Repository.Implemintations;
 using FinalApp.DAL.Repository.Interfaces;
+using FinalApp.DAL.SqlServer;
 using FinalApp.Domain.Models.Entities.Persons.Users;
 using FinalApp.Domain.Models.Entities.Requests.RequestsInfo;
 using FinalApp.Services.Interfaces;
 using FinalProj.Services.Implemintations.RequestServices;
 using FinalProj.Services.Implemintations.UserServices;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 
 namespace FinalApp.Api
 {
@@ -16,6 +19,8 @@ namespace FinalApp.Api
         {
             #region Base_Repositories 
             services.AddScoped(typeof(IBaseAsyncRepository<>), typeof(BaseAsyncRepository<>));
+            services.AddScoped(typeof(UserManager<>));
+
             #endregion
         }
 
@@ -40,7 +45,21 @@ namespace FinalApp.Api
             services.AddScoped<IReviewService, ReviewService>();
             #endregion
 
-      
+            #region Identity_Services
+            services.AddIdentity<Client, IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
+
+            services.AddIdentity<TechTeam, IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
+
+            services.AddIdentity<SupportOperator, IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
+
+            services.AddScoped<RoleManager<IdentityRole>>();
+            #endregion
         }
 
     }

@@ -51,13 +51,6 @@ namespace FinalApp.Api.Controllers
             return Ok(response.Data);
         }
 
-        [HttpPost("Register")]
-        public async Task<IActionResult> PostClient(SupportOperator model, string password)
-        {
-            await _userService.CreateAsync(model, password);
-            return Ok();
-        }
-
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
