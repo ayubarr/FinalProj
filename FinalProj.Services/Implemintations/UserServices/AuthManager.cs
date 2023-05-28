@@ -62,16 +62,16 @@ namespace FinalProj.Services.Implemintations.UserServices
 
                         await _userManager.UpdateAsync(user);
 
-                        return ResponseFactory<AuthResultStruct>.CreateSuccessResponse( new AuthResultStruct
+                        return ResponseFactory<AuthResultStruct>.CreateSuccessResponse(new AuthResultStruct
                         {
                             Token = new JwtSecurityTokenHandler().WriteToken(token),
                             RefreshToken = refreshToken,
                             Expiration = token.ValidTo,
-                        });                       
+                        });
                     }
                     else
                     {
-                        throw new InvalidOperationException("Invalid configuration for refresh token validity");                   
+                        throw new InvalidOperationException("Invalid configuration for refresh token validity");
                     }
                 }
                 throw new UnauthorizedAccessException("Access denied. User is not authorized.");
@@ -80,19 +80,19 @@ namespace FinalProj.Services.Implemintations.UserServices
             {
                 return ResponseFactory<AuthResultStruct>.CreateUnauthorizedResponse(ex);
             }
-            catch(UnauthorizedAccessException ex)
+            catch (UnauthorizedAccessException ex)
             {
                 return ResponseFactory<AuthResultStruct>.CreateUnauthorizedResponse(ex);
             }
-            catch(ArgumentException ex)
+            catch (ArgumentException ex)
             {
                 return ResponseFactory<AuthResultStruct>.CreateNotFoundResponse(ex);
             }
             catch (Exception ex)
             {
-                 return ResponseFactory<AuthResultStruct>.CreateErrorResponse(ex);
+                return ResponseFactory<AuthResultStruct>.CreateErrorResponse(ex);
             }
-           
+
 
         }
 
@@ -105,20 +105,20 @@ namespace FinalProj.Services.Implemintations.UserServices
                 var userExists = await _userManager.FindByNameAsync(model.UserName);
                 if (userExists != null)
                 {
-                    throw new UnauthorizedAccessException("User already exists!");
+                    throw new UnauthorizedAccessException(" Thsit User already exists! Please check user Name");
                 }
 
-                var user =  TypeHelper<T>.CheckUserTypeForRegistration(model).Result;
-         
+                var user = TypeHelper<T>.CheckUserTypeForRegistration(model).Result;
+
                 var result = await _userManager.CreateAsync((T)user, model.Password);
                 if (!result.Succeeded)
                 {
-                    throw new UnauthorizedAccessException("User creation failed! Please check user details and try again.\n\r" +
-                        $"Identity Errors: Enter correct password");      
+                    throw new UnauthorizedAccessException("User creation failed! Please check user details and try again." +
+                        $"  Identity Errors: Enter correct password");
                 }
-                return ResponseFactory<bool>.CreateSuccessResponse(true);           
+                return ResponseFactory<bool>.CreateSuccessResponse(true);
             }
-            catch (InvalidOperationException ex)    
+            catch (InvalidOperationException ex)
             {
                 return ResponseFactory<bool>.CreateUnauthorizedResponse(ex);
             }
@@ -133,7 +133,7 @@ namespace FinalProj.Services.Implemintations.UserServices
             catch (Exception ex)
             {
                 return ResponseFactory<bool>.CreateErrorResponse(ex);
-            }           
+            }
         }
 
         public async Task<IBaseResponse<bool>> RegisterAdmin(RegisterModel model)
@@ -144,7 +144,7 @@ namespace FinalProj.Services.Implemintations.UserServices
                 var userExists = await _userManager.FindByNameAsync(model.UserName);
                 if (userExists != null)
                 {
-                    throw new UnauthorizedAccessException("User already exists!");          
+                    throw new UnauthorizedAccessException("User already exists!");
                 }
 
                 var user = TypeHelper<T>.CheckUserTypeForRegistration(model).Result;
@@ -192,7 +192,7 @@ namespace FinalProj.Services.Implemintations.UserServices
                 return ResponseFactory<bool>.CreateErrorResponse(ex);
             }
 
-            
+
         }
 
         public async Task<IBaseResponse<AuthResultStruct>> RefreshToken(TokenModel tokenModel)
@@ -202,7 +202,7 @@ namespace FinalProj.Services.Implemintations.UserServices
                 ObjectValidator<TokenModel>.CheckIsNotNullObject(tokenModel);
                 if (tokenModel == null)
                 {
-                    throw new UnauthorizedAccessException("Invalid client request");         
+                    throw new UnauthorizedAccessException("Invalid client request");
                 }
 
                 string accessToken = tokenModel.AccessToken;
@@ -251,7 +251,7 @@ namespace FinalProj.Services.Implemintations.UserServices
             catch (Exception ex)
             {
                 return ResponseFactory<AuthResultStruct>.CreateErrorResponse(ex);
-            }          
+            }
         }
         public async Task<IBaseResponse<bool>> RevokeRefreshTokenByUsernameAsync(string username)
         {
@@ -341,7 +341,7 @@ namespace FinalProj.Services.Implemintations.UserServices
 
             return principal;
 
-        }       
+        }
     }
 }
 

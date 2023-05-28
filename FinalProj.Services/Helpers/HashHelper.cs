@@ -5,15 +5,20 @@ namespace FinalApp.Services.Helpers
 {
     public static class HashHelper
     {
-        private static string Solt = "PowerOfTheSolt";
+        private static string Salt = "PowerOfTheSalt";
         public static string HashPassword(string password)
         {
             using (var sha256 = SHA256.Create())
             {
-                var hashhedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password + Solt));
-                var hash = BitConverter.ToString(hashhedBytes).Replace("-", "").ToLower();
+                var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+                var builder = new StringBuilder();
 
-                return hash;
+                for (int i = 0; i < hashedBytes.Length; i++)
+                {
+                    builder.Append(hashedBytes[i].ToString("x2"));
+                }
+
+                return builder.ToString();
             }
         }
     }

@@ -10,7 +10,10 @@ using FinalProj.API.Controllers;
 using FinalProj.Services.Implemintations.RequestServices;
 using FinalProj.Services.Implemintations.UserServices;
 using FinalProj.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace FinalApp.Api
 {
@@ -24,7 +27,7 @@ namespace FinalApp.Api
             #endregion
         }
 
-        public static void InitializeServices(this IServiceCollection services, IConfiguration configuration)
+        public static void InitializeServices(this IServiceCollection services)
         {
             #region Base_Services
             services.AddScoped<IBaseRequestService<Request, RequestDTO>, BaseRequestService<Request, RequestDTO>>();
@@ -37,10 +40,6 @@ namespace FinalApp.Api
             services.AddScoped<IBaseUserService<SupportOperator>, BaseUserService<SupportOperator>>();
             services.AddScoped<IBaseUserService<Client>, BaseUserService<Client>>();
             services.AddScoped(typeof(AuthManager<>));
-
-
-
-
             #endregion
 
             #region Request_Services
@@ -48,11 +47,13 @@ namespace FinalApp.Api
             services.AddScoped<IRequestHistoryService, RequestHistoryService>();
             services.AddScoped<IReviewService, ReviewService>();
             #endregion
+        }
 
-            #region Identity_Services
+        public static void InitializeIdentity(this IServiceCollection services, IConfiguration configuration)
+        {
             services.AddIdentity<Client, IdentityRole>()
-                .AddEntityFrameworkStores<AppDbContext>()
-                .AddDefaultTokenProviders();
+                           .AddEntityFrameworkStores<AppDbContext>()
+                           .AddDefaultTokenProviders();
 
             services.AddIdentity<TechTeam, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>()
@@ -88,8 +89,31 @@ namespace FinalApp.Api
                 var roleManager = provider.GetRequiredService<RoleManager<IdentityRole>>();
                 return new AuthManager<TechTeam>(userManager, roleManager, configuration);
             });
-            #endregion
-        }
 
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+               .AddJwtBearer(options =>
+               {
+                   options.SaveToken = true;
+                   options.RequireHttpsMetadata = false;
+                   options.TokenValidationParameters = new TokenValidationParameters()
+                   {
+                       ValidateIssuer = true,
+                       ValidateAudience = true,
+                       ValidateLifetime = true,
+                       ValidateIssuerSigningKey = true,
+                       ClockSkew = TimeSpan.Zero,
+
+                       ValidAudience = configuration["JWT:ValidAudience"],
+                       ValidIssuer = configuration["JWT:ValidIssuer"],
+                       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]))
+                   };
+               });
+
+        }
     }
 }

@@ -23,4 +23,9 @@
     <ProjectReference Include="..\FinalProj.Services\FinalProj.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Authenticate\Implementations\" />
+    <Folder Include="Authenticate\Interfaces\" />
+  </ItemGroup>
+
 </Project>

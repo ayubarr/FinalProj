@@ -3,23 +3,27 @@ using FinalApp.DAL.SqlServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
-
-
-
 var builder = WebApplication.CreateBuilder(args);
+
+ConfigurationManager configuration = builder.Configuration;
 
 var connection = builder.Configuration.GetConnectionString("ConnectionString");
 
 builder.Services.AddDbContext<AppDbContext>(option => option.UseSqlServer(connection));
+
+builder.Services.InitializeIdentity(configuration);
+
 builder.Services.InitializeRepositories();
-builder.Services.InitializeServices(builder.Configuration);
+
+builder.Services.InitializeServices();
 
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen(x =>
 {
-    x.SwaggerDoc("v1", new OpenApiInfo { Version = "v1", Title = "Ecobox" });
+    x.SwaggerDoc("v1", new OpenApiInfo { Version = "v1", Title = "FinalProj" });
 
     x.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
