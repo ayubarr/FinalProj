@@ -36,8 +36,10 @@ namespace FinalApp.Api
             services.AddScoped<IBaseUserService<TechTeam>, BaseUserService<TechTeam>>();
             services.AddScoped<IBaseUserService<SupportOperator>, BaseUserService<SupportOperator>>();
             services.AddScoped<IBaseUserService<Client>, BaseUserService<Client>>();
-            services.AddScoped<AuthManager>();
-            services.AddScoped<AuthenticateController>();
+            services.AddScoped(typeof(AuthManager<>));
+
+
+
 
             #endregion
 
@@ -66,11 +68,25 @@ namespace FinalApp.Api
 
             services.AddScoped<RoleManager<IdentityRole>>();
 
-            services.AddScoped<IAuthManager>(provider =>
+            services.AddScoped<IAuthManager<Client>>(provider =>
             {
-                var userManager = provider.GetRequiredService<UserManager<ApplicationUser>>();
+                var userManager = provider.GetRequiredService<UserManager<Client>>();
                 var roleManager = provider.GetRequiredService<RoleManager<IdentityRole>>();
-                return new AuthManager(userManager, roleManager, configuration);
+                return new AuthManager<Client>(userManager, roleManager, configuration);
+            });
+
+            services.AddScoped<IAuthManager<SupportOperator>>(provider =>
+            {
+                var userManager = provider.GetRequiredService<UserManager<SupportOperator>>();
+                var roleManager = provider.GetRequiredService<RoleManager<IdentityRole>>();
+                return new AuthManager<SupportOperator>(userManager, roleManager, configuration);
+            });
+
+            services.AddScoped<IAuthManager<TechTeam>>(provider =>
+            {
+                var userManager = provider.GetRequiredService<UserManager<TechTeam>>();
+                var roleManager = provider.GetRequiredService<RoleManager<IdentityRole>>();
+                return new AuthManager<TechTeam>(userManager, roleManager, configuration);
             });
             #endregion
         }

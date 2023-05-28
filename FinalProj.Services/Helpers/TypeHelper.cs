@@ -1,8 +1,10 @@
-﻿using FinalApp.DAL.Repository.Interfaces;
+﻿using FinalApp.ApiModels.Auth.Models;
+using FinalApp.DAL.Repository.Interfaces;
 using FinalApp.Domain.Models.Abstractions.BaseUsers;
 using FinalApp.Domain.Models.Entities.Persons.Users;
 using FinalApp.Domain.Models.Entities.Requests.RequestsInfo;
 using FinalApp.Domain.Models.Enums;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace FinalApp.Services.Helpers
@@ -26,14 +28,15 @@ namespace FinalApp.Services.Helpers
                    .Where(request => request.OperatorId == Id && request.RequestStatus == Status.Active)
                 .ToListAsync();
             }
-            if(typeof(T) == typeof(Client))
+            if (typeof(T) == typeof(Client))
             {
                 return await _repository
                  .ReadAllAsync().Result
                  .Where(request => request.ClientId == Id && request.RequestStatus == Status.Active)
               .ToListAsync();
             }
-            else throw new ArgumentException();
+
+            throw new ArgumentException();
         }
 
         public static async Task<IEnumerable<Request>> CheckUserTypeForClosedRequest(string Id, IBaseAsyncRepository<Request> repository)
@@ -52,14 +55,15 @@ namespace FinalApp.Services.Helpers
                    .Where(request => request.OperatorId == Id && request.RequestStatus == Status.Closed)
                 .ToListAsync();
             }
-            if(typeof(T) == typeof(Client))
+            if (typeof(T) == typeof(Client))
             {
                 return await repository
                   .ReadAllAsync().Result
                   .Where(request => request.ClientId == Id && request.RequestStatus == Status.Closed)
                .ToListAsync();
             }
-            else throw new ArgumentException();
+
+            throw new ArgumentException();
         }
 
         public static async Task<Request> CheckUserTypeForAcceptRequest(Guid requestId, string Id, IBaseAsyncRepository<Request> repository)
@@ -79,14 +83,51 @@ namespace FinalApp.Services.Helpers
 
                 return request;
             }
-            if(typeof(T) == typeof(Client))
+            if (typeof(T) == typeof(Client))
             {
                 request.RequestStatus = Status.InProgress;
                 request.ClientId = Id;
 
                 return request;
             }
-            else throw new ArgumentException();
+
+            throw new ArgumentException();
+        }
+        public static async Task<ApplicationUser> CheckUserTypeForRegistration( RegisterModel model)
+        {
+            if (typeof(T) == typeof(TechTeam))
+            {
+                var user = new TechTeam
+                {
+                    Email = model.Email,
+                    SecurityStamp = Guid.NewGuid().ToString(),
+                    UserName = model.UserName
+                };
+                return user;
+            }
+            if (typeof(T) == typeof(SupportOperator))
+            {
+                var user = new SupportOperator
+                {
+                    Email = model.Email,
+                    SecurityStamp = Guid.NewGuid().ToString(),
+                    UserName = model.UserName
+                };
+                return user;
+
+            }
+            if (typeof(T) == typeof(Client))
+            {
+                var user = new Client
+                {
+                    Email = model.Email,
+                    SecurityStamp = Guid.NewGuid().ToString(),
+                    UserName = model.UserName
+                };
+                return user;
+            }
+
+            throw new ArgumentException();
         }
     }
 }

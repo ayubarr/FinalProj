@@ -3,6 +3,7 @@ using FinalApp.ApiModels.Auth.Models;
 using FinalApp.ApiModels.Response.Helpers;
 using FinalApp.ApiModels.Response.Interfaces;
 using FinalApp.Domain.Models.Abstractions.BaseUsers;
+using FinalApp.Services.Helpers;
 using FinallApp.ValidationHelper;
 using FinalProj.ApiModels.Auth.Models;
 using FinalProj.Services.Interfaces;
@@ -16,14 +17,14 @@ using System.Text;
 
 namespace FinalProj.Services.Implemintations.UserServices
 {
-    public class AuthManager<TModel> : IAuthManager
-        where TModel : ApplicationUser
+    public class AuthManager<T> : IAuthManager<T>
+        where T : ApplicationUser
     {
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly UserManager<T> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
 
-        public AuthManager(UserManager<ApplicationUser> userManager,
+        public AuthManager(UserManager<T> userManager,
             RoleManager<IdentityRole> roleManager,
             IConfiguration configuration)
         {
@@ -100,27 +101,24 @@ namespace FinalProj.Services.Implemintations.UserServices
             try
             {
                 ObjectValidator<RegisterModel>.CheckIsNotNullObject(model);
+
                 var userExists = await _userManager.FindByNameAsync(model.UserName);
                 if (userExists != null)
                 {
                     throw new UnauthorizedAccessException("User already exists!");
                 }
 
-                ApplicationUser user = new ApplicationUser
-                {
-                    Email = model.Email,
-                    SecurityStamp = Guid.NewGuid().ToString(),
-                    UserName = model.UserName
-                };
-
-                var result = await _userManager.CreateAsync(user, model.Password);
+                var user =  TypeHelper<T>.CheckUserTypeForRegistration(model).Result;
+         
+                var result = await _userManager.CreateAsync((T)user, model.Password);
                 if (!result.Succeeded)
                 {
-                    throw new UnauthorizedAccessException("User creation failed! Please check user details and try again.");      
+                    throw new UnauthorizedAccessException("User creation failed! Please check user details and try again.\n\r" +
+                        $"Identity Errors: Enter correct password");      
                 }
                 return ResponseFactory<bool>.CreateSuccessResponse(true);           
             }
-            catch (InvalidOperationException ex)
+            catch (InvalidOperationException ex)    
             {
                 return ResponseFactory<bool>.CreateUnauthorizedResponse(ex);
             }
@@ -149,14 +147,9 @@ namespace FinalProj.Services.Implemintations.UserServices
                     throw new UnauthorizedAccessException("User already exists!");          
                 }
 
-                ApplicationUser user = new ApplicationUser
-                {
-                    Email = model.Email,
-                    SecurityStamp = Guid.NewGuid().ToString(),
-                    UserName = model.UserName
-                };
+                var user = TypeHelper<T>.CheckUserTypeForRegistration(model).Result;
 
-                var result = await _userManager.CreateAsync(user, model.Password);
+                var result = await _userManager.CreateAsync((T)user, model.Password);
                 if (!result.Succeeded)
                 {
                     throw new UnauthorizedAccessException("User creation failed! Please check user details and try again.");
@@ -173,11 +166,11 @@ namespace FinalProj.Services.Implemintations.UserServices
 
                 if (await _roleManager.RoleExistsAsync(UserRoles.Admin))
                 {
-                    await _userManager.AddToRoleAsync(user, UserRoles.Admin);
+                    await _userManager.AddToRoleAsync((T)user, UserRoles.Admin);
                 }
                 if (await _roleManager.RoleExistsAsync(UserRoles.User))
                 {
-                    await _userManager.AddToRoleAsync(user, UserRoles.User);
+                    await _userManager.AddToRoleAsync((T)user, UserRoles.User);
                 }
 
                 return ResponseFactory<bool>.CreateSuccessResponse(true);

@@ -1,6 +1,9 @@
-﻿using FinalApp.ApiModels.DTOs.EntitiesDTOs.UsersDTOs;
+﻿using FinalApp.ApiModels.Auth.Models;
+using FinalApp.ApiModels.DTOs.EntitiesDTOs.UsersDTOs;
 using FinalApp.Domain.Models.Entities.Persons.Users;
 using FinalApp.Services.Interfaces;
+using FinalProj.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinalApp.Api.Controllers
@@ -11,11 +14,15 @@ namespace FinalApp.Api.Controllers
     {
         private readonly IClientService _clientService;
         private readonly IBaseUserService<Client> _userService;
+        private readonly IAuthManager<Client> _authService;
 
-        public ClientController(IClientService clientService, IBaseUserService<Client> userService)
+        public ClientController(IClientService clientService,
+            IBaseUserService<Client> userService,
+            IAuthManager<Client> authService)
         {
             _clientService = clientService;
             _userService = userService;
+            _authService = authService;
         }
 
         [HttpGet("ClientsWithRequest")]
@@ -72,6 +79,68 @@ namespace FinalApp.Api.Controllers
         {
             await _userService.DeleteByIdAsync(id);
             return Ok();
+        }
+
+
+
+
+        [HttpPost]
+        [Route("login")]
+        public async Task<IActionResult> Login([FromBody] LoginModel model)
+        {
+            var response = await _authService.Login(model);
+
+            if (response.IsSuccess)
+            {
+                return Ok(new
+                {
+                    Token = response.Data.Token,
+                    RefreshToken = response.Data.RefreshToken,
+                    Expiration = response.Data.Expiration
+                });
+            }
+            return Unauthorized(response.Message);
+        }
+
+        [HttpPost]
+        [Route("register")]
+        public async Task<IActionResult> RegisterClient([FromBody] RegisterModel model)
+        {
+            var result = await _authService.Register(model);
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [Route("refresh-token")]
+        public async Task<IActionResult> RefreshToken(TokenModel tokenModel)
+        {
+            var result = await _authService.RefreshToken(tokenModel);
+            return Ok(result);
+        }
+
+        [Authorize]
+        [HttpPost]
+        [Route("revoke/{username}")]
+        public async Task<IActionResult> Revoke(string username)
+        {
+            try
+            {
+                await _authService.RevokeRefreshTokenByUsernameAsync(username);
+                return NoContent();
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [Authorize]
+        [HttpPost]
+        [Route("revoke-all")]
+        public async Task<IActionResult> RevokeAll()
+        {
+            await _authService.RevokeAllRefreshTokensAsync();
+            return NoContent();
         }
     }
 }
