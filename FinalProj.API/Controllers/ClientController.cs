@@ -59,7 +59,7 @@ namespace FinalApp.Api.Controllers
             var response = await _userService.GetClosedRequests(clientId);
             return Ok(response.Data);
         }
-        
+
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {

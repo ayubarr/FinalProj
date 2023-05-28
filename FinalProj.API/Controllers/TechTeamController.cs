@@ -48,13 +48,6 @@ namespace FinalApp.Api.Controllers
             return Ok(response.Data);
         }
 
-        [HttpPost("CloseRequestByTechTeam/{requestId}/{Id}")]
-        public async Task<IActionResult> CloseRequestByUser(Guid requestId, string techTeamId)
-        {
-            var response = await _userService.CloseRequestByUser(requestId, techTeamId);
-            return Ok(response.Data);
-        }
-
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
