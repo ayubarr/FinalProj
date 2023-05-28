@@ -16,7 +16,8 @@ using System.Text;
 
 namespace FinalProj.Services.Implemintations.UserServices
 {
-    public class AuthManager : IAuthManager
+    public class AuthManager<TModel> : IAuthManager
+        where TModel : ApplicationUser
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;

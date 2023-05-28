@@ -1,5 +1,4 @@
 ﻿using FinalApp.DAL.Repository.Interfaces;
-using FinalApp.Domain.Models.Abstractions.BaseEntities;
 using FinalApp.Domain.Models.Abstractions.BaseUsers;
 using FinalApp.Domain.Models.Entities.Persons.Users;
 using FinalApp.Domain.Models.Entities.Requests.RequestsInfo;
@@ -27,6 +26,13 @@ namespace FinalApp.Services.Helpers
                    .Where(request => request.OperatorId == Id && request.RequestStatus == Status.Active)
                 .ToListAsync();
             }
+            if(typeof(T) == typeof(Client))
+            {
+                return await _repository
+                 .ReadAllAsync().Result
+                 .Where(request => request.ClientId == Id && request.RequestStatus == Status.Active)
+              .ToListAsync();
+            }
             else throw new ArgumentException();
         }
 
@@ -46,6 +52,13 @@ namespace FinalApp.Services.Helpers
                    .Where(request => request.OperatorId == Id && request.RequestStatus == Status.Closed)
                 .ToListAsync();
             }
+            if(typeof(T) == typeof(Client))
+            {
+                return await repository
+                  .ReadAllAsync().Result
+                  .Where(request => request.ClientId == Id && request.RequestStatus == Status.Closed)
+               .ToListAsync();
+            }
             else throw new ArgumentException();
         }
 
@@ -63,6 +76,13 @@ namespace FinalApp.Services.Helpers
             {
                 request.RequestStatus = Status.InProgress;
                 request.OperatorId = Id;
+
+                return request;
+            }
+            if(typeof(T) == typeof(Client))
+            {
+                request.RequestStatus = Status.InProgress;
+                request.ClientId = Id;
 
                 return request;
             }
