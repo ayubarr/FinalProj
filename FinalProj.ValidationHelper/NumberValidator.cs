@@ -11,7 +11,7 @@
         {
             if (n.CompareTo(default(T)) == 0)
             {
-                throw new ArgumentException("Значение не должно быть равно нулю.", nameof(n));
+                throw new ArgumentException("The value must not be zero.", nameof(n));
             }
         }
 
@@ -24,7 +24,7 @@
         {
             if (n.CompareTo(default(T)) <= 0)
             {
-                throw new ArgumentException("Значение должно быть положительным.", nameof(n));
+                throw new ArgumentException("The value must be positive.", nameof(n));
             }
         }
 
@@ -37,7 +37,7 @@
         {
             if (n.CompareTo(default(T)) >= 0)
             {
-                throw new ArgumentException("Значение должно быть отрицательным.", nameof(n));
+                throw new ArgumentException("The value must be negative.", nameof(n));
             }
         }
 
@@ -50,7 +50,7 @@
         {
             if (Convert.ToInt32(n) % 2 == 0)
             {
-                throw new ArgumentException("Значение должно быть нечетным.", nameof(n));
+                throw new ArgumentException("The value must be odd.", nameof(n));
             }
         }
 
@@ -63,7 +63,7 @@
         {
             if (Convert.ToInt32(n) % 2 != 0)
             {
-                throw new ArgumentException("Значение должно быть четным.", nameof(n));
+                throw new ArgumentException("The value must be even.", nameof(n));
             }
         }
 
@@ -79,7 +79,7 @@
             if (n.CompareTo(minValue) < 0 || n.CompareTo(maxValue) > 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(n), n,
-                    $"Значение должно быть в диапазоне от {minValue} до {maxValue}.");
+                    $"The value must be in the range from {minValue} to {maxValue}.");
             }
         }
     }

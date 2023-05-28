@@ -15,7 +15,7 @@
         {
             if (modelObject == null)
             {
-                throw new ArgumentNullException(nameof(modelObject), "Объект не должен равняться Null");
+                throw new ArgumentNullException(nameof(modelObject), "The object must not be Null");
             }
         }
     }  

@@ -38,7 +38,6 @@ namespace FinalApp.DAL.SqlServer
             modelBuilder.Ignore<IdentityUserClaim<string>>();
             modelBuilder.Ignore<IdentityUserToken<string>>();
             modelBuilder.Ignore<IdentityUser<string>>();
-            modelBuilder.Ignore<ApplicationUser>();
 
             modelBuilder.Entity<Client>()
                 .HasMany(client => client.Requests)

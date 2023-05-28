@@ -7,6 +7,7 @@ namespace FinalApp.ApiModels.Response.Helpers
     {
         public static BaseResponse<T> CreateSuccessResponse(T model)
         {
+           
             return new BaseResponse<T>
             {
                 IsSuccess = true,
@@ -43,6 +44,16 @@ namespace FinalApp.ApiModels.Response.Helpers
                 StatusCode = 400,
                 IsSuccess = false,
                 Message = "Unable to create the specified model.\n\r" +
+                $"Error: {exception}",
+            };
+        }
+        public static BaseResponse<T> CreateUnauthorizedResponse(Exception exception)
+        {
+            return new BaseResponse<T>()
+            {
+                StatusCode = 401,
+                IsSuccess = false,
+                Message = "Failed authorization attempt \n\r" +
                 $"Error: {exception}",
             };
         }

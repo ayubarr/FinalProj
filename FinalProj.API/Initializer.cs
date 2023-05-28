@@ -1,15 +1,16 @@
 ﻿using FinalApp.ApiModels.DTOs.EntitiesDTOs.RequestsDTO;
-using FinalApp.ApiModels.DTOs.EntitiesDTOs.UsersDTOs;
 using FinalApp.DAL.Repository.Implemintations;
 using FinalApp.DAL.Repository.Interfaces;
 using FinalApp.DAL.SqlServer;
+using FinalApp.Domain.Models.Abstractions.BaseUsers;
 using FinalApp.Domain.Models.Entities.Persons.Users;
 using FinalApp.Domain.Models.Entities.Requests.RequestsInfo;
 using FinalApp.Services.Interfaces;
+using FinalProj.API.Controllers;
 using FinalProj.Services.Implemintations.RequestServices;
 using FinalProj.Services.Implemintations.UserServices;
+using FinalProj.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
 
 namespace FinalApp.Api
 {
@@ -20,11 +21,10 @@ namespace FinalApp.Api
             #region Base_Repositories 
             services.AddScoped(typeof(IBaseAsyncRepository<>), typeof(BaseAsyncRepository<>));
             services.AddScoped(typeof(UserManager<>));
-
             #endregion
         }
 
-        public static void InitializeServices(this IServiceCollection services)
+        public static void InitializeServices(this IServiceCollection services, IConfiguration configuration)
         {
             #region Base_Services
             services.AddScoped<IBaseRequestService<Request, RequestDTO>, BaseRequestService<Request, RequestDTO>>();
@@ -36,6 +36,8 @@ namespace FinalApp.Api
             services.AddScoped<IBaseUserService<TechTeam>, BaseUserService<TechTeam>>();
             services.AddScoped<IBaseUserService<SupportOperator>, BaseUserService<SupportOperator>>();
             services.AddScoped<IBaseUserService<Client>, BaseUserService<Client>>();
+            services.AddScoped<AuthManager>();
+            services.AddScoped<AuthenticateController>();
 
             #endregion
 
@@ -58,11 +60,18 @@ namespace FinalApp.Api
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
+
             services.AddScoped<RoleManager<IdentityRole>>();
 
-
-
-
+            services.AddScoped<IAuthManager>(provider =>
+            {
+                var userManager = provider.GetRequiredService<UserManager<ApplicationUser>>();
+                var roleManager = provider.GetRequiredService<RoleManager<IdentityRole>>();
+                return new AuthManager(userManager, roleManager, configuration);
+            });
             #endregion
         }
 

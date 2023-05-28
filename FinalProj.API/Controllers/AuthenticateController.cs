@@ -1,19 +1,8 @@
-﻿using Azure;
-using FinalApp.Api.Authentication;
-using FinalApp.ApiModels.Auth.Models;
-using FinalApp.ApiModels.Response.Helpers;
-using FinalApp.ApiModels.Response.Implemintations;
-using FinalApp.Domain.Models.Abstractions.BaseUsers;
+﻿using FinalApp.ApiModels.Auth.Models;
 using FinalProj.Services.Implemintations.UserServices;
+using FinalProj.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace FinalProj.API.Controllers
 {
@@ -21,39 +10,36 @@ namespace FinalProj.API.Controllers
     [ApiController]
     public class AuthenticateController : ControllerBase
     {
-        private readonly AuthManager _authService;
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IAuthManager _authService;
 
-        public AuthenticateController(AuthManager authService, UserManager<ApplicationUser> userManager)
+        public AuthenticateController(AuthManager authService)
         {
             _authService = authService;
-            _userManager = userManager;
         }
 
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
-            var result = await _authService.Login(model);
+            var response = await _authService.Login(model);
 
-            if (result.Success)
+            if (response.IsSuccess)
             {
                 return Ok(new
                 {
-                    Token = result.Token,
-                    RefreshToken = result.RefreshToken,
-                    Expiration = result.Expiration
+                    Token = response.Data.Token,
+                    RefreshToken = response.Data.RefreshToken,
+                    Expiration = response.Data.Expiration
                 });
             }
-
-            return Unauthorized(result.ErrorMessage);
+            return Unauthorized(response.Message);
         }
 
         [HttpPost]
         [Route("register")]
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
-           var result = await _authService.Register(model);
+            var result = await _authService.Register(model);
             return Ok(result);
         }
 
@@ -78,13 +64,15 @@ namespace FinalProj.API.Controllers
         [Route("revoke/{username}")]
         public async Task<IActionResult> Revoke(string username)
         {
-            var user = await _userManager.FindByNameAsync(username);
-            if (user == null) return BadRequest("Invalid user name");
-
-            user.RefreshToken = null;
-            await _userManager.UpdateAsync(user);
-
-            return NoContent();
+            try
+            {
+                await _authService.RevokeRefreshTokenByUsernameAsync(username);
+                return NoContent();
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [Authorize]
@@ -92,14 +80,8 @@ namespace FinalProj.API.Controllers
         [Route("revoke-all")]
         public async Task<IActionResult> RevokeAll()
         {
-            var users = _userManager.Users.ToList();
-            foreach (var user in users)
-            {
-                user.RefreshToken = null;
-                await _userManager.UpdateAsync(user);
-            }
-
+            await _authService.RevokeAllRefreshTokensAsync();
             return NoContent();
-        }       
+        }
     }
 }

@@ -15,7 +15,7 @@
         {
             if (string.IsNullOrEmpty(text))
             {
-                throw new ArgumentNullException(nameof(text), "Параметр не должен быть равен Null");
+                throw new ArgumentNullException(nameof(text), "The parameter must not be Nullы");
             }
         }
     }
