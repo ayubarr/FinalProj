@@ -25,6 +25,13 @@ namespace FinalApp.Api.Controllers
             _authService = authService;
         }
 
+        [HttpPost("CloseRequestByClient/{requestId}/{Id}")]
+        public async Task<IActionResult> CloseRequestByUser(Guid requestId, string clientId)
+        {
+            var response = await _userService.CloseRequestByUser(requestId, clientId);
+            return Ok(response.Data);
+        }
+
         [HttpGet("ClientsWithRequest")]
         public async Task<IActionResult> GetClients()
         {

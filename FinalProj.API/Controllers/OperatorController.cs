@@ -1,5 +1,4 @@
 ﻿using FinalApp.ApiModels.Auth.Models;
-using FinalApp.ApiModels.DTOs.EntitiesDTOs.UsersDTOs;
 using FinalApp.Domain.Models.Entities.Persons.Users;
 using FinalApp.Services.Interfaces;
 using FinalProj.Services.Interfaces;
@@ -54,9 +53,9 @@ namespace FinalApp.Api.Controllers
         }
 
         [HttpPost("CloseRequestByOperator/{requestId}/{Id}")]
-        public async Task<IActionResult> CloseRequestByUser(Guid requestId, string techTeamId)
+        public async Task<IActionResult> CloseRequestByUser(Guid requestId, string operatorId)
         {
-            var response = await _userService.CloseRequestByUser(requestId, techTeamId);
+            var response = await _userService.CloseRequestByUser(requestId, operatorId);
             return Ok(response.Data);
         }
 
@@ -90,7 +89,7 @@ namespace FinalApp.Api.Controllers
 
 
         [HttpPost]
-        [Route("login")]
+        [Route("login-Operator")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
             var response = await _authService.Login(model);
@@ -108,10 +107,18 @@ namespace FinalApp.Api.Controllers
         }
 
         [HttpPost]
+        [Route("register-operator")]
+        public async Task<IActionResult> RegisterOperatorAccount([FromBody] RegisterModel model)
+        {
+            var result = await _authService.Register(model);
+            return Ok(result);
+        }
+
+        [HttpPost]
         [Route("register-techTeam")]
         public async Task<IActionResult> RegisterTechnicalTeamAccount([FromBody] RegisterModel model)
         {
-            var result = await _authService.Register(model);
+            var result = await _authforTechTeamService.Register(model);
             return Ok(result);
         }
 
