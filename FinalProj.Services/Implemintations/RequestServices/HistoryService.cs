@@ -16,7 +16,6 @@ namespace FinalProj.Services.Implemintations.RequestServices
             _repository = repository;
         }
 
-
         public async Task<IBaseResponse<IEnumerable<RequestStatusHistoryDTO>>> GetRequestHistoryStatus(Guid requestId)
         {
             try
@@ -24,8 +23,6 @@ namespace FinalProj.Services.Implemintations.RequestServices
                 ObjectValidator<Guid>.CheckIsNotNullObject(requestId);
 
                 var request = await _repository.ReadByIdAsync(requestId);
-                ObjectValidator<Request>.CheckIsNotNullObject(request);
-
                 var history = request.StatusHistory.Select(s => new RequestStatusHistoryDTO
                 {
                     RequestId = s.RequestId,
@@ -37,9 +34,9 @@ namespace FinalProj.Services.Implemintations.RequestServices
 
                 return ResponseFactory<IEnumerable<RequestStatusHistoryDTO>>.CreateSuccessResponse(history);
             }
-            catch (ArgumentException argException)
+            catch (ArgumentNullException argNullException)
             {
-                return ResponseFactory<IEnumerable<RequestStatusHistoryDTO>>.CreateNotFoundResponse(argException);
+                return ResponseFactory<IEnumerable<RequestStatusHistoryDTO>>.CreateNotFoundResponse(argNullException);
             }
             catch (Exception exception)
             {
