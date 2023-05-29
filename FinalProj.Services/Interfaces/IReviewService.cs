@@ -30,11 +30,11 @@ namespace FinalApp.Services.Interfaces
         public Task<IBaseResponse<bool>> CanCreateReview(Guid requestId);
 
         /// <summary>
-        /// Creates a new review for the specified request.
+        /// Creates a new review for the specified request.S
         /// </summary>
         /// <param name="requestId">The ID of the request to create a review for.</param>
         /// <param name="reviewText">The review text.</param>
-        /// <param name="evaluation">The evaluation value for the review.</param>
+        /// <param name="evaluation">The evaluation value for the review.</param>S
         /// <returns>An asynchronous operation that returns the created review.</returns>
         public Task<IBaseResponse<ReviewDTO>> CreateReview(Guid requestId, string reviewText, int evaluation);
 
