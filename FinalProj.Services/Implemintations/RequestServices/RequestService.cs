@@ -49,6 +49,7 @@ namespace FinalProj.Services.Implemintations.RequestServices
                 return ResponseFactory<IEnumerable<RequestDTO>>.CreateErrorResponse(exception);
             }
         }
+
         public async Task<IBaseResponse<IEnumerable<RequestDTO>>> GetClosedRequestsByOperatorId(string operatorId)
         {
             try
@@ -122,6 +123,7 @@ namespace FinalProj.Services.Implemintations.RequestServices
                 return ResponseFactory<bool>.CreateErrorResponse(exception);
             }
         }
+
         public async Task<IBaseResponse<bool>> AssignRequestToOperator(Guid requestId, string operatorId)
         {
             try
@@ -265,16 +267,16 @@ namespace FinalProj.Services.Implemintations.RequestServices
             try
             {
                 ObjectValidator<Guid>.CheckIsNotNullObject(requestId);
+                ObjectValidator<Status>.CheckIsNotNullObject(newStatus);
 
                 var request = await _repository.ReadByIdAsync(requestId);
-                ObjectValidator<Request>.CheckIsNotNullObject(request);
 
                 request.RequestStatus = newStatus;
                 await _repository.UpdateAsync(request);
 
                 return ResponseFactory<bool>.CreateSuccessResponse(true);
             }
-            catch (ArgumentException argNullException)
+            catch (ArgumentNullException argNullException)
             {
                 return ResponseFactory<bool>.CreateNotFoundResponse(argNullException);
             }
@@ -283,8 +285,5 @@ namespace FinalProj.Services.Implemintations.RequestServices
                 return ResponseFactory<bool>.CreateErrorResponse(exception);
             }
         }
-
-
-
     }
 }
