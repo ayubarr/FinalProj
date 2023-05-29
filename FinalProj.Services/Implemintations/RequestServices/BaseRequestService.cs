@@ -27,8 +27,8 @@ namespace FinalProj.Services.Implemintations.RequestServices
             try
             {
                 ObjectValidator<Tmodel>.CheckIsNotNullObject(entityDTO);
-                T entity = MapperHelperForEntity<Tmodel, T>.Map(entityDTO);
 
+                T entity = MapperHelperForEntity<Tmodel, T>.Map(entityDTO);
                 await _repository.Create(entity);
 
                 return ResponseFactory<T>.CreateSuccessResponse(entity);
@@ -48,7 +48,6 @@ namespace FinalProj.Services.Implemintations.RequestServices
             try
             {
                 var entities = _repository.ReadAll().ToList();
-                ObjectValidator<IEnumerable<T>>.CheckIsNotNullObject(entities);
 
                 return ResponseFactory<IEnumerable<T>>.CreateSuccessResponse(entities);
             }
@@ -67,7 +66,6 @@ namespace FinalProj.Services.Implemintations.RequestServices
             try
             {
                 var entities = await _repository.ReadAll().ToListAsync();
-                ObjectValidator<IEnumerable<T>>.CheckIsNotNullObject(entities);
 
                 return ResponseFactory<IEnumerable<T>>.CreateSuccessResponse(entities);
             }
@@ -86,8 +84,8 @@ namespace FinalProj.Services.Implemintations.RequestServices
             try
             {
                 ObjectValidator<Guid>.CheckIsNotNullObject(id);
+
                 var entity = _repository.ReadById(id);
-                ObjectValidator<T>.CheckIsNotNullObject(entity);
 
                 return ResponseFactory<T>.CreateSuccessResponse(entity);
             }
@@ -106,9 +104,8 @@ namespace FinalProj.Services.Implemintations.RequestServices
             try
             {
                 ObjectValidator<Guid>.CheckIsNotNullObject(id);
-                var entity = await _repository.ReadByIdAsync(id);
 
-                ObjectValidator<T>.CheckIsNotNullObject(entity);
+                var entity = await _repository.ReadByIdAsync(id);
 
                 return ResponseFactory<T>.CreateSuccessResponse(entity);
             }
@@ -127,8 +124,8 @@ namespace FinalProj.Services.Implemintations.RequestServices
             try
             {
                 ObjectValidator<Tmodel>.CheckIsNotNullObject(entityDTO);
-                T entity = MapperHelperForEntity<Tmodel, T>.Map(entityDTO);
 
+                T entity = MapperHelperForEntity<Tmodel, T>.Map(entityDTO);
                 await _repository.UpdateAsync(entity);
 
                 return ResponseFactory<T>.CreateSuccessResponse(entity);
@@ -142,6 +139,7 @@ namespace FinalProj.Services.Implemintations.RequestServices
                 return ResponseFactory<T>.CreateErrorResponse(exception);
             }
         }
+
         public async Task<IBaseResponse<bool>> DeleteAsync(Tmodel entityDTO)
         {
             try
@@ -168,14 +166,14 @@ namespace FinalProj.Services.Implemintations.RequestServices
             try
             {
                 ObjectValidator<Guid>.CheckIsNotNullObject(id);
+
                 await _repository.DeleteByIdAsync(id);
 
                 return ResponseFactory<bool>.CreateSuccessResponse(true);
             }
-
-            catch (ArgumentException invException)
+            catch (ArgumentNullException argNullException)
             {
-                return ResponseFactory<bool>.CreateNotFoundResponse(invException);
+                return ResponseFactory<bool>.CreateNotFoundResponse(argNullException);
             }
             catch (Exception exception)
             {

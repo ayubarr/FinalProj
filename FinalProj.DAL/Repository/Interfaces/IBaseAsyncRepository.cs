@@ -62,7 +62,5 @@ namespace FinalApp.DAL.Repository.Interfaces
         /// <param name="id">The identifier of the entity.</param>
         /// <returns></returns>
         public Task DeleteByIdAsync(Guid id);
-
-
     }
 }

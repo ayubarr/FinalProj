@@ -27,14 +27,17 @@ namespace FinalApp.DAL.Repository.Implemintations
             await _dbSet.AddAsync(entity);
             await _context.SaveChangesAsync();
         }
+
         public IQueryable<T> ReadAll()
         {
             return _dbSet;
         }
+
         public async Task<IQueryable<T>> ReadAllAsync()
         {
             return await Task.FromResult(_dbSet);
         }
+
         public T ReadById(Guid id)
         {
             ObjectValidator<Guid>.CheckIsNotNullObject(id);
@@ -45,6 +48,7 @@ namespace FinalApp.DAL.Repository.Implemintations
              ? throw new ArgumentNullException(nameof(id), $"Entity not found by id {id}")
              : entity;
         }
+
         public async Task<T> ReadByIdAsync(Guid id)
         {
             ObjectValidator<Guid>.CheckIsNotNullObject(id);
@@ -54,6 +58,7 @@ namespace FinalApp.DAL.Repository.Implemintations
             ? throw new ArgumentNullException(nameof(id), $"Entity not found by id {id}")
             : entity;
         }
+
         public async Task UpdateAsync(T entity)
         {
             ObjectValidator<T>.CheckIsNotNullObject(entity);
@@ -61,7 +66,6 @@ namespace FinalApp.DAL.Repository.Implemintations
             _dbSet.Update(entity);
             await _context.SaveChangesAsync();
         }
-
 
         public async Task DeleteAsync(T entity)
         {
