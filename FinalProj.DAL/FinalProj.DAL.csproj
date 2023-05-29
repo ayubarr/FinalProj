@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FinalProj.ValidationHelper\FinalProj.ValidationHelper.csproj" />
     <ProjectReference Include="..\FinalProj\FinalProj.Domain.csproj" />
   </ItemGroup>
 

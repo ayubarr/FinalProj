@@ -129,9 +129,6 @@ namespace FinalProj.Services.Implemintations.RequestServices
                 ObjectValidator<Tmodel>.CheckIsNotNullObject(entityDTO);
                 T entity = MapperHelperForEntity<Tmodel, T>.Map(entityDTO);
 
-                // var updatedEntity = await _repository.ReadByIdAsync(entity.Id);
-                //  ObjectValidator<T>.CheckIsNotNullObject(updatedEntity);
-
                 await _repository.UpdateAsync(entity);
 
                 return ResponseFactory<T>.CreateSuccessResponse(entity);
