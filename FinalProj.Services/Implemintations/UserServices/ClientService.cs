@@ -26,7 +26,6 @@ namespace FinalProj.Services.Implemintations.UserServices
             try
             {
                 var clientsWithRequests = await _userManager.Users.Include(c => c.Requests).ToListAsync();
-
                 ObjectValidator<IEnumerable<Client>>.CheckIsNotNullObject(clientsWithRequests);
 
                 return ResponseFactory<IEnumerable<Client>>.CreateSuccessResponse(clientsWithRequests);
