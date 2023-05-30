@@ -23,7 +23,7 @@ namespace FinalApp.Api.Controllers
         public IActionResult Get()
         {
             var response = _service.ReadAll();
-            return Ok(response.Data);
+            return Ok(response);
         }
 
         [HttpGet("{id}")]

@@ -19,10 +19,10 @@ builder.Services.InitializeServices();
 
 
 
-builder.Logging.IntialiseLogger(options =>
-{
-    builder.Configuration.GetSection("Logging").GetSection("Database").GetSection("Options").Bind(options);
-});
+//builder.Logging.IntialiseLogger(options =>
+//{
+//    builder.Configuration.GetSection("Logging").GetSection("Database").GetSection("Options").Bind(options);
+//});
 
 builder.Services.AddControllers();
 

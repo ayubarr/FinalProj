@@ -29,6 +29,7 @@ namespace FinalProj.Services.Implemintations.RequestServices
                 ObjectValidator<Tmodel>.CheckIsNotNullObject(entityDTO);
 
                 T entity = MapperHelperForEntity<Tmodel, T>.Map(entityDTO);
+                entity.Id = Guid.NewGuid();
                 await _repository.Create(entity);
 
                 Guid id = entity.Id;
@@ -66,7 +67,7 @@ namespace FinalProj.Services.Implemintations.RequestServices
         {
             try
             {
-                var entities = await _repository.ReadAll().ToListAsync();
+                var entities = await _repository.ReadAllAsync().Result.ToListAsync();
 
                 return ResponseFactory<IEnumerable<T>>.CreateSuccessResponse(entities);
             }

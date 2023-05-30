@@ -336,7 +336,6 @@ namespace FinalProj.DAL.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ClientId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Comment")
@@ -346,7 +345,6 @@ namespace FinalProj.DAL.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<Guid?>("LocationId")
-                        .IsRequired()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("OperatorId")
@@ -365,7 +363,6 @@ namespace FinalProj.DAL.Migrations
                         .HasColumnType("int");
 
                     b.Property<Guid?>("ReviewId")
-                        .IsRequired()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("StatusClientInfo")
@@ -375,7 +372,6 @@ namespace FinalProj.DAL.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("TechTeamId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("WorkType")
@@ -386,17 +382,20 @@ namespace FinalProj.DAL.Migrations
                     b.HasIndex("ClientId");
 
                     b.HasIndex("LocationId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[LocationId] IS NOT NULL");
 
                     b.HasIndex("OperatorId");
 
                     b.HasIndex("PlantId");
 
                     b.HasIndex("ReviewId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[ReviewId] IS NOT NULL");
 
                     b.HasIndex("TechTeamId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[TechTeamId] IS NOT NULL");
 
                     b.ToTable("Requests");
                 });
@@ -803,14 +802,12 @@ namespace FinalProj.DAL.Migrations
                     b.HasOne("FinalApp.Domain.Models.Entities.Persons.Users.Client", "Client")
                         .WithMany("Requests")
                         .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("FinalApp.Domain.Models.Entities.Requests.RequestsInfo.Location", "Location")
                         .WithOne("Request")
                         .HasForeignKey("FinalApp.Domain.Models.Entities.Requests.RequestsInfo.Request", "LocationId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("FinalApp.Domain.Models.Entities.Persons.Users.SupportOperator", "SupportOperator")
                         .WithMany("Requests")
@@ -825,14 +822,12 @@ namespace FinalProj.DAL.Migrations
                     b.HasOne("FinalApp.Domain.Models.Entities.Requests.RequestsInfo.Review", "Review")
                         .WithOne("Request")
                         .HasForeignKey("FinalApp.Domain.Models.Entities.Requests.RequestsInfo.Request", "ReviewId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("FinalApp.Domain.Models.Entities.Persons.Users.TechTeam", "TechnicalTeam")
                         .WithOne("Request")
                         .HasForeignKey("FinalApp.Domain.Models.Entities.Requests.RequestsInfo.Request", "TechTeamId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("Client");
 

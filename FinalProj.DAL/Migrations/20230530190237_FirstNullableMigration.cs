@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace FinalProj.DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class NotNullableMigration : Migration
+    public partial class FirstNullableMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -284,15 +284,15 @@ namespace FinalProj.DAL.Migrations
                     BoxQuantity = table.Column<int>(type: "int", nullable: false),
                     CompletedTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     WorkType = table.Column<int>(type: "int", nullable: false),
-                    RequestType = table.Column<int>(type: "int", nullable: false),
-                    RequestStatus = table.Column<int>(type: "int", nullable: false),
-                    ClientId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ClientId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     PlantId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     LocationId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     OperatorId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     ReviewId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     TechTeamId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     RequestCreatedTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    RequestStatus = table.Column<int>(type: "int", nullable: false),
+                    RequestType = table.Column<int>(type: "int", nullable: false),
                     StatusClientInfo = table.Column<bool>(type: "bit", nullable: false),
                     StatusTeamInfo = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -488,7 +488,8 @@ namespace FinalProj.DAL.Migrations
                 name: "IX_Requests_LocationId",
                 table: "Requests",
                 column: "LocationId",
-                unique: true);
+                unique: true,
+                filter: "[LocationId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Requests_OperatorId",
@@ -504,13 +505,15 @@ namespace FinalProj.DAL.Migrations
                 name: "IX_Requests_ReviewId",
                 table: "Requests",
                 column: "ReviewId",
-                unique: true);
+                unique: true,
+                filter: "[ReviewId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Requests_TechTeamId",
                 table: "Requests",
                 column: "TechTeamId",
-                unique: true);
+                unique: true,
+                filter: "[TechTeamId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RequestStatusHistories_RequestId",

@@ -11,6 +11,6 @@ namespace FinalApp.Domain.Models.Entities.Requests.RequestsInfo
         public Status PreviousStatus { get; set; }
         public Status NewStatus { get; set; }
 
-        public Request Request { get; set; }
+        public Request? Request { get; set; }
     }
 }

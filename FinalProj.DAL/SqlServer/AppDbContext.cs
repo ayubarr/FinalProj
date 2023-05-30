@@ -4,7 +4,6 @@ using FinalApp.Domain.Models.Entities.Persons.WorkTeams;
 using FinalApp.Domain.Models.Entities.Requests.EcoBoxInfo;
 using FinalApp.Domain.Models.Entities.Requests.RequestsInfo;
 using FinalProj.Domain.Models.Entities.Logs;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
