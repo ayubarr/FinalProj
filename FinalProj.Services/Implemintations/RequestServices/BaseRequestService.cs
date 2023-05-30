@@ -31,7 +31,8 @@ namespace FinalProj.Services.Implemintations.RequestServices
                 T entity = MapperHelperForEntity<Tmodel, T>.Map(entityDTO);
                 await _repository.Create(entity);
 
-                return ResponseFactory<T>.CreateSuccessResponse(entity);
+                Guid id = entity.Id;
+                return ResponseFactory<T>.CreateSuccessResponseWithId(entity, id);
             }
             catch (ArgumentNullException argNullException)
             {

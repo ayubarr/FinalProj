@@ -59,9 +59,9 @@ namespace FinalProj.Services.Implemintations.UserServices
                     {
                         user.RefreshToken = refreshToken;
                         user.RefreshTokenExpiryTime = DateTime.Now.AddDays(refreshTokenValidityInDays);
-                        string userId = user.Id;
 
                         await _userManager.UpdateAsync(user);
+                        string userId = user.Id;
 
                         return ResponseFactory<AuthResultStruct>.CreateSuccessResponseWithUserId(new AuthResultStruct
                         {
@@ -110,8 +110,8 @@ namespace FinalProj.Services.Implemintations.UserServices
                 }
 
                 var user = TypeHelper<T>.CheckUserTypeForRegistration(model).Result;
-                string userId = user.Id;
                 var result = await _userManager.CreateAsync((T)user, model.Password);
+                string userId = user.Id;
                 if (!result.Succeeded)
                 {
                     throw new UnauthorizedAccessException("User creation failed! Please check user details and try again." +
@@ -149,9 +149,10 @@ namespace FinalProj.Services.Implemintations.UserServices
                 }
 
                 var user = TypeHelper<T>.CheckUserTypeForRegistration(model).Result;
+                
+                var result = await _userManager.CreateAsync((T)user, model.Password);
                 string userId = user.Id;
 
-                var result = await _userManager.CreateAsync((T)user, model.Password);
                 if (!result.Succeeded)
                 {
                     throw new UnauthorizedAccessException("User creation failed! Please check user details and try again.");

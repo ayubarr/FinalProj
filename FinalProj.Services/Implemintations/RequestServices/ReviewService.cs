@@ -128,7 +128,8 @@ namespace FinalProj.Services.Implemintations.RequestServices
                 await _repository.Create(review);
                 request.Review = review;
 
-                return ResponseFactory<ReviewDTO>.CreateSuccessResponse(MapperHelperForDto<Review, ReviewDTO>.Map(review));
+                Guid reviewId = review.Id;
+                return ResponseFactory<ReviewDTO>.CreateSuccessResponseWithId(MapperHelperForDto<Review, ReviewDTO>.Map(review), reviewId);
             }
             catch (InvalidOperationException invException)
             {

@@ -249,8 +249,9 @@ namespace FinalProj.Services.Implemintations.RequestServices
 
                 var newRequest = MapperHelperForEntity<RequestDTO, Request>.Map(request);
                 await _repository.Create(newRequest);
+                Guid id = newRequest.Id;
 
-                return ResponseFactory<bool>.CreateSuccessResponse(true);
+                return ResponseFactory<bool>.CreateSuccessResponseWithId(true, id);
             }
             catch (ArgumentNullException argException)
             {
