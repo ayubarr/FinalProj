@@ -107,12 +107,7 @@ namespace FinalApp.Api.Controllers
             
             if (response.IsSuccess)
             {
-                return Ok(new
-                {
-                    Token = response.Data.Token,
-                    RefreshToken = response.Data.RefreshToken,
-                    Expiration = response.Data.Expiration
-                });
+                return Ok(response);
             }
             return Unauthorized(response.Message);
         }
