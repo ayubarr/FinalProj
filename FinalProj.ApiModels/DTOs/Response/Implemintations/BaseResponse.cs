@@ -29,6 +29,48 @@ namespace FinalApp.ApiModels.Response.Implemintations
             }
         }
 
+        private Guid? _id;
+        public Guid? Id
+        {
+            get
+            {
+                return _id;
+            }
+
+            set
+            {
+                try
+                {
+                    ObjectValidator<Guid?>.CheckIsNotNullObject(value);
+                    _id = value;
+                }
+                catch (ArgumentNullException exception)
+                {
+                    _message += $"\nERROR: {exception}";
+                }
+            }
+        }
+        private string? _userId;
+        public string? userId
+        {
+            get
+            {
+                return _userId;
+            }
+
+            set
+            {
+                try
+                {
+                    ObjectValidator<string?>.CheckIsNotNullObject(value);
+                    _userId = value;
+                }
+                catch (ArgumentNullException exception)
+                {
+                    _message += $"\nERROR: {exception}";
+                }
+            }
+        }
 
         private int _statusCode;
 

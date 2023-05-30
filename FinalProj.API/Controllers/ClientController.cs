@@ -29,6 +29,7 @@ namespace FinalApp.Api.Controllers
         public async Task<IActionResult> CloseRequestByUser(Guid requestId, string clientId)
         {
             var response = await _userService.CloseRequestByUser(requestId, clientId);
+            
             return Ok(response.Data);
         }
 
@@ -57,6 +58,13 @@ namespace FinalApp.Api.Controllers
         public async Task<IActionResult> GetClosed(string clientId)
         {
             var response = await _userService.GetClosedRequests(clientId);
+            return Ok(response.Data);
+        }
+
+        [HttpPost("MarkRequestAsCompleted/{requestId}")]
+        public async Task<IActionResult> MarkRequestAsCompleted(Guid requestId)
+        {
+            var response = await _userService.MarkRequestAsCompleted(requestId);
             return Ok(response.Data);
         }
 
@@ -96,7 +104,7 @@ namespace FinalApp.Api.Controllers
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
             var response = await _authService.Login(model);
-
+            
             if (response.IsSuccess)
             {
                 return Ok(new

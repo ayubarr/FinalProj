@@ -59,15 +59,16 @@ namespace FinalProj.Services.Implemintations.UserServices
                     {
                         user.RefreshToken = refreshToken;
                         user.RefreshTokenExpiryTime = DateTime.Now.AddDays(refreshTokenValidityInDays);
+                        string userId = user.Id;
 
                         await _userManager.UpdateAsync(user);
 
-                        return ResponseFactory<AuthResultStruct>.CreateSuccessResponse(new AuthResultStruct
+                        return ResponseFactory<AuthResultStruct>.CreateSuccessResponseWithUserId(new AuthResultStruct
                         {
                             Token = new JwtSecurityTokenHandler().WriteToken(token),
                             RefreshToken = refreshToken,
                             Expiration = token.ValidTo,
-                        });
+                        }, userId);
                     }
                     else
                     {
@@ -109,14 +110,14 @@ namespace FinalProj.Services.Implemintations.UserServices
                 }
 
                 var user = TypeHelper<T>.CheckUserTypeForRegistration(model).Result;
-
+                string userId = user.Id;
                 var result = await _userManager.CreateAsync((T)user, model.Password);
                 if (!result.Succeeded)
                 {
                     throw new UnauthorizedAccessException("User creation failed! Please check user details and try again." +
                         $"  Identity Errors: Enter correct password");
                 }
-                return ResponseFactory<bool>.CreateSuccessResponse(true);
+                return ResponseFactory<bool>.CreateSuccessResponseWithUserId(true, userId);
             }
             catch (InvalidOperationException ex)
             {
@@ -148,6 +149,7 @@ namespace FinalProj.Services.Implemintations.UserServices
                 }
 
                 var user = TypeHelper<T>.CheckUserTypeForRegistration(model).Result;
+                string userId = user.Id;
 
                 var result = await _userManager.CreateAsync((T)user, model.Password);
                 if (!result.Succeeded)
@@ -173,7 +175,7 @@ namespace FinalProj.Services.Implemintations.UserServices
                     await _userManager.AddToRoleAsync((T)user, UserRoles.User);
                 }
 
-                return ResponseFactory<bool>.CreateSuccessResponse(true);
+                return ResponseFactory<bool>.CreateSuccessResponseWithUserId(true, userId);
             }
             catch (InvalidOperationException ex)
             {

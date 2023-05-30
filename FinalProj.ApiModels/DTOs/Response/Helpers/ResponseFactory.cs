@@ -16,6 +16,28 @@ namespace FinalApp.ApiModels.Response.Helpers
                 StatusCode = 200,
             };
         }
+        public static BaseResponse<T> CreateSuccessResponseWithUserId(T model, string Id)
+        {
+
+            return new BaseResponse<T>
+            {
+                IsSuccess = true,
+                Data = model,
+                StatusCode = 200,
+                userId = Id,
+            };
+        }
+        public static BaseResponse<T> CreateSuccessResponseWithId(T model, Guid Id)
+        {
+
+            return new BaseResponse<T>
+            {
+                IsSuccess = true,
+                Data = model,
+                StatusCode = 200,
+                Id = Id,
+            };
+        }
 
         public static BaseResponse<T> CreateNotFoundResponse(Exception exception)
         {
