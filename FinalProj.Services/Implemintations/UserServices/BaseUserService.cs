@@ -11,6 +11,7 @@ using FinalApp.Services.Mapping.Helpers;
 using FinallApp.ValidationHelper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace FinalProj.Services.Implemintations.UserServices
 {
@@ -32,10 +33,10 @@ namespace FinalProj.Services.Implemintations.UserServices
         {
             try
             {
+                StringValidator.CheckIsNotNull(userId);
                 var user = await _userManager.FindByIdAsync(userId);
-
                 ObjectValidator<T>.CheckIsNotNullObject(user);
-               
+
                 var role = Roles.Administrator.ToString(); 
                 var result = await _userManager.AddToRoleAsync(user, role);
 
@@ -48,9 +49,9 @@ namespace FinalProj.Services.Implemintations.UserServices
                     return ResponseFactory<bool>.CreateErrorResponse(new Exception("Failed to set user as admin."));
                 }                       
             }
-            catch (ArgumentException argException)
+            catch (ArgumentNullException argNullException)
             {
-                return ResponseFactory<bool>.CreateNotFoundResponse(argException);
+                return ResponseFactory<bool>.CreateNotFoundResponse(argNullException);
             }
             catch (Exception ex)
             {
@@ -64,16 +65,14 @@ namespace FinalProj.Services.Implemintations.UserServices
             {
                 StringValidator.CheckIsNotNull(Id);
 
-                var requests = TypeHelper<T>.CheckUserTypeForActiveRequest(Id, _repository).Result;
-
-                ObjectValidator<IEnumerable<Request>>.CheckIsNotNullObject(requests);
+                var requests = await TypeHelper<T>.CheckUserTypeForActiveRequest(Id, _repository);
                 IEnumerable<RequestDTO> requestsDTO = MapperHelperForDto<Request, RequestDTO>.Map(requests);
 
                 return ResponseFactory<IEnumerable<RequestDTO>>.CreateSuccessResponse(requestsDTO);
             }
-            catch (ArgumentException argException)
+            catch (ArgumentNullException argNullException)
             {
-                return ResponseFactory<IEnumerable<RequestDTO>>.CreateNotFoundResponse(argException);
+                return ResponseFactory<IEnumerable<RequestDTO>>.CreateNotFoundResponse(argNullException);
             }
             catch (Exception exception)
             {
@@ -88,15 +87,13 @@ namespace FinalProj.Services.Implemintations.UserServices
                 StringValidator.CheckIsNotNull(Id);
 
                 var requests = TypeHelper<T>.CheckUserTypeForClosedRequest(Id, _repository).Result;
-
-                ObjectValidator<IEnumerable<Request>>.CheckIsNotNullObject(requests);
                 IEnumerable<RequestDTO> requestsDTO = MapperHelperForDto<Request, RequestDTO>.Map(requests);
 
                 return ResponseFactory<IEnumerable<RequestDTO>>.CreateSuccessResponse(requestsDTO);
             }
-            catch (ArgumentException argException)
+            catch (ArgumentNullException argNullException)
             {
-                return ResponseFactory<IEnumerable<RequestDTO>>.CreateNotFoundResponse(argException);
+                return ResponseFactory<IEnumerable<RequestDTO>>.CreateNotFoundResponse(argNullException);
             }
             catch (Exception exception)
             {
@@ -111,15 +108,14 @@ namespace FinalProj.Services.Implemintations.UserServices
                 StringValidator.CheckIsNotNull(Id);
 
                 var request = await TypeHelper<T>.CheckUserTypeForAcceptRequest(requestId, Id, _repository);
-                ObjectValidator<Request>.CheckIsNotNullObject(request);
 
                 await _repository.UpdateAsync(request);
 
                 return ResponseFactory<bool>.CreateSuccessResponse(true);
             }
-            catch (ArgumentException argException)
+            catch (ArgumentNullException argNullException)
             {
-                return ResponseFactory<bool>.CreateNotFoundResponse(argException);
+                return ResponseFactory<bool>.CreateNotFoundResponse(argNullException);
             }
             catch (Exception exception)
             {
@@ -129,19 +125,17 @@ namespace FinalProj.Services.Implemintations.UserServices
         public async Task<IBaseResponse<bool>> MarkRequestAsCompleted(Guid requestId)
         {
             try
-            {
+            {               
                 ObjectValidator<Guid>.CheckIsNotNullObject(requestId);
-                var request = await _repository.ReadByIdAsync(requestId);
-                ObjectValidator<Request>.CheckIsNotNullObject(request);
+                var request = await TypeHelper<T>.CheckUserTypeForMarkAsCompleteRequest(requestId, _repository);
 
-                request.RequestStatus = Status.Completed;
                 await _repository.UpdateAsync(request);
 
                 return ResponseFactory<bool>.CreateSuccessResponse(true);
             }
-            catch (ArgumentException argException)
+            catch (ArgumentNullException argNullException)
             {
-                return ResponseFactory<bool>.CreateNotFoundResponse(argException);
+                return ResponseFactory<bool>.CreateNotFoundResponse(argNullException);
             }
             catch (Exception exception)
             {
@@ -157,16 +151,15 @@ namespace FinalProj.Services.Implemintations.UserServices
                 StringValidator.CheckIsNotNull(Id);
 
                 var request = await _repository.ReadByIdAsync(requestId);
-                ObjectValidator<Request>.CheckIsNotNullObject(request);
 
                 request.RequestStatus = Status.Closed;
                 await _repository.UpdateAsync(request);
 
                 return ResponseFactory<bool>.CreateSuccessResponse(true);
             }
-            catch (ArgumentException argException)
+            catch (ArgumentNullException argNullException)
             {
-                return ResponseFactory<bool>.CreateNotFoundResponse(argException);
+                return ResponseFactory<bool>.CreateNotFoundResponse(argNullException);
             }
             catch (Exception exception)
             {
@@ -206,7 +199,13 @@ namespace FinalProj.Services.Implemintations.UserServices
             try
             {
                 var users = await _userManager.Users.ToListAsync();
+                ObjectValidator<IEnumerable<T>>.CheckIsNotNullObject(users);
+
                 return ResponseFactory<IEnumerable<T>>.CreateSuccessResponse(users);
+            }
+            catch (ArgumentNullException ex)
+            {
+                return ResponseFactory<IEnumerable<T>>.CreateNotFoundResponse(ex);
             }
             catch (Exception ex)
             {
@@ -219,15 +218,9 @@ namespace FinalProj.Services.Implemintations.UserServices
             try
             {
                 var user = await _userManager.FindByIdAsync(userId);
+                ObjectValidator<T>.CheckIsNotNullObject(user);
 
-                if (user != null)
-                {
-                    return ResponseFactory<T>.CreateSuccessResponse(user);
-                }
-                else
-                {
-                    throw new ArgumentNullException();
-                }
+                return ResponseFactory<T>.CreateSuccessResponse(user);
             }
             catch (ArgumentNullException ex)
             {
@@ -298,7 +291,6 @@ namespace FinalProj.Services.Implemintations.UserServices
             try
             {
                 var user = await _userManager.FindByIdAsync(userId);
-
                 ObjectValidator<T>.CheckIsNotNullObject(user);
             
                 var result = await _userManager.DeleteAsync(user);

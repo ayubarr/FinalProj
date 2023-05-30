@@ -303,6 +303,8 @@ namespace FinalProj.Services.Implemintations.UserServices
 
         private JwtSecurityToken CreateToken(List<Claim> authClaims)
         {
+            ObjectValidator<List<Claim>>.CheckIsNotNullObject(authClaims);
+
             var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
             _ = int.TryParse(_configuration["JWT:TokenValidityInMinutes"], out int tokenValidityInMinutes);
 
@@ -327,6 +329,8 @@ namespace FinalProj.Services.Implemintations.UserServices
 
         private ClaimsPrincipal? GetPrincipalFromExpiredToken(string? token)
         {
+            StringValidator.CheckIsNotNull(token);
+
             var tokenValidationParameters = new TokenValidationParameters
             {
                 ValidateAudience = false,
@@ -346,50 +350,3 @@ namespace FinalProj.Services.Implemintations.UserServices
         }
     }
 }
-
-
-
-
-//public async Task<T> FindByLoginAsync(string login)
-//{
-//    try
-//    {
-//        StringValidator.CheckIsNotNull(login);
-//        var user = await _repository.ReadAll().FirstOrDefaultAsync(user => user.Login == login);
-
-//        ObjectValidator<T>.CheckIsNotNullObject(user);
-//        return user;
-//    }
-//    catch (ArgumentNullException argNullException)
-//    {
-//        throw new ArgumentException("no records found in the database.\n\r" +
-//            $"Error: {argNullException}");
-//    }
-//    catch (Exception exception)
-//    {
-//        throw new Exception(" internal server error.\n\r" +
-//            $"Error: {exception}");
-//    }
-//}
-
-//public async Task<bool> CheckPasswordAsync(T user, string password)
-//{
-//    try
-//    {
-//        ObjectValidator<T>.CheckIsNotNullObject(user);
-//        StringValidator.CheckIsNotNull(password);
-
-//        var hashedPassword = HashHelper.HashPassword(password);
-
-//        return user.Password == hashedPassword;
-//    }
-//    catch (ArgumentNullException argNullException)
-//    {
-//        return false;
-//    }
-//    catch (Exception exception)
-//    {
-//        return false;
-//    }
-
-//}

@@ -12,7 +12,7 @@ namespace FinalApp.Services.Interfaces
         /// <summary>
         /// Retrieves a list of unassigned requests.
         /// </summary>
-        /// <returns>An asynchronous operation that returns the list of unassigned requests.</returns>
+        /// <returns>An asynchronous operation that returns the list of unassigned requests.</returns>S
         public Task<IBaseResponse<IEnumerable<RequestDTO>>> GetUnassignedRequests();
 
         /// <summary>
@@ -58,6 +58,7 @@ namespace FinalApp.Services.Interfaces
         /// <param name="requestId">The ID of the request to assign the location to.</param>
         /// <param name="locationId">The ID of the location to assign to the request.</param>
         /// <returns>An asynchronous operation that returns a response indicating the success or failure of assigning the location to the request.</returns>
+
         public Task<IBaseResponse<bool>> AssignLocationToRequest(Guid requestId, Guid locationId);
         /// <summary>
         /// Sets the number of ecoboxes and the template for the specified request.
@@ -66,9 +67,21 @@ namespace FinalApp.Services.Interfaces
         /// <param name="quantity">The number of eco-boxes.</param>
         /// </// <param name="templates">Template ID.</param>
         /// <returns>An object representing the response to an operation with a Boolean value inside.</returns>
+        
         public Task<IBaseResponse<bool>> SetEcoBoxQuantityAndTemplate(Guid requestId, int quantity, Guid templateId);
-
+        /// <summary>
+        /// Creates a new request.
+        /// </summary>
+        /// <param name="request">The request data transfer object (DTO) containing the details of the request to be created.</param>
+        /// <returns>A task that represents the asynchronous operation and contains an <see cref="IBaseResponse{T}"/> where T is a boolean indicating the success or failure of the creation process.</returns>
         public Task<IBaseResponse<bool>> CreateRequest(RequestDTO request);
+        /// <summary>
+        /// Changes the status of a specific request.
+        /// </summary>
+        /// <param name="requestId">The unique identifier of the request.</param>
+        /// <param name="newStatus">The new status to be assigned to the request.</param>
+        /// <returns>A task that represents the asynchronous operation and contains an <see cref="IBaseResponse{T}"/> where T is a boolean indicating the success or failure of the status change.</returns>
+       
         public Task<IBaseResponse<bool>> ChangeRequestStatus(Guid requestId, Status newStatus);
     }
 }

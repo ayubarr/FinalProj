@@ -18,8 +18,6 @@ namespace FinalProj.Services.Implemintations.RequestServices
         private readonly IBaseAsyncRepository<Location> _locationRepository;
         private readonly IBaseAsyncRepository<EcoBoxTemplate> _templateRepository;
 
-
-
         public RequestService(IBaseAsyncRepository<Request> repository,
             IBaseAsyncRepository<Location> locationRepository,
             IBaseAsyncRepository<EcoBoxTemplate> templateRepository)
@@ -28,6 +26,7 @@ namespace FinalProj.Services.Implemintations.RequestServices
             _locationRepository = locationRepository;
             _templateRepository = templateRepository;
         }
+
         public async Task<IBaseResponse<IEnumerable<RequestDTO>>> GetUnassignedRequests()
         {
             try
@@ -37,22 +36,20 @@ namespace FinalProj.Services.Implemintations.RequestServices
                     .Where(request => request.RequestStatus == Status.Active && request.OperatorId == null && request.TechTeamId == null)
                     .ToListAsync();
 
-
-                ObjectValidator<IEnumerable<Request>>.CheckIsNotNullObject(unassignedRequests);
-
                 IEnumerable<RequestDTO> unassignedRequestsDTO = MapperHelperForDto<Request, RequestDTO>.Map(unassignedRequests);
 
                 return ResponseFactory<IEnumerable<RequestDTO>>.CreateSuccessResponse(unassignedRequestsDTO);
             }
-            catch (ArgumentException argException)
+            catch (ArgumentNullException argNullException)
             {
-                return ResponseFactory<IEnumerable<RequestDTO>>.CreateNotFoundResponse(argException);
+                return ResponseFactory<IEnumerable<RequestDTO>>.CreateNotFoundResponse(argNullException);
             }
             catch (Exception exception)
             {
                 return ResponseFactory<IEnumerable<RequestDTO>>.CreateErrorResponse(exception);
             }
         }
+
         public async Task<IBaseResponse<IEnumerable<RequestDTO>>> GetClosedRequestsByOperatorId(string operatorId)
         {
             try
@@ -64,15 +61,13 @@ namespace FinalProj.Services.Implemintations.RequestServices
                     .Where(r => r.OperatorId == operatorId && r.RequestStatus == Status.Closed)
                     .ToListAsync();
 
-                ObjectValidator<IEnumerable<Request>>.CheckIsNotNullObject(closedRequests);
-
                 IEnumerable<RequestDTO> closedRequestsDTO = MapperHelperForDto<Request, RequestDTO>.Map(closedRequests);
 
                 return ResponseFactory<IEnumerable<RequestDTO>>.CreateSuccessResponse(closedRequestsDTO);
             }
-            catch (ArgumentException argException)
+            catch (ArgumentNullException argNullException)
             {
-                return ResponseFactory<IEnumerable<RequestDTO>>.CreateNotFoundResponse(argException);
+                return ResponseFactory<IEnumerable<RequestDTO>>.CreateNotFoundResponse(argNullException);
             }
             catch (Exception exception)
             {
@@ -91,15 +86,13 @@ namespace FinalProj.Services.Implemintations.RequestServices
                     .Where(r => r.OperatorId == operatorId && r.RequestStatus == Status.Active)
                     .ToListAsync();
 
-                ObjectValidator<IEnumerable<Request>>.CheckIsNotNullObject(activeRequests);
-
                 IEnumerable<RequestDTO> activeRequestsDTO = MapperHelperForDto<Request, RequestDTO>.Map(activeRequests);
 
                 return ResponseFactory<IEnumerable<RequestDTO>>.CreateSuccessResponse(activeRequestsDTO);
             }
-            catch (ArgumentException argException)
+            catch (ArgumentNullException argNullException)
             {
-                return ResponseFactory<IEnumerable<RequestDTO>>.CreateNotFoundResponse(argException);
+                return ResponseFactory<IEnumerable<RequestDTO>>.CreateNotFoundResponse(argNullException);
             }
             catch (Exception exception)
             {
@@ -115,22 +108,22 @@ namespace FinalProj.Services.Implemintations.RequestServices
                 StringValidator.CheckIsNotNull(teamId);
 
                 var request = await _repository.ReadByIdAsync(requestId);
-                ObjectValidator<Request>.CheckIsNotNullObject(request);
 
                 request.TechTeamId = teamId;
                 await _repository.UpdateAsync(request);
 
                 return ResponseFactory<bool>.CreateSuccessResponse(true);
             }
-            catch (ArgumentException argException)
+            catch (ArgumentNullException argNullException)
             {
-                return ResponseFactory<bool>.CreateNotFoundResponse(argException);
+                return ResponseFactory<bool>.CreateNotFoundResponse(argNullException);
             }
             catch (Exception exception)
             {
                 return ResponseFactory<bool>.CreateErrorResponse(exception);
             }
         }
+
         public async Task<IBaseResponse<bool>> AssignRequestToOperator(Guid requestId, string operatorId)
         {
             try
@@ -140,16 +133,14 @@ namespace FinalProj.Services.Implemintations.RequestServices
 
                 var request = await _repository.ReadByIdAsync(requestId);
 
-                ObjectValidator<Request>.CheckIsNotNullObject(request);
-
                 request.OperatorId = operatorId;
                 await _repository.UpdateAsync(request);
 
                 return ResponseFactory<bool>.CreateSuccessResponse(true);
             }
-            catch (ArgumentException argException)
+            catch (ArgumentNullException argNullException)
             {
-                return ResponseFactory<bool>.CreateNotFoundResponse(argException);
+                return ResponseFactory<bool>.CreateNotFoundResponse(argNullException);
             }
             catch (Exception exception)
             {
@@ -165,16 +156,14 @@ namespace FinalProj.Services.Implemintations.RequestServices
 
                 var request = await _repository.ReadByIdAsync(requestId);
 
-                ObjectValidator<Request>.CheckIsNotNullObject(request);
-
                 request.RequestStatus = Status.Completed;
                 await _repository.UpdateAsync(request);
 
                 return ResponseFactory<bool>.CreateSuccessResponse(true);
             }
-            catch (ArgumentException argException)
+            catch (ArgumentNullException argNullException)
             {
-                return ResponseFactory<bool>.CreateNotFoundResponse(argException);
+                return ResponseFactory<bool>.CreateNotFoundResponse(argNullException);
             }
             catch (Exception exception)
             {
@@ -192,17 +181,14 @@ namespace FinalProj.Services.Implemintations.RequestServices
                 var request = await _repository.ReadByIdAsync(requestId);
                 var location = await _locationRepository.ReadByIdAsync(locationId);
 
-                ObjectValidator<Request>.CheckIsNotNullObject(request);
-                ObjectValidator<Location>.CheckIsNotNullObject(location);
-
                 request.Location = location;
                 await _repository.UpdateAsync(request);
 
                 return ResponseFactory<bool>.CreateSuccessResponse(true);
             }
-            catch (ArgumentException argException)
+            catch (ArgumentNullException argNullException)
             {
-                return ResponseFactory<bool>.CreateNotFoundResponse(argException);
+                return ResponseFactory<bool>.CreateNotFoundResponse(argNullException);
             }
             catch (Exception exception)
             {
@@ -219,16 +205,14 @@ namespace FinalProj.Services.Implemintations.RequestServices
 
                 var request = await _repository.ReadAllAsync().Result
                     .Include(r => r.Location)
-                  .ThenInclude(location => location.EcoBoxes)
-                  .FirstOrDefaultAsync(request => request.Id == requestId);
-
-                ObjectValidator<Request>.CheckIsNotNullObject(request);
+                    .ThenInclude(location => location.EcoBoxes)
+                    .FirstOrDefaultAsync(request => request.Id == requestId);
 
                 if (request.Location != null && request.Location.EcoBoxes != null && request.Location.EcoBoxes.Any())
                 {
                     var template = await _templateRepository.ReadByIdAsync(templateId);
-                    ObjectValidator<EcoBoxTemplate>.CheckIsNotNullObject(template);
                     var ecoBoxesToUpdate = request.Location.EcoBoxes.Take(quantity);
+
                     foreach (var ecoBox in ecoBoxesToUpdate)
                     {
                         ecoBox.Template = template;
@@ -243,9 +227,9 @@ namespace FinalProj.Services.Implemintations.RequestServices
 
                 return ResponseFactory<bool>.CreateSuccessResponse(true);
             }
-            catch (ArgumentException argException)
+            catch (ArgumentNullException argNullException)
             {
-                return ResponseFactory<bool>.CreateNotFoundResponse(argException);
+                return ResponseFactory<bool>.CreateNotFoundResponse(argNullException);
             }
             catch (InvalidOperationException invOperationException)
             {
@@ -264,15 +248,13 @@ namespace FinalProj.Services.Implemintations.RequestServices
                 ObjectValidator<RequestDTO>.CheckIsNotNullObject(request);
 
                 var newRequest = MapperHelperForEntity<RequestDTO, Request>.Map(request);
-
                 await _repository.Create(newRequest);
 
                 return ResponseFactory<bool>.CreateSuccessResponse(true);
             }
-            catch (ArgumentException argException)
+            catch (ArgumentNullException argException)
             {
-                return ResponseFactory<bool>
-                    .CreateNotFoundResponse(argException);
+                return ResponseFactory<bool>.CreateNotFoundResponse(argException);
             }
             catch (Exception exception)
             {
@@ -285,26 +267,23 @@ namespace FinalProj.Services.Implemintations.RequestServices
             try
             {
                 ObjectValidator<Guid>.CheckIsNotNullObject(requestId);
+                ObjectValidator<Status>.CheckIsNotNullObject(newStatus);
 
                 var request = await _repository.ReadByIdAsync(requestId);
-                ObjectValidator<Request>.CheckIsNotNullObject(request);
 
                 request.RequestStatus = newStatus;
                 await _repository.UpdateAsync(request);
 
                 return ResponseFactory<bool>.CreateSuccessResponse(true);
             }
-            catch (ArgumentException argException)
+            catch (ArgumentNullException argNullException)
             {
-                return ResponseFactory<bool>.CreateNotFoundResponse(argException);
+                return ResponseFactory<bool>.CreateNotFoundResponse(argNullException);
             }
             catch (Exception exception)
             {
                 return ResponseFactory<bool>.CreateErrorResponse(exception);
             }
         }
-
-
-
     }
 }

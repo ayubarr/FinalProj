@@ -7,7 +7,7 @@ namespace FinalApp.Domain.Models.Abstractions.BaseRequests
         public virtual Status RequestStatus { get; set; }
         public virtual Types RequestType { get; set; }
 
-        public bool StatusClientInfo { get; set; } = false;
-        public bool StatusTeamInfo { get; set; } = false;
+        public bool StatusClientInfo { get; set; }
+        public bool StatusTeamInfo { get; set; }
     }
 }

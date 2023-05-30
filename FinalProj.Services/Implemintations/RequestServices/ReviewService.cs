@@ -34,10 +34,13 @@ namespace FinalProj.Services.Implemintations.RequestServices
                     .Where(r => r.Evaluation == evaluation)
                     .ToListAsync();
 
-                ObjectValidator<List<Review>>.CheckIsNotNullObject(reviews);
                 IEnumerable<ReviewDTO> reviewsDTO = MapperHelperForDto<Review, ReviewDTO>.Map(reviews);
 
                 return ResponseFactory<IEnumerable<ReviewDTO>>.CreateSuccessResponse(reviewsDTO);
+            }
+            catch (ArgumentNullException argNullException)
+            {
+                return ResponseFactory<IEnumerable<ReviewDTO>>.CreateNotFoundResponse(argNullException);
             }
             catch (ArgumentException argException)
             {
@@ -59,14 +62,13 @@ namespace FinalProj.Services.Implemintations.RequestServices
                     .Where(request => request.Request.Id == requestId)
                     .ToListAsync();
 
-                ObjectValidator<List<Review>>.CheckIsNotNullObject(reviews);
                 IEnumerable<ReviewDTO> reviewsDTO = MapperHelperForDto<Review, ReviewDTO>.Map(reviews);
 
                 return ResponseFactory<IEnumerable<ReviewDTO>>.CreateSuccessResponse(reviewsDTO);
             }
-            catch (ArgumentException argException)
+            catch (ArgumentNullException argNullException)
             {
-                return ResponseFactory<IEnumerable<ReviewDTO>>.CreateNotFoundResponse(argException);
+                return ResponseFactory<IEnumerable<ReviewDTO>>.CreateNotFoundResponse(argNullException);
             }
             catch (Exception exception)
             {
@@ -82,8 +84,6 @@ namespace FinalProj.Services.Implemintations.RequestServices
                 var request = await _requestRepository.ReadAllAsync().Result
                     .FirstOrDefaultAsync(r => r.Id == requestId);
 
-                ObjectValidator<Request>.CheckIsNotNullObject(request);
-
                 if (request.RequestStatus != Status.Completed || request.Review != null)
                     throw new InvalidOperationException("Unable to create a review for the specified request.");
 
@@ -95,9 +95,9 @@ namespace FinalProj.Services.Implemintations.RequestServices
             {
                 return ResponseFactory<bool>.CreateInvalidOperationResponse(invException);
             }
-            catch (ArgumentException argException)
+            catch (ArgumentNullException argNullException)
             {
-                return ResponseFactory<bool>.CreateNotFoundResponse(argException);
+                return ResponseFactory<bool>.CreateNotFoundResponse(argNullException);
             }
             catch (Exception exception)
             {
@@ -119,7 +119,6 @@ namespace FinalProj.Services.Implemintations.RequestServices
                 if (request == null || request.RequestStatus != Status.Completed || request.Review != null)
                     throw new InvalidOperationException("Unable to create review for the specified request.");
 
-
                 var review = new Review
                 {
                     ReviewText = reviewText,
@@ -129,12 +128,15 @@ namespace FinalProj.Services.Implemintations.RequestServices
                 await _repository.Create(review);
                 request.Review = review;
 
-
                 return ResponseFactory<ReviewDTO>.CreateSuccessResponse(MapperHelperForDto<Review, ReviewDTO>.Map(review));
             }
             catch (InvalidOperationException invException)
             {
                 return ResponseFactory<ReviewDTO>.CreateInvalidOperationResponse(invException);
+            }
+            catch (ArgumentNullException argNullException)
+            {
+                return ResponseFactory<ReviewDTO>.CreateNotFoundResponse(argNullException);
             }
             catch (ArgumentException argException)
             {
@@ -153,15 +155,13 @@ namespace FinalProj.Services.Implemintations.RequestServices
                 ObjectValidator<Guid>.CheckIsNotNullObject(reviewId);
                 var review = await _repository.ReadByIdAsync(reviewId);
 
-                ObjectValidator<Review>.CheckIsNotNullObject(review);
-
                 var canUpdateReview = review != null && review.Request.RequestStatus == Status.Completed;
 
                 return ResponseFactory<bool>.CreateSuccessResponse(canUpdateReview);
             }
-            catch (ArgumentException argException)
+            catch (ArgumentNullException argNullException)
             {
-                return ResponseFactory<bool>.CreateNotFoundResponse(argException);
+                return ResponseFactory<bool>.CreateNotFoundResponse(argNullException);
             }
             catch (Exception exception)
             {
@@ -186,8 +186,6 @@ namespace FinalProj.Services.Implemintations.RequestServices
                 review.Evaluation = evaluation;
 
                 await _repository.UpdateAsync(review);
-
-                ObjectValidator<Review>.CheckIsNotNullObject(review);
                 ReviewDTO reviewsDTO = MapperHelperForDto<Review, ReviewDTO>.Map(review);
 
                 return ResponseFactory<ReviewDTO>.CreateSuccessResponse(reviewsDTO);
@@ -195,6 +193,10 @@ namespace FinalProj.Services.Implemintations.RequestServices
             catch (InvalidOperationException invException)
             {
                 return ResponseFactory<ReviewDTO>.CreateInvalidOperationResponse(invException);
+            }
+            catch (ArgumentNullException argNullException)
+            {
+                return ResponseFactory<ReviewDTO>.CreateNotFoundResponse(argNullException);
             }
             catch (ArgumentException argException)
             {
