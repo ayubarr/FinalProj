@@ -15,11 +15,14 @@ namespace FinalApp.Api.Controllers
         private readonly IClientService _clientService;
         private readonly IBaseUserService<Client> _userService;
         private readonly IAuthManager<Client> _authService;
-
+        private readonly ILogger<ClientController> _logger;
         public ClientController(IClientService clientService,
             IBaseUserService<Client> userService,
-            IAuthManager<Client> authService)
+            IAuthManager<Client> authService,
+            ILogger<ClientController> logger
+            )
         {
+            _logger = logger;
             _clientService = clientService;
             _userService = userService;
             _authService = authService;
@@ -28,6 +31,7 @@ namespace FinalApp.Api.Controllers
         [HttpPost("CloseRequestByClient/{requestId}/{Id}")]
         public async Task<IActionResult> CloseRequestByUser(Guid requestId, string clientId)
         {
+            _logger.Log(LogLevel.Information, "test");
             var response = await _userService.CloseRequestByUser(requestId, clientId);
             
             return Ok(response.Data);
@@ -36,6 +40,7 @@ namespace FinalApp.Api.Controllers
         [HttpGet("ClientsWithRequest")]
         public async Task<IActionResult> GetClients()
         {
+            _logger.Log(LogLevel.Information, "test");
             var response = await _clientService.GetClientsWithRequests();
             return Ok(response.Data);
         }

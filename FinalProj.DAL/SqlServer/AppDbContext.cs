@@ -3,6 +3,7 @@ using FinalApp.Domain.Models.Entities.Persons.Users;
 using FinalApp.Domain.Models.Entities.Persons.WorkTeams;
 using FinalApp.Domain.Models.Entities.Requests.EcoBoxInfo;
 using FinalApp.Domain.Models.Entities.Requests.RequestsInfo;
+using FinalProj.Domain.Models.Entities.Logs;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +24,7 @@ namespace FinalApp.DAL.SqlServer
         public DbSet<Request> Requests { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<RequestStatusHistory> RequestStatusHistories { get; set; }
+        public DbSet<Log> Logs { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {

@@ -6,6 +6,7 @@ using FinalApp.Domain.Models.Abstractions.BaseUsers;
 using FinalApp.Domain.Models.Entities.Persons.Users;
 using FinalApp.Domain.Models.Entities.Requests.RequestsInfo;
 using FinalApp.Services.Interfaces;
+using FinalProj.API.Logs;
 using FinalProj.Services.Implemintations.RequestServices;
 using FinalProj.Services.Implemintations.UserServices;
 using FinalProj.Services.Interfaces;
@@ -113,6 +114,14 @@ namespace FinalApp.Api
                    };
                });
 
+        }
+
+
+
+        public static void IntialiseLogger(this ILoggingBuilder loggingBuilder, Action<DbLoggerOptions> configure)
+        {
+            loggingBuilder.Services.AddSingleton<ILoggerProvider, DbLoggerProvider>();
+            loggingBuilder.Services.Configure(configure);
         }
     }
 }
