@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FinalProj.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230530154159_LastMigrationWithTrueNullable")]
-    partial class LastMigrationWithTrueNullable
+    [Migration("20230530160349_NotNullableMigration")]
+    partial class NotNullableMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

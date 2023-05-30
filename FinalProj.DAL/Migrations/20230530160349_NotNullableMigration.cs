@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace FinalProj.DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class LastMigrationWithTrueNullable : Migration
+    public partial class NotNullableMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -286,7 +286,7 @@ namespace FinalProj.DAL.Migrations
                     WorkType = table.Column<int>(type: "int", nullable: false),
                     RequestType = table.Column<int>(type: "int", nullable: false),
                     RequestStatus = table.Column<int>(type: "int", nullable: false),
-                    ClientId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    ClientId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     PlantId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     LocationId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     OperatorId = table.Column<string>(type: "nvarchar(450)", nullable: true),
@@ -356,8 +356,8 @@ namespace FinalProj.DAL.Migrations
                 name: "TechnicalTeamWorker",
                 columns: table => new
                 {
-                    TechnicalTeamId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    WorkerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    TechnicalTeamId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    WorkerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -404,8 +404,8 @@ namespace FinalProj.DAL.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     WearDegree = table.Column<int>(type: "int", nullable: false),
-                    LocationId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    TemplateId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    LocationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TemplateId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ProductPrice = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
