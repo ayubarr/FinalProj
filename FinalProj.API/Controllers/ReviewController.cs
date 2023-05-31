@@ -31,19 +31,6 @@ namespace FinalApp.Api.Controllers
             return Ok(response.Data);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Post(ReviewDTO model)
-        {
-            var repsonse = await _service.CreateAsync(model);
-            return Ok(repsonse);
-        }
-
-        [HttpPut]
-        public async Task<IActionResult> Put(ReviewDTO model)
-        {
-            await _service.UpdateAsync(model);
-            return Ok();
-        }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
