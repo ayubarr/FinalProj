@@ -282,7 +282,7 @@ namespace FinalProj.DAL.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Comment = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     BoxQuantity = table.Column<int>(type: "int", nullable: false),
-                    CompletedTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CompletedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     WorkType = table.Column<int>(type: "int", nullable: false),
                     ClientId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     PlantId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),

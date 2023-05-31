@@ -36,8 +36,8 @@ namespace FinalApp.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(RequestDTO model)
         {
-            await _service.CreateAsync(model);
-            return Ok();
+           var response = await _service._CreateAsync(model);
+            return Ok(response);
         }
 
         [HttpPut]
