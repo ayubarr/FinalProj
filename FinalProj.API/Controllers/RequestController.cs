@@ -38,9 +38,9 @@ namespace FinalApp.Api.Controllers
         public async Task<IActionResult> CreateRequest(RequestDTO request)
         {
             var response = await _requestService.CreateRequest(request);
-            var json = JsonConvert.SerializeObject(request, Formatting.Indented);
+          //  var json = JsonConvert.SerializeObject(response, Formatting.Indented);
 
-            return Ok(json);
+            return Ok(response);
         }
 
         [HttpPut]

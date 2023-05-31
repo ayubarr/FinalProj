@@ -75,7 +75,7 @@ namespace FinalApp.Services.Interfaces
         /// </summary>
         /// <param name="request">The request data transfer object (DTO) containing the details of the request to be created.</param>
         /// <returns>A task that represents the asynchronous operation and contains an <see cref="IBaseResponse{T}"/> where T is a boolean indicating the success or failure of the creation process.</returns>
-        public Task<IBaseResponse<Request>> CreateRequest(RequestDTO request);
+        public Task<IBaseResponse<bool>> CreateRequest(RequestDTO request);
         /// <summary>
         /// Changes the status of a specific request.
         /// </summary>

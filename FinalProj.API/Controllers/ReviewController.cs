@@ -66,7 +66,7 @@ namespace FinalApp.Api.Controllers
             return Ok(response);
         }
 
-        [HttpPost("CreateReview/{requestId}/{reviewText}/{evaluation}")]
+        [HttpPost("CreateReview")]
         public async Task<IActionResult> CreateReview(ReviewDTO review)
         {
             var response = await _reviewService.CreateReview(review);
@@ -87,7 +87,7 @@ namespace FinalApp.Api.Controllers
             return Ok(response);
         }
 
-        [HttpPut("UpdateReview/{requestId}/{reviewText}/{evaluation}")]
+        [HttpPut("UpdateReview")]
         public async Task<IActionResult> UpdateReview(ReviewDTO review)
         {
             var response = _reviewService.UpdateReview(review);

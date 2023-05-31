@@ -27,7 +27,7 @@ namespace FinalApp.ApiModels.Response.Helpers
                 userId = Id,
             };
         }
-        public static BaseResponse<T> CreateSuccessResponseWithId(T model, Guid Id)
+        public static BaseResponse<T> CreateSuccessResponseWithId(T model, Guid requestId)
         {
 
             return new BaseResponse<T>
@@ -35,7 +35,7 @@ namespace FinalApp.ApiModels.Response.Helpers
                 IsSuccess = true,
                 Data = model,
                 StatusCode = 200,
-                Id = Id,
+                requestId = requestId,
             };
         }
 

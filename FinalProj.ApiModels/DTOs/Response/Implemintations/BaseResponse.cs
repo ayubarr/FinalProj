@@ -29,12 +29,12 @@ namespace FinalApp.ApiModels.Response.Implemintations
             }
         }
 
-        private Guid? _id;
-        public Guid? Id
+        private Guid? _requestId;
+        public Guid? requestId
         {
             get
             {
-                return _id;
+                return _requestId;
             }
 
             set
@@ -42,7 +42,7 @@ namespace FinalApp.ApiModels.Response.Implemintations
                 try
                 {
                     ObjectValidator<Guid?>.CheckIsNotNullObject(value);
-                    _id = value;
+                    _requestId = value;
                 }
                 catch (ArgumentNullException exception)
                 {

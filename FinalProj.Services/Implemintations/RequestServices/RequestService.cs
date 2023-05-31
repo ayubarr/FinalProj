@@ -246,7 +246,7 @@ namespace FinalProj.Services.Implemintations.RequestServices
             }
         }
 
-        public async Task<IBaseResponse<Request>> CreateRequest(RequestDTO request)
+        public async Task<IBaseResponse<bool>> CreateRequest(RequestDTO request)
         {
             try
             {
@@ -260,15 +260,15 @@ namespace FinalProj.Services.Implemintations.RequestServices
                 newRequest.Id = Guid.NewGuid();
                 
                 await _repository.Create(newRequest);
-                return ResponseFactory<Request>.CreateSuccessResponseWithId(newRequest, newRequest.Id);
+                return ResponseFactory<bool>.CreateSuccessResponseWithId(true, newRequest.Id);
             }
             catch (ArgumentNullException argException)
             {
-                return ResponseFactory<Request>.CreateNotFoundResponse(argException);
+                return ResponseFactory<bool>.CreateNotFoundResponse(argException);
             }
             catch (Exception exception)
             {
-                return ResponseFactory<Request>.CreateErrorResponse(exception);
+                return ResponseFactory<bool>.CreateErrorResponse(exception);
             }
         }
 

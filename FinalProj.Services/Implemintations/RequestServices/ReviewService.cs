@@ -105,7 +105,7 @@ namespace FinalProj.Services.Implemintations.RequestServices
             }
         }
 
-        public async Task<IBaseResponse<Review>> CreateReview(ReviewDTO reviewDto)
+        public async Task<IBaseResponse<bool>> CreateReview(ReviewDTO reviewDto)
         {
             try
             {
@@ -118,7 +118,7 @@ namespace FinalProj.Services.Implemintations.RequestServices
                 if (request == null || request.RequestStatus != Status.Completed || request.Review != null)
                     throw new InvalidOperationException("Unable to create a review for the specified request.");
 
-                Guid reviewId = newReview.Id;
+                newReview.Id = Guid.NewGuid();
 
                 request.ReviewId = newReview.Id;
                 request.Review = newReview;
@@ -128,23 +128,23 @@ namespace FinalProj.Services.Implemintations.RequestServices
                 await _requestRepository.UpdateAsync(request);
 
 
-                return ResponseFactory<Review>.CreateSuccessResponseWithId(newReview, reviewId);
+                return ResponseFactory<bool>.CreateSuccessResponseWithId(true, newReview.Id);
             }
             catch (InvalidOperationException invException)
             {
-                return ResponseFactory<Review>.CreateInvalidOperationResponse(invException);
+                return ResponseFactory<bool>.CreateInvalidOperationResponse(invException);
             }
             catch (ArgumentNullException argNullException)
             {
-                return ResponseFactory<Review>.CreateNotFoundResponse(argNullException);
+                return ResponseFactory<bool>.CreateNotFoundResponse(argNullException);
             }
             catch (ArgumentException argException)
             {
-                return ResponseFactory<Review>.CreateNotFoundResponse(argException);
+                return ResponseFactory<bool>.CreateNotFoundResponse(argException);
             }
             catch (Exception exception)
             {
-                return ResponseFactory<Review>.CreateErrorResponse(exception);
+                return ResponseFactory<bool>.CreateErrorResponse(exception);
             }
         }
 
@@ -169,7 +169,7 @@ namespace FinalProj.Services.Implemintations.RequestServices
             }
         }
 
-        public async Task<IBaseResponse<Review>> UpdateReview(ReviewDTO reviewDto)
+        public async Task<IBaseResponse<bool>> UpdateReview(ReviewDTO reviewDto)
         {
             try
             {
@@ -182,7 +182,7 @@ namespace FinalProj.Services.Implemintations.RequestServices
                 if (request == null || request.RequestStatus != Status.Completed || request.Review != null)
                     throw new InvalidOperationException("Unable to create a review for the specified request.");
 
-                Guid reviewId = newReview.Id;
+                newReview.Id = Guid.NewGuid();
 
                 request.ReviewId = newReview.Id;
                 request.Review = newReview;
@@ -191,23 +191,23 @@ namespace FinalProj.Services.Implemintations.RequestServices
 
                 await _requestRepository.UpdateAsync(request);
 
-                return ResponseFactory<Review>.CreateSuccessResponseWithId(newReview, reviewId);
+                return ResponseFactory<bool>.CreateSuccessResponseWithId(true, newReview.Id);
             }
             catch (InvalidOperationException invException)
             {
-                return ResponseFactory<Review>.CreateInvalidOperationResponse(invException);
+                return ResponseFactory<bool>.CreateInvalidOperationResponse(invException);
             }
             catch (ArgumentNullException argNullException)
             {
-                return ResponseFactory<Review>.CreateNotFoundResponse(argNullException);
+                return ResponseFactory<bool>.CreateNotFoundResponse(argNullException);
             }
             catch (ArgumentException argException)
             {
-                return ResponseFactory<Review>.CreateNotFoundResponse(argException);
+                return ResponseFactory<bool>.CreateNotFoundResponse(argException);
             }
             catch (Exception exception)
             {
-                return ResponseFactory<Review>.CreateErrorResponse(exception);
+                return ResponseFactory<bool>.CreateErrorResponse(exception);
             }
         }
     }
