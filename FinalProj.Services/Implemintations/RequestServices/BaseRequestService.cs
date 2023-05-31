@@ -3,9 +3,13 @@ using FinalApp.ApiModels.Response.Helpers;
 using FinalApp.ApiModels.Response.Interfaces;
 using FinalApp.DAL.Repository.Interfaces;
 using FinalApp.Domain.Models.Abstractions.BaseEntities;
+using FinalApp.Domain.Models.Entities.Persons.Users;
+using FinalApp.Domain.Models.Entities.Requests.RequestsInfo;
+using FinalApp.Services.Helpers;
 using FinalApp.Services.Interfaces;
 using FinalApp.Services.Mapping.Helpers;
 using FinallApp.ValidationHelper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace FinalProj.Services.Implemintations.RequestServices
@@ -15,10 +19,12 @@ namespace FinalProj.Services.Implemintations.RequestServices
         where Tmodel : BaseEntityDTO
     {
         private readonly IBaseAsyncRepository<T> _repository;
+        private readonly UserManager<Client> _clientManager;
 
-        public BaseRequestService(IBaseAsyncRepository<T> repository)
+        public BaseRequestService(IBaseAsyncRepository<T> repository, UserManager<Client> clientManager)
         {
             _repository = repository;
+            _clientManager = clientManager;
         }
 
         public async Task<IBaseResponse<T>> CreateAsync(Tmodel entityDTO)
@@ -30,6 +36,15 @@ namespace FinalProj.Services.Implemintations.RequestServices
 
                 T entity = MapperHelperForEntity<Tmodel, T>.Map(entityDTO);
                 entity.Id = Guid.NewGuid();
+
+                if (typeof(T) == typeof(Request))
+                {
+                    var request = entity as Request;
+                    var client = await _clientManager.FindByIdAsync(request.ClientId);
+
+                    request.Client = client;
+                }
+
                 await _repository.Create(entity);
 
                 Guid id = entity.Id;

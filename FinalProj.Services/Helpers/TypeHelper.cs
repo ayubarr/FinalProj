@@ -1,10 +1,12 @@
 ﻿using FinalApp.ApiModels.Auth.Models;
 using FinalApp.DAL.Repository.Interfaces;
+using FinalApp.Domain.Models.Abstractions.BaseEntities;
 using FinalApp.Domain.Models.Abstractions.BaseUsers;
 using FinalApp.Domain.Models.Entities.Persons.Users;
 using FinalApp.Domain.Models.Entities.Requests.RequestsInfo;
 using FinalApp.Domain.Models.Enums;
 using FinallApp.ValidationHelper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace FinalApp.Services.Helpers
@@ -169,6 +171,6 @@ namespace FinalApp.Services.Helpers
             }
 
             throw new ArgumentNullException();
-        }
-    }
+        }     
+    } 
 }

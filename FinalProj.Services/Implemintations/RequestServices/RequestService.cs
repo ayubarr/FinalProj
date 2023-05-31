@@ -2,12 +2,14 @@
 using FinalApp.ApiModels.Response.Helpers;
 using FinalApp.ApiModels.Response.Interfaces;
 using FinalApp.DAL.Repository.Interfaces;
+using FinalApp.Domain.Models.Entities.Persons.Users;
 using FinalApp.Domain.Models.Entities.Requests.EcoBoxInfo;
 using FinalApp.Domain.Models.Entities.Requests.RequestsInfo;
 using FinalApp.Domain.Models.Enums;
 using FinalApp.Services.Interfaces;
 using FinalApp.Services.Mapping.Helpers;
 using FinallApp.ValidationHelper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace FinalProj.Services.Implemintations.RequestServices
@@ -17,6 +19,7 @@ namespace FinalProj.Services.Implemintations.RequestServices
         private readonly IBaseAsyncRepository<Request> _repository;
         private readonly IBaseAsyncRepository<Location> _locationRepository;
         private readonly IBaseAsyncRepository<EcoBoxTemplate> _templateRepository;
+        private readonly UserManager<Client> _userManager;
 
         public RequestService(IBaseAsyncRepository<Request> repository,
             IBaseAsyncRepository<Location> locationRepository,
@@ -246,8 +249,11 @@ namespace FinalProj.Services.Implemintations.RequestServices
             try
             {
                 ObjectValidator<RequestDTO>.CheckIsNotNullObject(request);
-
+                
                 var newRequest = MapperHelperForEntity<RequestDTO, Request>.Map(request);
+                var client = await _userManager.FindByIdAsync(newRequest.ClientId);
+                newRequest.Client = client;
+
                 await _repository.Create(newRequest);
                 Guid id = newRequest.Id;
 
