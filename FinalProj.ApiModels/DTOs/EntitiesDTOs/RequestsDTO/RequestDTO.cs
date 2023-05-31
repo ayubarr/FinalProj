@@ -12,6 +12,7 @@ namespace FinalApp.ApiModels.DTOs.EntitiesDTOs.RequestsDTO
         public WorkTypes WorkType { get; set; }
         public Types RequestType { get; set; } = Types.RequestExecution;
         public Status RequestStatus { get; set; }
+        public string? ClientId { get; set; }
 
     }
 }
