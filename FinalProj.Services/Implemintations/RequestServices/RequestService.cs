@@ -23,11 +23,13 @@ namespace FinalProj.Services.Implemintations.RequestServices
 
         public RequestService(IBaseAsyncRepository<Request> repository,
             IBaseAsyncRepository<Location> locationRepository,
-            IBaseAsyncRepository<EcoBoxTemplate> templateRepository)
+            IBaseAsyncRepository<EcoBoxTemplate> templateRepository,
+            UserManager<Client> userManager)
         {
             _repository = repository;
             _locationRepository = locationRepository;
             _templateRepository = templateRepository;
+            _userManager = userManager;
         }
 
         public async Task<IBaseResponse<IEnumerable<RequestDTO>>> GetUnassignedRequests()
@@ -244,28 +246,29 @@ namespace FinalProj.Services.Implemintations.RequestServices
             }
         }
 
-        public async Task<IBaseResponse<bool>> CreateRequest(RequestDTO request)
+        public async Task<IBaseResponse<Request>> CreateRequest(RequestDTO request)
         {
             try
             {
                 ObjectValidator<RequestDTO>.CheckIsNotNullObject(request);
                 
                 var newRequest = MapperHelperForEntity<RequestDTO, Request>.Map(request);
+
                 var client = await _userManager.FindByIdAsync(newRequest.ClientId);
                 newRequest.Client = client;
 
+                newRequest.Id = Guid.NewGuid();
+                
                 await _repository.Create(newRequest);
-                Guid id = newRequest.Id;
-
-                return ResponseFactory<bool>.CreateSuccessResponseWithId(true, id);
+                return ResponseFactory<Request>.CreateSuccessResponseWithId(newRequest, newRequest.Id);
             }
             catch (ArgumentNullException argException)
             {
-                return ResponseFactory<bool>.CreateNotFoundResponse(argException);
+                return ResponseFactory<Request>.CreateNotFoundResponse(argException);
             }
             catch (Exception exception)
             {
-                return ResponseFactory<bool>.CreateErrorResponse(exception);
+                return ResponseFactory<Request>.CreateErrorResponse(exception);
             }
         }
 

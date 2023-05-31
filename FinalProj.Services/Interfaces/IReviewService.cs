@@ -1,5 +1,6 @@
 ﻿using FinalApp.ApiModels.DTOs.EntitiesDTOs.RequestsDTO;
 using FinalApp.ApiModels.Response.Interfaces;
+using FinalApp.Domain.Models.Entities.Requests.RequestsInfo;
 
 namespace FinalApp.Services.Interfaces
 {
@@ -36,7 +37,7 @@ namespace FinalApp.Services.Interfaces
         /// <param name="reviewText">The review text.</param>
         /// <param name="evaluation">The evaluation value for the review.</param>S
         /// <returns>An asynchronous operation that returns the created review.</returns>
-        public Task<IBaseResponse<ReviewDTO>> CreateReview(Guid requestId, string reviewText, int evaluation);
+        public Task<IBaseResponse<Review>> CreateReview(ReviewDTO review);
 
         /// <summary>
         /// Checks if a review can be updated.
@@ -52,7 +53,7 @@ namespace FinalApp.Services.Interfaces
         /// <param name="reviewText">The updated review text.</param>
         /// <param name="evaluation">The updated evaluation value for the review.</param>
         /// <returns>An asynchronous operation that returns the updated review.</returns>
-        public Task<IBaseResponse<ReviewDTO>> UpdateReview(Guid reviewId, string reviewText, int evaluation);
+        public Task<IBaseResponse<Review>> UpdateReview(ReviewDTO review);
     }
 
 }

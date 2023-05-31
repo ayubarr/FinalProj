@@ -37,14 +37,6 @@ namespace FinalProj.Services.Implemintations.RequestServices
                 T entity = MapperHelperForEntity<Tmodel, T>.Map(entityDTO);
                 entity.Id = Guid.NewGuid();
 
-                if (typeof(T) == typeof(Request))
-                {
-                    var request = entity as Request;
-                    var client = await _clientManager.FindByIdAsync(request.ClientId);
-
-                    request.Client = client;
-                }
-
                 await _repository.Create(entity);
 
                 Guid id = entity.Id;

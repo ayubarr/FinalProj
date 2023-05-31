@@ -3,6 +3,7 @@ using FinalApp.Domain.Models.Entities.Requests.RequestsInfo;
 using FinalApp.Domain.Models.Enums;
 using FinalApp.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace FinalApp.Api.Controllers
 {
@@ -33,11 +34,13 @@ namespace FinalApp.Api.Controllers
             return Ok(response.Data);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Post(RequestDTO model)
+        [HttpPost("CreateRequest")]
+        public async Task<IActionResult> CreateRequest(RequestDTO request)
         {
-           var response = await _service.CreateAsync(model);
-            return Ok(response);
+            var response = await _requestService.CreateRequest(request);
+            var json = JsonConvert.SerializeObject(request, Formatting.Indented);
+
+            return Ok(json);
         }
 
         [HttpPut]
@@ -110,12 +113,7 @@ namespace FinalApp.Api.Controllers
             return Ok(response.Data);
         }
 
-        [HttpPost("CreateRequest")]
-        public async Task<IActionResult> CreateRequest(RequestDTO request)
-        {
-            var response = await _requestService.CreateRequest(request);
-            return Ok(response.Data);
-        }
+
 
         [HttpPost("ChangeRequestStatus/{requestId}/{newStatus}")]
         public async Task<IActionResult> ChangeRequestStatus(Guid requestId, Status newStatus)

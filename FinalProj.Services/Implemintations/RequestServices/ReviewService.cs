@@ -105,47 +105,46 @@ namespace FinalProj.Services.Implemintations.RequestServices
             }
         }
 
-        public async Task<IBaseResponse<ReviewDTO>> CreateReview(Guid requestId, string reviewText, int evaluation)
+        public async Task<IBaseResponse<Review>> CreateReview(ReviewDTO reviewDto)
         {
             try
             {
-                ObjectValidator<Guid>.CheckIsNotNullObject(requestId);
-                StringValidator.CheckIsNotNull(reviewText);
-                NumberValidator<int>.IsRange(evaluation, MinEvaluation, MaxEvaluation);
+                ObjectValidator<ReviewDTO>.CheckIsNotNullObject(reviewDto);
+                var newReview = MapperHelperForEntity<ReviewDTO, Review>.Map(reviewDto);
 
-                Request request = await _requestRepository.ReadAllAsync().Result
-                    .FirstOrDefaultAsync(r => r.Id == requestId);
+                var request = await _requestRepository.ReadAllAsync().Result
+                    .FirstOrDefaultAsync(request => request.Id == reviewDto.requestId);
 
                 if (request == null || request.RequestStatus != Status.Completed || request.Review != null)
-                    throw new InvalidOperationException("Unable to create review for the specified request.");
+                    throw new InvalidOperationException("Unable to create a review for the specified request.");
 
-                var review = new Review
-                {
-                    ReviewText = reviewText,
-                    Evaluation = evaluation
-                };
+                Guid reviewId = newReview.Id;
 
-                await _repository.Create(review);
-                request.Review = review;
+                request.ReviewId = newReview.Id;
+                request.Review = newReview;
 
-                Guid reviewId = review.Id;
-                return ResponseFactory<ReviewDTO>.CreateSuccessResponseWithId(MapperHelperForDto<Review, ReviewDTO>.Map(review), reviewId);
+                await _repository.Create(newReview);
+        
+                await _requestRepository.UpdateAsync(request);
+
+
+                return ResponseFactory<Review>.CreateSuccessResponseWithId(newReview, reviewId);
             }
             catch (InvalidOperationException invException)
             {
-                return ResponseFactory<ReviewDTO>.CreateInvalidOperationResponse(invException);
+                return ResponseFactory<Review>.CreateInvalidOperationResponse(invException);
             }
             catch (ArgumentNullException argNullException)
             {
-                return ResponseFactory<ReviewDTO>.CreateNotFoundResponse(argNullException);
+                return ResponseFactory<Review>.CreateNotFoundResponse(argNullException);
             }
             catch (ArgumentException argException)
             {
-                return ResponseFactory<ReviewDTO>.CreateNotFoundResponse(argException);
+                return ResponseFactory<Review>.CreateNotFoundResponse(argException);
             }
             catch (Exception exception)
             {
-                return ResponseFactory<ReviewDTO>.CreateErrorResponse(exception);
+                return ResponseFactory<Review>.CreateErrorResponse(exception);
             }
         }
 
@@ -170,42 +169,45 @@ namespace FinalProj.Services.Implemintations.RequestServices
             }
         }
 
-        public async Task<IBaseResponse<ReviewDTO>> UpdateReview(Guid reviewId, string reviewText, int evaluation)
+        public async Task<IBaseResponse<Review>> UpdateReview(ReviewDTO reviewDto)
         {
             try
             {
-                ObjectValidator<Guid>.CheckIsNotNullObject(reviewId);
-                StringValidator.CheckIsNotNull(reviewText);
-                NumberValidator<int>.IsRange(evaluation, MinEvaluation, MaxEvaluation);
+                ObjectValidator<ReviewDTO>.CheckIsNotNullObject(reviewDto);
+                var newReview = MapperHelperForEntity<ReviewDTO, Review>.Map(reviewDto);
 
-                var review = await _repository.ReadByIdAsync(reviewId);
+                var request = await _requestRepository.ReadAllAsync().Result
+                    .FirstOrDefaultAsync(request => request.Id == reviewDto.requestId);
 
-                if (review == null || review.Request.RequestStatus != Status.Completed)
-                    throw new InvalidOperationException("Unable to update the specified review.");
+                if (request == null || request.RequestStatus != Status.Completed || request.Review != null)
+                    throw new InvalidOperationException("Unable to create a review for the specified request.");
 
-                review.ReviewText = reviewText;
-                review.Evaluation = evaluation;
+                Guid reviewId = newReview.Id;
 
-                await _repository.UpdateAsync(review);
-                ReviewDTO reviewsDTO = MapperHelperForDto<Review, ReviewDTO>.Map(review);
+                request.ReviewId = newReview.Id;
+                request.Review = newReview;
 
-                return ResponseFactory<ReviewDTO>.CreateSuccessResponse(reviewsDTO);
+                await _repository.UpdateAsync(newReview);
+
+                await _requestRepository.UpdateAsync(request);
+
+                return ResponseFactory<Review>.CreateSuccessResponseWithId(newReview, reviewId);
             }
             catch (InvalidOperationException invException)
             {
-                return ResponseFactory<ReviewDTO>.CreateInvalidOperationResponse(invException);
+                return ResponseFactory<Review>.CreateInvalidOperationResponse(invException);
             }
             catch (ArgumentNullException argNullException)
             {
-                return ResponseFactory<ReviewDTO>.CreateNotFoundResponse(argNullException);
+                return ResponseFactory<Review>.CreateNotFoundResponse(argNullException);
             }
             catch (ArgumentException argException)
             {
-                return ResponseFactory<ReviewDTO>.CreateNotFoundResponse(argException);
+                return ResponseFactory<Review>.CreateNotFoundResponse(argException);
             }
             catch (Exception exception)
             {
-                return ResponseFactory<ReviewDTO>.CreateErrorResponse(exception);
+                return ResponseFactory<Review>.CreateErrorResponse(exception);
             }
         }
     }

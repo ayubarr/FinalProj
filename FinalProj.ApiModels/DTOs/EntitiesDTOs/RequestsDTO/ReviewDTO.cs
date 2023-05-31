@@ -7,5 +7,6 @@ namespace FinalApp.ApiModels.DTOs.EntitiesDTOs.RequestsDTO
         public DateTime RequestCreatedTime { get; set; } = DateTime.UtcNow;
         public string? ReviewText { get; set; }
         public int Evaluation { get; set; }
+        public Guid requestId { get; set; }
     }
 }
