@@ -257,7 +257,7 @@ namespace FinalProj.Services.Implemintations.RequestServices
                 var client = await _userManager.FindByIdAsync(newRequest.ClientId);
                 newRequest.Client = client;
 
-                newRequest.Id = Guid.NewGuid();
+               // newRequest.Id = Guid.NewGuid();
                 
                 await _repository.Create(newRequest);
                 return ResponseFactory<bool>.CreateSuccessResponseWithId(true, newRequest.Id);

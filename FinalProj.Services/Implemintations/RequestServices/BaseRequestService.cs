@@ -39,8 +39,7 @@ namespace FinalProj.Services.Implemintations.RequestServices
 
                 await _repository.Create(entity);
 
-                Guid id = entity.Id;
-                return ResponseFactory<T>.CreateSuccessResponseWithId(entity, id);
+                return ResponseFactory<T>.CreateSuccessResponseWithId(entity, entity.Id);
             }
             catch (ArgumentNullException argNullException)
             {
