@@ -1,7 +1,5 @@
 using FinalApp.Api;
 using FinalApp.DAL.SqlServer;
-using FinalApp.Domain.Models.Entities.Persons.Users;
-using FinalProj.API;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
