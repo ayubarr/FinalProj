@@ -56,6 +56,11 @@ namespace FinalApp.Api
 
         public static IServiceCollection InitializeIdentity(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+            .AddEntityFrameworkStores<AppDbContext>()
+            .AddDefaultTokenProviders();
+
+
             services.AddIdentity<Client, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
@@ -69,10 +74,7 @@ namespace FinalApp.Api
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<AppDbContext>()
-                .AddDefaultTokenProviders();
-
+       
  
 
 

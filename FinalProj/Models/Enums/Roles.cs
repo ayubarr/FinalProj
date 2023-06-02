@@ -7,6 +7,5 @@
         TechnicalSupportOperator,
         Moderator,
         Administrator,
-        TechnicalWorker
     }
 }

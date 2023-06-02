@@ -25,6 +25,13 @@ namespace FinalApp.Api.Controllers
             _authforTechTeamService = authforTechTeamService;
         }
 
+        [HttpPut("SetOperatorRoleById)")]
+        public async Task<IActionResult> PutRoleById(string operatorId, int roleId)
+        {
+            await _userService.SetUserAsRoleById(operatorId, roleId);
+            return Ok();
+        }
+
         [HttpGet("ActiveRequest")]
         public async Task<IActionResult> GetActive(string techTeamId)
         {

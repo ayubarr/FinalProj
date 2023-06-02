@@ -1,6 +1,7 @@
 ﻿using FinalApp.ApiModels.Auth.Models;
 using FinalApp.ApiModels.DTOs.EntitiesDTOs.UsersDTOs;
 using FinalApp.Domain.Models.Entities.Persons.Users;
+using FinalApp.Domain.Models.Enums;
 using FinalApp.Services.Interfaces;
 using FinalProj.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -44,6 +45,14 @@ namespace FinalApp.Api.Controllers
             var response = await _clientService.GetClientsWithRequests();
             return Ok(response.Data);
         }
+
+        [HttpPut("SetClientRoleId)")]
+        public async Task<IActionResult> PutRoleById(string clientId, int roleId)
+        {
+            await _userService.SetUserAsRoleById(clientId, roleId);
+            return Ok();
+        }
+
 
         [HttpPut("SetClientAsAdmin")]
         public async Task<IActionResult> Put(string clientId)

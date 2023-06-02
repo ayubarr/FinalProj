@@ -18,6 +18,9 @@ namespace FinalProj.Services.Implemintations.UserServices
     public class BaseUserService<T> : IBaseUserService<T>
         where T : ApplicationUser
     {
+
+        private const int RolesMinIndex = 0;
+        private const int RolesMaxIndex = 4;
         private readonly IBaseAsyncRepository<Request> _repository;
         protected readonly UserManager<T> _userManager;
 
@@ -28,6 +31,43 @@ namespace FinalProj.Services.Implemintations.UserServices
             _userManager = userManager;
 
         }
+        public async Task<IBaseResponse<bool>> SetUserAsRoleById(string userId, int roleId)
+        {
+            try
+            {
+                StringValidator.CheckIsNotNull(userId);
+                NumberValidator<int>.IsRange(roleId, RolesMinIndex, RolesMaxIndex);
+
+                var user = await _userManager.FindByIdAsync(userId);
+                ObjectValidator<T>.CheckIsNotNullObject(user);
+
+                Enum role = (Enum)(object)roleId;
+
+                var result = await _userManager.AddToRoleAsync(user, role.ToString());
+
+                if (result.Succeeded)
+                {
+                    return ResponseFactory<bool>.CreateSuccessResponse(true);
+                }
+                else
+                {
+                    return ResponseFactory<bool>.CreateErrorResponse(new Exception("Failed to set user as admin."));
+                }
+
+            }
+            catch (ArgumentNullException argNullException)
+            {
+                return ResponseFactory<bool>.CreateNotFoundResponse(argNullException);
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory<bool>.CreateErrorResponse(ex);
+            }
+        }
+
+
+
+
 
         public async Task<IBaseResponse<bool>> SetUserAsAdminAsync(string userId)
         {
