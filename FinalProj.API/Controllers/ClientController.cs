@@ -105,6 +105,7 @@ namespace FinalApp.Api.Controllers
             return Ok(response.Data);
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(string id)
         {
@@ -112,6 +113,7 @@ namespace FinalApp.Api.Controllers
             return Ok(response.Data);
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpPut]
         public async Task<IActionResult> Put(Client model)
         {

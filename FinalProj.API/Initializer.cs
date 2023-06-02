@@ -13,6 +13,7 @@ using FinalProj.Services.Implemintations.UserServices;
 using FinalProj.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -56,29 +57,6 @@ namespace FinalApp.Api
 
         public static IServiceCollection InitializeIdentity(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-            .AddEntityFrameworkStores<AppDbContext>()
-            .AddDefaultTokenProviders();
-
-
-            services.AddIdentity<Client, IdentityRole>()
-                .AddEntityFrameworkStores<AppDbContext>()
-                .AddDefaultTokenProviders();
-
-
-            services.AddIdentity<TechTeam, IdentityRole>()
-                .AddEntityFrameworkStores<AppDbContext>()
-                .AddDefaultTokenProviders();
-
-            services.AddIdentity<SupportOperator, IdentityRole>()
-                .AddEntityFrameworkStores<AppDbContext>()
-                .AddDefaultTokenProviders();
-
-
-
-
-
-
             services.AddScoped<RoleManager<IdentityRole>>();
 
             services.AddScoped<IAuthManager<Client>>(provider =>
@@ -123,7 +101,33 @@ namespace FinalApp.Api
                       ValidIssuer = configuration["JWT:ValidIssuer"],
                       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]))
                   };
-              });
+            });
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                 .AddEntityFrameworkStores<AppDbContext>()
+                 .AddDefaultTokenProviders();
+
+            services.AddScoped<IUserStore<Client>, UserStore<Client, IdentityRole, AppDbContext, string>>();
+            services.AddScoped<IUserStore<SupportOperator>, UserStore<SupportOperator, IdentityRole, AppDbContext, string>>();
+            services.AddScoped<IUserStore<TechTeam>, UserStore<TechTeam, IdentityRole, AppDbContext, string>>();
+
+
+            services.AddScoped<IPasswordHasher<Client>, PasswordHasher<Client>>();
+            services.AddScoped<IPasswordHasher<SupportOperator>, PasswordHasher<SupportOperator>>();
+            services.AddScoped<IPasswordHasher<TechTeam>, PasswordHasher<TechTeam>>();
+
+            //services.AddIdentity<Client, IdentityRole>()
+            //    .AddEntityFrameworkStores<AppDbContext>()
+            //    .AddDefaultTokenProviders();
+
+
+            //services.AddIdentity<TechTeam, IdentityRole>()
+            //    .AddEntityFrameworkStores<AppDbContext>()
+            //    .AddDefaultTokenProviders();
+
+            //services.AddIdentity<SupportOperator, IdentityRole>()
+            //    .AddEntityFrameworkStores<AppDbContext>()
+            //    .AddDefaultTokenProviders();
 
             return services;
         }
