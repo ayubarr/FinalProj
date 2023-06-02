@@ -7,7 +7,7 @@ namespace FinalApp.ApiModels.DTOs.EntitiesDTOs.UsersDTOs.PersonsDTO
     {
         public string Salary { get; set; }
         public DateTime HireTime { get; set; }
-        public Roles Position { get; set; } = Roles.TechnicalWorker;
+        public Roles Position { get; set; }
 
     }
 }
