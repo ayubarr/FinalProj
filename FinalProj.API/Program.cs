@@ -19,6 +19,7 @@ builder.Services
     .InitializeRepositories()
     .InitializeServices();
 
+await builder.Services.InitializeRoles();
 
 //builder.Logging.IntialiseLogger(options =>
 //{

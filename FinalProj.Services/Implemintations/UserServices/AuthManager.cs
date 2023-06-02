@@ -3,6 +3,7 @@ using FinalApp.ApiModels.Auth.Models;
 using FinalApp.ApiModels.Response.Helpers;
 using FinalApp.ApiModels.Response.Interfaces;
 using FinalApp.Domain.Models.Abstractions.BaseUsers;
+using FinalApp.Domain.Models.Enums;
 using FinalApp.Services.Helpers;
 using FinallApp.ValidationHelper;
 using FinalProj.ApiModels.Auth.Models;
@@ -50,6 +51,28 @@ namespace FinalProj.Services.Implemintations.UserServices
 
                     foreach (var userRole in userRoles)
                     {
+
+                        if (userRole == Roles.TechnicalSpecialist.ToString())
+                        {
+                            authClaims.Add(new Claim(ClaimTypes.Role, "TechnicalSpecialist"));
+                        }
+                        if (userRole == Roles.Administrator.ToString())
+                        {
+                            authClaims.Add(new Claim(ClaimTypes.Role, "Administrator"));
+                        }
+                        if (userRole == Roles.Client.ToString())
+                        {
+                            authClaims.Add(new Claim(ClaimTypes.Role, "Client"));
+                        }
+                        if (userRole == Roles.Administrator.ToString())
+                        {
+                            authClaims.Add(new Claim(ClaimTypes.Role, "Administrator"));
+                        }
+                        if (userRole == Roles.Moderator.ToString())
+                        {
+                            authClaims.Add(new Claim(ClaimTypes.Role, "Moderator"));
+                        }
+
                         authClaims.Add(new Claim(ClaimTypes.Role, userRole));
                     }
                     var token = CreateToken(authClaims);
@@ -93,9 +116,8 @@ namespace FinalProj.Services.Implemintations.UserServices
             {
                 return ResponseFactory<AuthResultStruct>.CreateErrorResponse(ex);
             }
-
-
         }
+     
 
         public async Task<IBaseResponse<bool>> Register(RegisterModel model)
         {

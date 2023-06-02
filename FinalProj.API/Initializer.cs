@@ -5,6 +5,7 @@ using FinalApp.DAL.SqlServer;
 using FinalApp.Domain.Models.Abstractions.BaseUsers;
 using FinalApp.Domain.Models.Entities.Persons.Users;
 using FinalApp.Domain.Models.Entities.Requests.RequestsInfo;
+using FinalApp.Domain.Models.Enums;
 using FinalApp.Services.Interfaces;
 using FinalProj.API.Logs;
 using FinalProj.Services.Implemintations.RequestServices;
@@ -74,8 +75,7 @@ namespace FinalApp.Api
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
 
-       
- 
+   
 
 
 
@@ -129,8 +129,25 @@ namespace FinalApp.Api
             return services;
         }
 
+        public static async Task InitializeRoles(this IServiceCollection services)
+        {
+            var roleManager = services.BuildServiceProvider().GetRequiredService<RoleManager<IdentityRole>>();
+            await SeedRoles(roleManager);
+        }
 
+        private static async Task SeedRoles(RoleManager<IdentityRole> roleManager)
+        {
+            foreach (var role in Enum.GetValues(typeof(Roles)).Cast<Roles>())
+            {
+                var roleName = role.ToString();
 
+                if (!await roleManager.RoleExistsAsync(roleName))
+                {
+                    await roleManager.CreateAsync(new IdentityRole(roleName));
+                }
+            }
+        }
+        
         public static void IntialiseLogger(this ILoggingBuilder loggingBuilder, Action<DbLoggerOptions> configure)
         {
             //loggingBuilder.Services.AddSingleton<ILoggerProvider, DbLoggerProvider>();
