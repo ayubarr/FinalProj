@@ -7,7 +7,7 @@ namespace FinalApp.Domain.Models.Entities.Persons.WorkTeams
     {
         public string Salary { get; set; }
         public DateTime HireTime { get; set; }
-        public Roles Position { get; set; } = Roles.TechnicalWorker;
+        public Roles Position { get; set; } 
 
         public ICollection<TechnicalTeamWorker> TechnicalTeams { get; set; }
         public string? TechTeamId { get; set; }
