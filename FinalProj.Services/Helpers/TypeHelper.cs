@@ -5,8 +5,6 @@ using FinalApp.Domain.Models.Entities.Persons.Users;
 using FinalApp.Domain.Models.Entities.Requests.RequestsInfo;
 using FinalApp.Domain.Models.Enums;
 using FinallApp.ValidationHelper;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using System.Linq.Expressions;
 
 namespace FinalApp.Services.Helpers
@@ -71,7 +69,7 @@ namespace FinalApp.Services.Helpers
             return repository
                 .ReadAllAsync().Result
                 .Where(resultLambda.Compile())
-                .ToList();          
+                .ToList();
         }
 
         public static async Task<Request> CheckUserTypeForAcceptRequest(Guid requestId, string Id, IBaseAsyncRepository<Request> repository)
@@ -172,6 +170,6 @@ namespace FinalApp.Services.Helpers
             }
 
             throw new ArgumentNullException();
-        }     
-    } 
+        }
+    }
 }

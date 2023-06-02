@@ -1,5 +1,7 @@
 using FinalApp.Api;
 using FinalApp.DAL.SqlServer;
+using FinalApp.Domain.Models.Entities.Persons.Users;
+using FinalProj.API;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -11,12 +13,13 @@ var connection = builder.Configuration.GetConnectionString("ConnectionString");
 
 builder.Services.AddDbContext<AppDbContext>(option => option.UseSqlServer(connection));
 
-builder.Services.InitializeIdentity(configuration);
+//builder.Services.AddSecondIdentity<Client, >
 
-builder.Services.InitializeRepositories();
 
-builder.Services.InitializeServices();
-
+builder.Services
+    .InitializeIdentity(configuration)
+    .InitializeRepositories()
+    .InitializeServices();
 
 
 //builder.Logging.IntialiseLogger(options =>
@@ -80,6 +83,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+//app.UseAuthentication();
 
 app.UseAuthorization();
 

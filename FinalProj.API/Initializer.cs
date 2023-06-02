@@ -12,6 +12,7 @@ using FinalProj.Services.Implemintations.UserServices;
 using FinalProj.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -19,15 +20,16 @@ namespace FinalApp.Api
 {
     public static class Initializer
     {
-        public static void InitializeRepositories(this IServiceCollection services)
+        public static IServiceCollection InitializeRepositories(this IServiceCollection services)
         {
             #region Base_Repositories 
             services.AddScoped(typeof(IBaseAsyncRepository<>), typeof(BaseAsyncRepository<>));
             services.AddScoped(typeof(UserManager<>));
             #endregion
+            return services;
         }
 
-        public static void InitializeServices(this IServiceCollection services)
+        public static IServiceCollection InitializeServices(this IServiceCollection services)
         {
             #region Base_Services
             services.AddScoped<IBaseRequestService<Request, RequestDTO>, BaseRequestService<Request, RequestDTO>>();
@@ -47,13 +49,17 @@ namespace FinalApp.Api
             services.AddScoped<IRequestHistoryService, RequestHistoryService>();
             services.AddScoped<IReviewService, ReviewService>();
             #endregion
+
+            return services;
+
         }
 
-        public static void InitializeIdentity(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection InitializeIdentity(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddIdentity<Client, IdentityRole>()
-                           .AddEntityFrameworkStores<AppDbContext>()
-                           .AddDefaultTokenProviders();
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
+            
 
             services.AddIdentity<TechTeam, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>()
@@ -66,6 +72,11 @@ namespace FinalApp.Api
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
+
+ 
+
+
+
 
             services.AddScoped<RoleManager<IdentityRole>>();
 
@@ -95,9 +106,8 @@ namespace FinalApp.Api
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-               .AddJwtBearer(options =>
-               {
+            }).AddJwtBearer(options =>
+              {
                    options.SaveToken = true;
                    options.RequireHttpsMetadata = false;
                    options.TokenValidationParameters = new TokenValidationParameters()
@@ -112,8 +122,9 @@ namespace FinalApp.Api
                        ValidIssuer = configuration["JWT:ValidIssuer"],
                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]))
                    };
-               });
+              });
 
+            return services;
         }
 
 
