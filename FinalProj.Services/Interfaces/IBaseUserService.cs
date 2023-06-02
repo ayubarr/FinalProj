@@ -11,6 +11,8 @@ namespace FinalApp.Services.Interfaces
     public interface IBaseUserService<T>
         where T : ApplicationUser
     {
+
+        public Task<IBaseResponse<string>> CheckUserRole(string userId, int roleId);
         public Task<IBaseResponse<bool>> SetUserAsRoleById(string userId, int roleId);
         /// <summary>
         /// Sets the specified user as an admin.

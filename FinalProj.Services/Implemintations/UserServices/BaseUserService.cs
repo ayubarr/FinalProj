@@ -41,9 +41,11 @@ namespace FinalProj.Services.Implemintations.UserServices
                 var user = await _userManager.FindByIdAsync(userId);
                 ObjectValidator<T>.CheckIsNotNullObject(user);
 
-                Enum role = (Enum)(object)roleId;
+                Roles role = (Roles)(object)roleId;
 
-                var result = await _userManager.AddToRoleAsync(user, role.ToString());
+                var roleName = role.ToString();
+
+                var result = await _userManager.AddToRoleAsync(user, roleName);
 
                 if (result.Succeeded)
                 {
@@ -51,7 +53,7 @@ namespace FinalProj.Services.Implemintations.UserServices
                 }
                 else
                 {
-                    return ResponseFactory<bool>.CreateErrorResponse(new Exception("Failed to set user as admin."));
+                    return ResponseFactory<bool>.CreateErrorResponse(new Exception("Failed to set user as role."));
                 }
 
             }
@@ -65,7 +67,39 @@ namespace FinalProj.Services.Implemintations.UserServices
             }
         }
 
+        public async Task<IBaseResponse<string>> CheckUserRole(string userId, int roleId)
+        {
+            try
+            {
+                StringValidator.CheckIsNotNull(userId);
+                NumberValidator<int>.IsRange(roleId, RolesMinIndex, RolesMaxIndex);
 
+                var user = await _userManager.FindByIdAsync(userId);
+                ObjectValidator<T>.CheckIsNotNullObject(user);
+
+                Roles role = (Roles)(object)roleId;
+                var roleName = role.ToString();
+
+                bool isInRole = await _userManager.IsInRoleAsync(user, roleName);
+
+                if (isInRole)
+                {
+                    return ResponseFactory<string>.CreateSuccessResponse($"User role is: {roleName}");
+                }
+                else
+                {
+                    throw new ArgumentNullException("its role not found");
+                }
+            }
+            catch (ArgumentNullException argNullException)
+            {
+                return ResponseFactory<string>.CreateNotFoundResponse(argNullException);
+            }
+            catch (Exception ex)
+            {
+                return ResponseFactory<string>.CreateErrorResponse(ex);
+            }
+        }
 
 
 

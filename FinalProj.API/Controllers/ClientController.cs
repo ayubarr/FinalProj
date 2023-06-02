@@ -1,7 +1,5 @@
 ﻿using FinalApp.ApiModels.Auth.Models;
-using FinalApp.ApiModels.DTOs.EntitiesDTOs.UsersDTOs;
 using FinalApp.Domain.Models.Entities.Persons.Users;
-using FinalApp.Domain.Models.Enums;
 using FinalApp.Services.Interfaces;
 using FinalProj.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -29,12 +27,38 @@ namespace FinalApp.Api.Controllers
             _authService = authService;
         }
 
+
+
+        [HttpPut("SetClientRoleId")]
+        public async Task<IActionResult> PutRoleById(string clientId, int roleId)
+        {
+            await _userService.SetUserAsRoleById(clientId, roleId);
+            return Ok();
+        }
+
+        [HttpGet("checkUserRole/{userId}/{roleId}")]
+        public async Task<IActionResult> CheckUserRole(string userId, int roleId)
+        {
+            var response = await _userService.CheckUserRole(userId, roleId);
+
+            if (response.IsSuccess)
+            {
+                return Ok(response.Data);
+            }
+            else
+            {
+                return BadRequest(response.Message);
+            }
+        }
+
+
+
         [HttpPost("CloseRequestByClient/{requestId}/{Id}")]
         public async Task<IActionResult> CloseRequestByUser(Guid requestId, string clientId)
         {
             _logger.Log(LogLevel.Information, "test");
             var response = await _userService.CloseRequestByUser(requestId, clientId);
-            
+
             return Ok(response.Data);
         }
 
@@ -45,14 +69,6 @@ namespace FinalApp.Api.Controllers
             var response = await _clientService.GetClientsWithRequests();
             return Ok(response.Data);
         }
-
-        [HttpPut("SetClientRoleId)")]
-        public async Task<IActionResult> PutRoleById(string clientId, int roleId)
-        {
-            await _userService.SetUserAsRoleById(clientId, roleId);
-            return Ok();
-        }
-
 
         [HttpPut("SetClientAsAdmin")]
         public async Task<IActionResult> Put(string clientId)
@@ -94,7 +110,7 @@ namespace FinalApp.Api.Controllers
         {
             var response = await _userService.ReadByIdAsync(id);
             return Ok(response.Data);
-        }    
+        }
 
         [HttpPut]
         public async Task<IActionResult> Put(Client model)
@@ -118,7 +134,7 @@ namespace FinalApp.Api.Controllers
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
             var response = await _authService.Login(model);
-            
+
             if (response.IsSuccess)
             {
                 return Ok(response);
