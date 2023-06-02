@@ -1,47 +1,56 @@
 ﻿using FinalApp.ApiModels.Auth.Models;
 using FinalApp.DAL.Repository.Interfaces;
-using FinalApp.Domain.Models.Abstractions.BaseEntities;
 using FinalApp.Domain.Models.Abstractions.BaseUsers;
 using FinalApp.Domain.Models.Entities.Persons.Users;
 using FinalApp.Domain.Models.Entities.Requests.RequestsInfo;
 using FinalApp.Domain.Models.Enums;
 using FinallApp.ValidationHelper;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace FinalApp.Services.Helpers
 {
     public static class TypeHelper<T>
         where T : ApplicationUser
     {
+        private static Expression<Func<Request, bool>> GenerateFilter(string Id)
+        {
+            return typeof(T) switch
+            {
+                Type T when T == typeof(TechTeam) =>
+                    request => request.TechTeamId == Id,
+
+                Type T when T == typeof(SupportOperator) =>
+                    request => request.TechTeamId == Id,
+
+                Type T when T == typeof(Client) =>
+                    request => request.ClientId == Id,
+
+                _ => throw new NullReferenceException()
+            };
+        }
+
+
         public static async Task<IEnumerable<Request>> CheckUserTypeForActiveRequest(string Id, IBaseAsyncRepository<Request> repository)
         {
             StringValidator.CheckIsNotNull(Id);
             ObjectValidator<IBaseAsyncRepository<Request>>.CheckIsNotNullObject(repository);
 
-            if (typeof(T) == typeof(TechTeam))
-            {
-                return await repository
-                    .ReadAllAsync().Result
-                    .Where(request => request.TechTeamId == Id && request.RequestStatus == Status.Active)
-                    .ToListAsync();
-            }
-            if (typeof(T) == typeof(SupportOperator))
-            {
-                return await repository
-                   .ReadAllAsync().Result
-                   .Where(request => request.OperatorId == Id && request.RequestStatus == Status.Active)
-                .ToListAsync();
-            }
-            if (typeof(T) == typeof(Client))
-            {
-                return await repository
-                 .ReadAllAsync().Result
-                 .Where(request => request.ClientId == Id && request.RequestStatus == Status.Active)
-              .ToListAsync();
-            }
+            var filter = GenerateFilter(Id);
 
-            throw new ArgumentNullException();
+            Expression<Func<Request, bool>> activeFilter = request =>
+                request.RequestStatus == Status.Active;
+
+            var resultLambda = Expression
+                .Lambda<Func<Request, bool>>(Expression
+                .AndAlso(filter.Body, activeFilter.Body),
+                filter.Parameters);
+
+            return repository
+                .ReadAllAsync().Result
+                .Where(resultLambda.Compile())
+                .ToList();
         }
 
         public static async Task<IEnumerable<Request>> CheckUserTypeForClosedRequest(string Id, IBaseAsyncRepository<Request> repository)
@@ -49,29 +58,20 @@ namespace FinalApp.Services.Helpers
             StringValidator.CheckIsNotNull(Id);
             ObjectValidator<IBaseAsyncRepository<Request>>.CheckIsNotNullObject(repository);
 
-            if (typeof(T) == typeof(TechTeam))
-            {
-                return await repository
-                    .ReadAllAsync().Result
-                    .Where(request => request.TechTeamId == Id && request.RequestStatus == Status.Closed)
-                    .ToListAsync();
-            }
-            if (typeof(T) == typeof(SupportOperator))
-            {
-                return await repository
-                   .ReadAllAsync().Result
-                   .Where(request => request.OperatorId == Id && request.RequestStatus == Status.Closed)
-                .ToListAsync();
-            }
-            if (typeof(T) == typeof(Client))
-            {
-                return await repository
-                  .ReadAllAsync().Result
-                  .Where(request => request.ClientId == Id && request.RequestStatus == Status.Closed)
-               .ToListAsync();
-            }
+            var filter = GenerateFilter(Id);
 
-            throw new ArgumentNullException();
+            Expression<Func<Request, bool>> activeFilter = request =>
+                request.RequestStatus == Status.Closed;
+
+            var resultLambda = Expression
+               .Lambda<Func<Request, bool>>(Expression
+               .AndAlso(filter.Body, activeFilter.Body),
+               filter.Parameters);
+
+            return repository
+                .ReadAllAsync().Result
+                .Where(resultLambda.Compile())
+                .ToList();          
         }
 
         public static async Task<Request> CheckUserTypeForAcceptRequest(Guid requestId, string Id, IBaseAsyncRepository<Request> repository)
@@ -81,6 +81,7 @@ namespace FinalApp.Services.Helpers
             ObjectValidator<Guid>.CheckIsNotNullObject(requestId);
 
             var request = await repository.ReadByIdAsync(requestId);
+
             if (typeof(T) == typeof(TechTeam))
             {
                 request.RequestStatus = Status.InProgress;
