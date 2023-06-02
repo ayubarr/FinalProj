@@ -5,6 +5,7 @@ using FinalApp.Domain.Models.Entities.Persons.Users;
 using FinalApp.Domain.Models.Entities.Requests.RequestsInfo;
 using FinalApp.Domain.Models.Enums;
 using FinallApp.ValidationHelper;
+using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace FinalApp.Services.Helpers
@@ -35,20 +36,28 @@ namespace FinalApp.Services.Helpers
             StringValidator.CheckIsNotNull(Id);
             ObjectValidator<IBaseAsyncRepository<Request>>.CheckIsNotNullObject(repository);
 
-            var filter = GenerateFilter(Id);
-
-            Expression<Func<Request, bool>> activeFilter = request =>
-                request.RequestStatus == Status.Active;
-
-            var resultLambda = Expression
-                .Lambda<Func<Request, bool>>(Expression
-                .AndAlso(filter.Body, activeFilter.Body),
-                filter.Parameters);
-
-            return repository
-                .ReadAllAsync().Result
-                .Where(resultLambda.Compile())
-                .ToList();
+            if(typeof(T) == typeof(TechTeam))
+            {
+                return await repository
+                    .ReadAllAsync().Result
+                    .Where(request => request.TechTeamId == Id && request.RequestStatus == Status.Active)
+                    .ToListAsync();                  
+            }
+            if (typeof(T) == typeof(SupportOperator))
+            {
+                return await repository
+                    .ReadAllAsync().Result
+                    .Where(request => request.OperatorId == Id && request.RequestStatus == Status.Active)
+                    .ToListAsync();
+            }
+            if (typeof(T) == typeof(Client))
+            {
+                return await repository
+                    .ReadAllAsync().Result
+                    .Where(request => request.ClientId == Id && request.RequestStatus == Status.Active)
+                    .ToListAsync();
+            }
+            throw new ArgumentNullException();
         }
 
         public static async Task<IEnumerable<Request>> CheckUserTypeForClosedRequest(string Id, IBaseAsyncRepository<Request> repository)
@@ -56,20 +65,29 @@ namespace FinalApp.Services.Helpers
             StringValidator.CheckIsNotNull(Id);
             ObjectValidator<IBaseAsyncRepository<Request>>.CheckIsNotNullObject(repository);
 
-            var filter = GenerateFilter(Id);
+            if (typeof(T) == typeof(TechTeam))
+            {
+                return await repository
+                    .ReadAllAsync().Result
+                    .Where(request => request.TechTeamId == Id && request.RequestStatus == Status.Closed)
+                    .ToListAsync();
+            }
+            if (typeof(T) == typeof(SupportOperator))
+            {
+                return await repository
+                    .ReadAllAsync().Result
+                    .Where(request => request.OperatorId == Id && request.RequestStatus == Status.Closed)
+                    .ToListAsync();
+            }
+            if (typeof(T) == typeof(Client))
+            {
+                return await repository
+                    .ReadAllAsync().Result
+                    .Where(request => request.ClientId == Id && request.RequestStatus == Status.Closed)
+                    .ToListAsync();
+            }
+            throw new ArgumentNullException();
 
-            Expression<Func<Request, bool>> activeFilter = request =>
-                request.RequestStatus == Status.Closed;
-
-            var resultLambda = Expression
-               .Lambda<Func<Request, bool>>(Expression
-               .AndAlso(filter.Body, activeFilter.Body),
-               filter.Parameters);
-
-            return repository
-                .ReadAllAsync().Result
-                .Where(resultLambda.Compile())
-                .ToList();
         }
 
         public static async Task<Request> CheckUserTypeForAcceptRequest(Guid requestId, string Id, IBaseAsyncRepository<Request> repository)

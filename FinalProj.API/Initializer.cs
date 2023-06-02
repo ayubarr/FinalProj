@@ -13,7 +13,6 @@ using FinalProj.Services.Implemintations.UserServices;
 using FinalProj.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -65,7 +64,7 @@ namespace FinalApp.Api
             services.AddIdentity<Client, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
-            
+
 
             services.AddIdentity<TechTeam, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>()
@@ -75,7 +74,7 @@ namespace FinalApp.Api
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
 
-   
+
 
 
 
@@ -110,20 +109,20 @@ namespace FinalApp.Api
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(options =>
               {
-                   options.SaveToken = true;
-                   options.RequireHttpsMetadata = false;
-                   options.TokenValidationParameters = new TokenValidationParameters()
-                   {
-                       ValidateIssuer = true,
-                       ValidateAudience = true,
-                       ValidateLifetime = true,
-                       ValidateIssuerSigningKey = true,
-                       ClockSkew = TimeSpan.Zero,
+                  options.SaveToken = true;
+                  options.RequireHttpsMetadata = false;
+                  options.TokenValidationParameters = new TokenValidationParameters()
+                  {
+                      ValidateIssuer = true,
+                      ValidateAudience = true,
+                      ValidateLifetime = true,
+                      ValidateIssuerSigningKey = true,
+                      ClockSkew = TimeSpan.Zero,
 
-                       ValidAudience = configuration["JWT:ValidAudience"],
-                       ValidIssuer = configuration["JWT:ValidIssuer"],
-                       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]))
-                   };
+                      ValidAudience = configuration["JWT:ValidAudience"],
+                      ValidIssuer = configuration["JWT:ValidIssuer"],
+                      IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]))
+                  };
               });
 
             return services;
@@ -147,7 +146,7 @@ namespace FinalApp.Api
                 }
             }
         }
-        
+
         public static void IntialiseLogger(this ILoggingBuilder loggingBuilder, Action<DbLoggerOptions> configure)
         {
             //loggingBuilder.Services.AddSingleton<ILoggerProvider, DbLoggerProvider>();
