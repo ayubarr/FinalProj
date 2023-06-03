@@ -1,5 +1,6 @@
 ﻿using FinalApp.ApiModels.Auth.Models;
 using FinalApp.Domain.Models.Entities.Persons.Users;
+using FinalApp.Domain.Models.Enums;
 using FinalApp.Services.Interfaces;
 using FinalProj.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -28,14 +29,15 @@ namespace FinalApp.Api.Controllers
         }
 
 
-
-        [HttpPut("SetClientRoleId")]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
+        [HttpPut("SetClientRoleById")]
         public async Task<IActionResult> PutRoleById(string clientId, int roleId)
         {
             await _userService.SetUserAsRoleById(clientId, roleId);
             return Ok();
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
         [HttpGet("checkUserRole/{userId}/{roleId}")]
         public async Task<IActionResult> CheckUserRole(string userId, int roleId)
         {
@@ -52,7 +54,7 @@ namespace FinalApp.Api.Controllers
         }
 
 
-
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Client")]
         [HttpPost("CloseRequestByClient/{requestId}/{Id}")]
         public async Task<IActionResult> CloseRequestByUser(Guid requestId, string clientId)
         {
@@ -62,6 +64,7 @@ namespace FinalApp.Api.Controllers
             return Ok(response.Data);
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator")]
         [HttpGet("ClientsWithRequest")]
         public async Task<IActionResult> GetClients()
         {
@@ -70,6 +73,7 @@ namespace FinalApp.Api.Controllers
             return Ok(response.Data);
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
         [HttpPut("SetClientAsAdmin")]
         public async Task<IActionResult> Put(string clientId)
         {
@@ -77,6 +81,7 @@ namespace FinalApp.Api.Controllers
             return Ok();
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator, Client")]
         [HttpGet("ActiveRequest")]
         public async Task<IActionResult> GetActive(string clientId)
         {
@@ -84,6 +89,7 @@ namespace FinalApp.Api.Controllers
             return Ok(response.Data);
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator, Client")]
         [HttpGet("ClosedRequest")]
         public async Task<IActionResult> GetClosed(string clientId)
         {
@@ -91,6 +97,7 @@ namespace FinalApp.Api.Controllers
             return Ok(response.Data);
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Client")]
         [HttpPost("MarkRequestAsCompleted/{requestId}")]
         public async Task<IActionResult> MarkRequestAsCompleted(Guid requestId)
         {
@@ -98,6 +105,7 @@ namespace FinalApp.Api.Controllers
             return Ok(response.Data);
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator")]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -105,7 +113,7 @@ namespace FinalApp.Api.Controllers
             return Ok(response.Data);
         }
 
-        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator")]
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(string id)
         {
@@ -113,6 +121,7 @@ namespace FinalApp.Api.Controllers
             return Ok(response.Data);
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator, Client")]
         [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpPut]
         public async Task<IActionResult> Put(Client model)
@@ -121,6 +130,7 @@ namespace FinalApp.Api.Controllers
             return Ok();
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string id)
         {
@@ -149,9 +159,12 @@ namespace FinalApp.Api.Controllers
         public async Task<IActionResult> RegisterClient([FromBody] RegisterModel model)
         {
             var result = await _authService.Register(model);
+            await _userService.SetUserAsRoleById(result.userId, 0);
+
             return Ok(result);
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
         [HttpPost]
         [Route("refresh-token")]
         public async Task<IActionResult> RefreshToken(TokenModel tokenModel)
@@ -160,7 +173,7 @@ namespace FinalApp.Api.Controllers
             return Ok(result);
         }
 
-        [Authorize]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
         [HttpPost]
         [Route("revoke/{username}")]
         public async Task<IActionResult> Revoke(string username)
@@ -176,7 +189,7 @@ namespace FinalApp.Api.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
         [HttpPost]
         [Route("revoke-all")]
         public async Task<IActionResult> RevokeAll()

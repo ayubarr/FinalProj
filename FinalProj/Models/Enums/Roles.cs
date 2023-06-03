@@ -2,7 +2,7 @@
 {
     public enum Roles
     {
-        Client,
+        Client,  
         TechnicalSpecialist,
         TechnicalSupportOperator,
         Moderator,

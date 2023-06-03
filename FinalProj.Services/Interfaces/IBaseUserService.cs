@@ -1,6 +1,7 @@
 ﻿using FinalApp.ApiModels.DTOs.EntitiesDTOs.RequestsDTO;
 using FinalApp.ApiModels.Response.Interfaces;
 using FinalApp.Domain.Models.Abstractions.BaseUsers;
+using FinalApp.Domain.Models.Enums;
 
 namespace FinalApp.Services.Interfaces
 {

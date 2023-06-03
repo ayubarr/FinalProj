@@ -114,6 +114,7 @@ namespace FinalApp.Api.Controllers
         public async Task<IActionResult> RegisterOperatorAccount([FromBody] RegisterModel model)
         {
             var result = await _authService.Register(model);
+            await _userService.SetUserAsRoleById(result.userId, 2);
             return Ok(result);
         }
 
@@ -122,6 +123,8 @@ namespace FinalApp.Api.Controllers
         public async Task<IActionResult> RegisterTechnicalTeamAccount([FromBody] RegisterModel model)
         {
             var result = await _authforTechTeamService.Register(model);
+            await _userService.SetUserAsRoleById(result.userId, 1);
+
             return Ok(result);
         }
 
