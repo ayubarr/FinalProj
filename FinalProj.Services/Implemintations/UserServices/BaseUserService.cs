@@ -39,7 +39,6 @@ namespace FinalProj.Services.Implemintations.UserServices
                 NumberValidator<int>.IsRange(roleId, RolesMinIndex, RolesMaxIndex);
 
                 var user = await _userManager.FindByIdAsync(userId);
-                ObjectValidator<T>.CheckIsNotNullObject(user);
 
                 Roles role = (Roles)(object)roleId;
 

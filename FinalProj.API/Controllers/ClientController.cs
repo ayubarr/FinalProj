@@ -26,33 +26,7 @@ namespace FinalApp.Api.Controllers
             _clientService = clientService;
             _userService = userService;
             _authService = authService;
-        }
-
-
-        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
-        [HttpPut("SetClientRoleById")]
-        public async Task<IActionResult> PutRoleById(string clientId, int roleId)
-        {
-            await _userService.SetUserAsRoleById(clientId, roleId);
-            return Ok();
-        }
-
-        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
-        [HttpGet("checkUserRole/{userId}/{roleId}")]
-        public async Task<IActionResult> CheckUserRole(string userId, int roleId)
-        {
-            var response = await _userService.CheckUserRole(userId, roleId);
-
-            if (response.IsSuccess)
-            {
-                return Ok(response.Data);
-            }
-            else
-            {
-                return BadRequest(response.Message);
-            }
-        }
-
+        }     
 
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Client")]
         [HttpPost("CloseRequestByClient/{requestId}/{Id}")]

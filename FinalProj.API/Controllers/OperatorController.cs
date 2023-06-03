@@ -25,13 +25,9 @@ namespace FinalApp.Api.Controllers
             _authforTechTeamService = authforTechTeamService;
         }
 
-        [HttpPut("SetOperatorRoleById)")]
-        public async Task<IActionResult> PutRoleById(string operatorId, int roleId)
-        {
-            await _userService.SetUserAsRoleById(operatorId, roleId);
-            return Ok();
-        }
+    
 
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator, Administrator")]
         [HttpGet("ActiveRequest")]
         public async Task<IActionResult> GetActive(string techTeamId)
         {
@@ -39,12 +35,15 @@ namespace FinalApp.Api.Controllers
             return Ok(response.Data);
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator, Administrator")]
         [HttpGet("ClosedRequest")]
         public async Task<IActionResult> GetClosed(string techTeamId)
         {
             var response = await _userService.GetClosedRequests(techTeamId);
             return Ok(response.Data);
         }
+
+
         [HttpPost("AcceptRequest/{requestId}/{Id}")]
         public async Task<IActionResult> AcceptRequest(Guid requestId, string techTeamId)
         {
