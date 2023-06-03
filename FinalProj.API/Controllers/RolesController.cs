@@ -19,7 +19,7 @@ namespace FinalProj.API.Controllers
             _userService = userService;
         }
 
-        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
+        //[Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
         [HttpPut("SetClientRoleById")]
         public async Task<IActionResult> PutRoleById(string usertId, int roleId)
         {
@@ -27,7 +27,7 @@ namespace FinalProj.API.Controllers
             return Ok();
         }
 
-        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
+        //[Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
         [HttpGet("checkUserRole/{userId}/{roleId}")]
         public async Task<IActionResult> CheckUserRole(string userId, int roleId)
         {
