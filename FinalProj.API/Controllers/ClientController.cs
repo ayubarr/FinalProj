@@ -105,7 +105,7 @@ namespace FinalApp.Api.Controllers
             return Ok(response.Data);
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(string id)
         {
@@ -113,7 +113,7 @@ namespace FinalApp.Api.Controllers
             return Ok(response.Data);
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpPut]
         public async Task<IActionResult> Put(Client model)
         {

@@ -64,9 +64,9 @@ namespace FinalProj.Services.Implemintations.UserServices
                         {
                             authClaims.Add(new Claim(ClaimTypes.Role, "Client"));
                         }
-                        if (userRole == Roles.Administrator.ToString())
+                        if (userRole == Roles.TechnicalSupportOperator.ToString())
                         {
-                            authClaims.Add(new Claim(ClaimTypes.Role, "Administrator"));
+                            authClaims.Add(new Claim(ClaimTypes.Role, "TechnicalSupportOperator"));
                         }
                         if (userRole == Roles.Moderator.ToString())
                         {
