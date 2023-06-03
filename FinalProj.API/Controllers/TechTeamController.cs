@@ -21,6 +21,31 @@ namespace FinalApp.Api.Controllers
             _authService = authService;
         }
 
+
+        //[Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
+        [HttpPut("SetTechTeamRoleById")]
+        public async Task<IActionResult> PutRoleById(string usertId, int roleId)
+        {
+            await _userService.SetUserAsRoleById(usertId, roleId);
+            return Ok();
+        }
+
+        //[Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
+        [HttpGet("checkTechTeamRole/{userId}/{roleId}")]
+        public async Task<IActionResult> CheckUserRole(string userId, int roleId)
+        {
+            var response = await _userService.CheckUserRole(userId, roleId);
+
+            if (response.IsSuccess)
+            {
+                return Ok(response.Data);
+            }
+            else
+            {
+                return BadRequest(response.Message);
+            }
+        }
+
         //[Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator, TechnicalSpecialist")]
         [HttpGet("ActiveRequest")]
         public async Task<IActionResult> GetActive(string techTeamId)

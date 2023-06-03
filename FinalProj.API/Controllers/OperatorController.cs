@@ -1,6 +1,7 @@
 ﻿using FinalApp.ApiModels.Auth.Models;
 using FinalApp.Domain.Models.Entities.Persons.Users;
 using FinalApp.Services.Interfaces;
+using FinalProj.Services.Implemintations.UserServices;
 using FinalProj.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -25,7 +26,33 @@ namespace FinalApp.Api.Controllers
             _authforTechTeamService = authforTechTeamService;
         }
 
-    
+        //[Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
+        [HttpPut("SetOperatorRoleById")]
+        public async Task<IActionResult> PutRoleById(string usertId, int roleId)
+        {
+            await _userService.SetUserAsRoleById(usertId, roleId);
+            return Ok();
+        }
+
+        //[Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
+        [HttpGet("checkOperatorRole/{userId}/{roleId}")]
+        public async Task<IActionResult> CheckUserRole(string userId, int roleId)
+        {
+            var response = await _userService.CheckUserRole(userId, roleId);
+
+            if (response.IsSuccess)
+            {
+                return Ok(response.Data);
+            }
+            else
+            {
+                return BadRequest(response.Message);
+            }
+        }
+
+
+
+
 
         //[Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator, TechnicalSupportOperator")]
         [HttpGet("ActiveRequest")]
@@ -116,16 +143,6 @@ namespace FinalApp.Api.Controllers
 
         //[Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator, TechnicalSupportOperator")]
         [HttpPost]
-        [Route("register-operator")]
-        public async Task<IActionResult> RegisterOperatorAccount([FromBody] RegisterModel model)
-        {
-            var result = await _authService.Register(model);
-            await _userService.SetUserAsRoleById(result.userId, 2);
-            return Ok(result);
-        }
-
-        //[Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator, TechnicalSupportOperator")]
-        [HttpPost]
         [Route("register-techTeam")]
         public async Task<IActionResult> RegisterTechnicalTeamAccount([FromBody] RegisterModel model)
         {
@@ -135,12 +152,33 @@ namespace FinalApp.Api.Controllers
             return Ok(result);
         }
 
+        //[Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator, TechnicalSupportOperator")]
+        [HttpPost]
+        [Route("register-operator")]
+        public async Task<IActionResult> RegisterOperatorAccount([FromBody] RegisterModel model)
+        {
+            var result = await _authService.Register(model);
+            await _userService.SetUserAsRoleById(result.userId, 2);
+            return Ok(result);
+        }
+
+        //[Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
+        [HttpPost]
+        [Route("register-moderator")]
+        public async Task<IActionResult> RegisterModer([FromBody] RegisterModel model)
+        {
+            var result = await _authService.Register(model);
+            await _userService.SetUserAsRoleById(result.userId, 3);
+            return Ok(result);
+        }
+
         //[Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
         [HttpPost]
         [Route("register-admin")]
         public async Task<IActionResult> RegisterAdmin([FromBody] RegisterModel model)
         {
-            var result = await _authService.RegisterAdmin(model);
+            var result = await _authService.Register(model);
+            await _userService.SetUserAsRoleById(result.userId, 4);
             return Ok(result);
         }
 
