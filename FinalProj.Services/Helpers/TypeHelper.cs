@@ -5,6 +5,7 @@ using FinalApp.Domain.Models.Entities.Persons.Users;
 using FinalApp.Domain.Models.Entities.Requests.RequestsInfo;
 using FinalApp.Domain.Models.Enums;
 using FinallApp.ValidationHelper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
@@ -189,5 +190,24 @@ namespace FinalApp.Services.Helpers
 
             throw new ArgumentNullException();
         }
+
+        public static async Task<T> CheckUserTypeForRole(UserManager<T> userManager, string userId)
+        {
+            var user = await userManager.FindByIdAsync(userId);
+            if(typeof(T) == typeof(Client))
+            {
+               await userManager.RemoveFromRoleAsync(user, "Client");
+            }
+            if (typeof(T) == typeof(TechTeam))
+            {
+                await userManager.RemoveFromRoleAsync(user, "TechnicalSpecialist");
+            }
+            if (typeof(T) == typeof(SupportOperator))
+            {
+                await userManager.RemoveFromRoleAsync(user, "TechnicalSupportOperator");
+            }
+            return user;
+        }
+
     }
 }

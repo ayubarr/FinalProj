@@ -38,8 +38,8 @@ namespace FinalProj.Services.Implemintations.UserServices
                 StringValidator.CheckIsNotNull(userId);
                 NumberValidator<int>.IsRange(roleId, RolesMinIndex, RolesMaxIndex);
 
-                var user = await _userManager.FindByIdAsync(userId);
-
+                var user = await TypeHelper<T>.CheckUserTypeForRole(_userManager, userId);
+                
                 Roles role = (Roles)(object)roleId;
 
                 var roleName = role.ToString();

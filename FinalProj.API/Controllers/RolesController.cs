@@ -12,18 +12,18 @@ namespace FinalProj.API.Controllers
     [ApiController]
     public class RolesController : ControllerBase
     {
-        private readonly IBaseUserService<ApplicationUser> _userService;
+        private readonly IBaseUserService<Client> _clientService;
 
         public RolesController(IBaseUserService<ApplicationUser> userService)
         {
-            _userService = userService;
+            _clientService = userService;
         }
 
         //[Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
         [HttpPut("SetClientRoleById")]
         public async Task<IActionResult> PutRoleById(string usertId, int roleId)
         {
-            await _userService.SetUserAsRoleById(usertId, roleId);
+            await _clientService.SetUserAsRoleById(usertId, roleId);
             return Ok();
         }
 
@@ -31,7 +31,32 @@ namespace FinalProj.API.Controllers
         [HttpGet("checkUserRole/{userId}/{roleId}")]
         public async Task<IActionResult> CheckUserRole(string userId, int roleId)
         {
-            var response = await _userService.CheckUserRole(userId, roleId);
+            var response = await _clientService.CheckUserRole(userId, roleId);
+
+            if (response.IsSuccess)
+            {
+                return Ok(response.Data);
+            }
+            else
+            {
+                return BadRequest(response.Message);
+            }
+        }
+
+
+        //[Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
+        [HttpPut("SetClientRoleById")]
+        public async Task<IActionResult> PutRoleById(string usertId, int roleId)
+        {
+            await _clientService.SetUserAsRoleById(usertId, roleId);
+            return Ok();
+        }
+
+        //[Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
+        [HttpGet("checkUserRole/{userId}/{roleId}")]
+        public async Task<IActionResult> CheckUserRole(string userId, int roleId)
+        {
+            var response = await _clientService.CheckUserRole(userId, roleId);
 
             if (response.IsSuccess)
             {
