@@ -2,8 +2,10 @@
 using FinalApp.Domain.Models.Entities.Requests.RequestsInfo;
 using FinalApp.Domain.Models.Enums;
 using FinalApp.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Data;
 
 namespace FinalApp.Api.Controllers
 {
@@ -20,6 +22,7 @@ namespace FinalApp.Api.Controllers
             _requestService = requestService;
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator, TechnicalSupportOperator")]
         [HttpGet]
         public IActionResult Get()
         {
@@ -27,6 +30,7 @@ namespace FinalApp.Api.Controllers
             return Ok(response);
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator, TechnicalSupportOperator")]
         [HttpGet("{id}")]
         public IActionResult Get(Guid id)
         {
@@ -34,6 +38,7 @@ namespace FinalApp.Api.Controllers
             return Ok(response.Data);
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator, Client")]
         [HttpPost("CreateRequest")]
         public async Task<IActionResult> CreateRequest(RequestDTO request)
         {
@@ -41,6 +46,7 @@ namespace FinalApp.Api.Controllers
             return Ok(response);
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator")]
         [HttpPut]
         public async Task<IActionResult> Put(RequestDTO model)
         {
@@ -48,6 +54,7 @@ namespace FinalApp.Api.Controllers
             return Ok();
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
@@ -55,6 +62,7 @@ namespace FinalApp.Api.Controllers
             return Ok();
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator, TechnicalSupportOperator")]
         [HttpGet("UnassignedRequests")]
         public async Task<IActionResult> GetUnassignedRequests()
         {
@@ -62,6 +70,7 @@ namespace FinalApp.Api.Controllers
             return Ok(response.Data);
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator, TechnicalSupportOperator")]
         [HttpGet("ClosedRequestsByOperator/{operatorId}")]
         public async Task<IActionResult> GetClosedRequestsByOperatorId(string operatorId)
         {
@@ -69,6 +78,7 @@ namespace FinalApp.Api.Controllers
             return Ok(response.Data);
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator, TechnicalSupportOperator")]
         [HttpGet("ActiveRequestsByOperator/{operatorId}")]
         public async Task<IActionResult> GetActiveRequestsByOperatorId(string operatorId)
         {
@@ -76,6 +86,7 @@ namespace FinalApp.Api.Controllers
             return Ok(response.Data);
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator, TechnicalSupportOperator")]
         [HttpPost("AssignRequestToTechTeam/{requestId}/{teamId}")]
         public async Task<IActionResult> AssignRequestToTeam(Guid requestId, string teamId)
         {
@@ -83,6 +94,7 @@ namespace FinalApp.Api.Controllers
             return Ok(response.Data);
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator, TechnicalSupportOperator")]
         [HttpPost("AssignRequestToOperator/{requestId}/{operatorId}")]
         public async Task<IActionResult> AssignRequestToOperator(Guid requestId, string operatorId)
         {
@@ -90,6 +102,7 @@ namespace FinalApp.Api.Controllers
             return Ok(response.Data);
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator, TechnicalSupportOperator")]
         [HttpPost("MarkRequestAsCompleted/{requestId}")]
         public async Task<IActionResult> MarkRequestAsCompleted(Guid requestId)
         {
@@ -97,6 +110,7 @@ namespace FinalApp.Api.Controllers
             return Ok(response.Data);
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator, TechnicalSupportOperator")]
         [HttpPost("AssignLocationToRequest/{requestId}/{locationId}")]
         public async Task<IActionResult> AssignLocationToRequest(Guid requestId, Guid locationId)
         {
@@ -104,6 +118,7 @@ namespace FinalApp.Api.Controllers
             return Ok(response.Data);
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator, TechnicalSupportOperator")]
         [HttpPost("SetEcoBoxQuantityAndTemplate/{requestId}/{quantity}/{templateId}")]
         public async Task<IActionResult> SetEcoBoxQuantityAndTemplate(Guid requestId, int quantity, Guid templateId)
         {
@@ -111,8 +126,7 @@ namespace FinalApp.Api.Controllers
             return Ok(response.Data);
         }
 
-
-
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator, TechnicalSupportOperator")]
         [HttpPost("ChangeRequestStatus/{requestId}/{newStatus}")]
         public async Task<IActionResult> ChangeRequestStatus(Guid requestId, Status newStatus)
         {

@@ -1,4 +1,6 @@
-﻿using FinalApp.Services.Interfaces;
+﻿using FinalApp.Domain.Models.Enums;
+using FinalApp.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinalApp.Api.Controllers
@@ -14,6 +16,7 @@ namespace FinalApp.Api.Controllers
             _historyService = historyService;
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator, TechnicalSupportOperator")]
         [HttpGet("GetStatus/{requestId}")]
         public async Task<IActionResult> GetStatus(Guid requestId)
         {
