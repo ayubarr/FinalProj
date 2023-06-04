@@ -16,7 +16,7 @@ namespace FinalApp.Api.Controllers
             _historyService = historyService;
         }
 
-        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator, TechnicalSupportOperator")]
+        //[Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator, TechnicalSupportOperator")]
         [HttpGet("GetStatus/{requestId}")]
         public async Task<IActionResult> GetStatus(Guid requestId)
         {
