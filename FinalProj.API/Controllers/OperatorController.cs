@@ -31,7 +31,7 @@ namespace FinalApp.Api.Controllers
 
 
 
-        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
+        //[Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
         [HttpPut("SetOperatorRoleById")]
         public async Task<IActionResult> PutRoleById(string usertId, int roleId)
         {
@@ -39,7 +39,7 @@ namespace FinalApp.Api.Controllers
             return Ok();
         }
 
-        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
+        //[Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
         [HttpGet("checkOperatorRole/{userId}/{roleId}")]
         public async Task<IActionResult> CheckUserRole(string userId, int roleId)
         {
@@ -59,7 +59,7 @@ namespace FinalApp.Api.Controllers
 
 
 
-        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator, TechnicalSupportOperator")]
+        //[Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator, TechnicalSupportOperator")]
         [HttpGet("ActiveRequest")]
         public async Task<IActionResult> GetActive(string techTeamId)
         {
@@ -67,7 +67,7 @@ namespace FinalApp.Api.Controllers
             return Ok(response.Data);
         }
 
-        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator, TechnicalSupportOperator")]
+        //[Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator, TechnicalSupportOperator")]
         [HttpGet("ClosedRequest")]
         public async Task<IActionResult> GetClosed(string techTeamId)
         {
@@ -75,7 +75,7 @@ namespace FinalApp.Api.Controllers
             return Ok(response.Data);
         }
 
-        [Authorize(AuthenticationSchemes = "Bearer", Roles = "TechnicalSupportOperator")]
+        //[Authorize(AuthenticationSchemes = "Bearer", Roles = "TechnicalSupportOperator")]
         [HttpPost("AcceptRequest/{requestId}/{Id}")]
         public async Task<IActionResult> AcceptRequest(Guid requestId, string techTeamId)
         {
@@ -83,7 +83,7 @@ namespace FinalApp.Api.Controllers
             return Ok(response.Data);
         }
 
-        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator, TechnicalSupportOperator")]
+        //[Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator, TechnicalSupportOperator")]
         [HttpPost("MarkRequestAsCompleted/{requestId}")]
         public async Task<IActionResult> MarkRequestAsCompleted(Guid requestId)
         {
@@ -91,7 +91,7 @@ namespace FinalApp.Api.Controllers
             return Ok(response.Data);
         }
 
-        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator, TechnicalSupportOperator")]
+        //[Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator, TechnicalSupportOperator")]
         [HttpPost("CloseRequestByOperator/{requestId}/{Id}")]
         public async Task<IActionResult> CloseRequestByUser(Guid requestId, string operatorId)
         {
@@ -99,7 +99,7 @@ namespace FinalApp.Api.Controllers
             return Ok(response.Data);
         }
 
-        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator")]
+        //[Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator")]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -107,7 +107,7 @@ namespace FinalApp.Api.Controllers
             return Ok(response.Data);
         }
 
-        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator")]
+        //[Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator")]
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(string id)
         {
@@ -115,7 +115,7 @@ namespace FinalApp.Api.Controllers
             return Ok(response.Data);
         }
 
-        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator, TechnicalSupportOperator")]
+        //[Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator, TechnicalSupportOperator")]
         [HttpPut]
         public async Task<IActionResult> Put(SupportOperator model)
         {
@@ -123,7 +123,7 @@ namespace FinalApp.Api.Controllers
             return Ok();
         }
 
-        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator")]
+        //[Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string id)
         {
@@ -146,7 +146,7 @@ namespace FinalApp.Api.Controllers
             return Unauthorized(response.Message);
         }
 
-        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator, TechnicalSupportOperator")]
+        //[Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator, TechnicalSupportOperator")]
         [HttpPost]
         [Route("register-techTeam")]
         public async Task<IActionResult> RegisterTechnicalTeamAccount([FromBody] RegisterModel model)
@@ -157,7 +157,7 @@ namespace FinalApp.Api.Controllers
             return Ok(result);
         }
 
-        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator, TechnicalSupportOperator")]
+        //[Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator, TechnicalSupportOperator")]
         [HttpPost]
         [Route("register-operator")]
         public async Task<IActionResult> RegisterOperatorAccount([FromBody] RegisterModel model)
@@ -167,7 +167,7 @@ namespace FinalApp.Api.Controllers
             return Ok(result);
         }
 
-        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
+        //[Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
         [HttpPost]
         [Route("register-moderator")]
         public async Task<IActionResult> RegisterModer([FromBody] RegisterModel model)
@@ -177,7 +177,7 @@ namespace FinalApp.Api.Controllers
             return Ok(result);
         }
 
-        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
+        //[Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
         [HttpPost]
         [Route("register-admin")]
         public async Task<IActionResult> RegisterAdmin([FromBody] RegisterModel model)
@@ -187,7 +187,7 @@ namespace FinalApp.Api.Controllers
             return Ok(result);
         }
 
-        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
+        //[Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
         [HttpPost]
         [Route("refresh-token")]
         public async Task<IActionResult> RefreshToken(TokenModel tokenModel)
@@ -196,7 +196,7 @@ namespace FinalApp.Api.Controllers
             return Ok(result);
         }
 
-        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
+        //[Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
         [HttpPost]
         [Route("revoke/{username}")]
         public async Task<IActionResult> Revoke(string username)
@@ -212,7 +212,7 @@ namespace FinalApp.Api.Controllers
             }
         }
 
-        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
+        //[Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
         [HttpPost]
         [Route("revoke-all")]
         public async Task<IActionResult> RevokeAll()
