@@ -1,7 +1,6 @@
 ﻿using FinalApp.ApiModels.Auth.Models;
 using FinalApp.Domain.Models.Entities.Persons.Users;
 using FinalApp.Services.Interfaces;
-using FinalProj.Services.Implemintations.UserServices;
 using FinalProj.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -32,7 +31,7 @@ namespace FinalApp.Api.Controllers
 
 
 
-        //[Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
         [HttpPut("SetOperatorRoleById")]
         public async Task<IActionResult> PutRoleById(string usertId, int roleId)
         {
@@ -40,7 +39,7 @@ namespace FinalApp.Api.Controllers
             return Ok();
         }
 
-        //[Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
         [HttpGet("checkOperatorRole/{userId}/{roleId}")]
         public async Task<IActionResult> CheckUserRole(string userId, int roleId)
         {
@@ -168,7 +167,7 @@ namespace FinalApp.Api.Controllers
             return Ok(result);
         }
 
-      //  [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
         [HttpPost]
         [Route("register-moderator")]
         public async Task<IActionResult> RegisterModer([FromBody] RegisterModel model)
@@ -178,7 +177,7 @@ namespace FinalApp.Api.Controllers
             return Ok(result);
         }
 
-       // [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
+        // [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
         [HttpPost]
         [Route("register-admin")]
         public async Task<IActionResult> RegisterAdmin([FromBody] RegisterModel model)
