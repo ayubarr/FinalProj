@@ -205,6 +205,8 @@ namespace FinalApp.Services.Helpers
             if (typeof(T) == typeof(SupportOperator))
             {
                 await userManager.RemoveFromRoleAsync(user, "TechnicalSupportOperator");
+                await userManager.RemoveFromRoleAsync(user, "Moderator");
+                await userManager.RemoveFromRoleAsync(user, "Administrator");
             }
             return user;
         }

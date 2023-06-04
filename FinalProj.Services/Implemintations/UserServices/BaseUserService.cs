@@ -11,7 +11,6 @@ using FinalApp.Services.Mapping.Helpers;
 using FinallApp.ValidationHelper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 
 namespace FinalProj.Services.Implemintations.UserServices
 {
@@ -39,7 +38,7 @@ namespace FinalProj.Services.Implemintations.UserServices
                 NumberValidator<int>.IsRange(roleId, RolesMinIndex, RolesMaxIndex);
 
                 var user = await TypeHelper<T>.CheckUserTypeForRole(_userManager, userId);
-                
+
                 Roles role = (Roles)(object)roleId;
 
                 var roleName = role.ToString();
@@ -110,7 +109,7 @@ namespace FinalProj.Services.Implemintations.UserServices
                 var user = await _userManager.FindByIdAsync(userId);
                 ObjectValidator<T>.CheckIsNotNullObject(user);
 
-                var role = Roles.Administrator.ToString(); 
+                var role = Roles.Administrator.ToString();
                 var result = await _userManager.AddToRoleAsync(user, role);
 
                 if (result.Succeeded)
@@ -120,7 +119,7 @@ namespace FinalProj.Services.Implemintations.UserServices
                 else
                 {
                     return ResponseFactory<bool>.CreateErrorResponse(new Exception("Failed to set user as admin."));
-                }                       
+                }
             }
             catch (ArgumentNullException argNullException)
             {
@@ -198,7 +197,7 @@ namespace FinalProj.Services.Implemintations.UserServices
         public async Task<IBaseResponse<bool>> MarkRequestAsCompleted(Guid requestId)
         {
             try
-            {               
+            {
                 ObjectValidator<Guid>.CheckIsNotNullObject(requestId);
                 var request = await TypeHelper<T>.CheckUserTypeForMarkAsCompleteRequest(requestId, _repository);
 
@@ -365,7 +364,7 @@ namespace FinalProj.Services.Implemintations.UserServices
             {
                 var user = await _userManager.FindByIdAsync(userId);
                 ObjectValidator<T>.CheckIsNotNullObject(user);
-            
+
                 var result = await _userManager.DeleteAsync(user);
 
                 if (result.Succeeded)
@@ -375,7 +374,7 @@ namespace FinalProj.Services.Implemintations.UserServices
                 else
                 {
                     return ResponseFactory<bool>.CreateErrorResponse(new Exception("Failed to delete user."));
-                }                             
+                }
             }
             catch (ArgumentNullException ex)
             {
