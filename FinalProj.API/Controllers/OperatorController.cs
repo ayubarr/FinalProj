@@ -177,7 +177,7 @@ namespace FinalApp.Api.Controllers
             return Ok(result);
         }
 
-        // [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
         [HttpPost]
         [Route("register-admin")]
         public async Task<IActionResult> RegisterAdmin([FromBody] RegisterModel model)

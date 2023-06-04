@@ -151,6 +151,41 @@ namespace FinalApp.Api
             }
         }
 
+        public async static Task SeedAdmins(this IServiceCollection services)
+        {
+            var userManager = services.BuildServiceProvider().GetRequiredService<UserManager<SupportOperator>>();
+            const string adminId = "1fd2c92f-1722-4b69-87db-f877b2656307";
+            const string adminName = "Ayub";
+
+            var user = await userManager.FindByIdAsync(adminId);
+
+            if (user != null) return;
+
+            var admin = new SupportOperator()
+            {
+                Id = adminId,
+                Name = "Admin",
+                Surname = "Admin",
+                Login = "Ayub",
+                Phone = "+996-999-999-999",
+                Email = "admin@admin.com",
+                Password = "P@ssw0rd!",
+                UserName = adminName,
+                NormalizedUserName = "Ayub".Normalize(),
+                NormalizedEmail = "admin@admin.com".Normalize(),
+            };
+
+            var passwordHasher = new PasswordHasher<User>();
+            admin.PasswordHash = passwordHasher.HashPassword(admin, "P@ssw0rd!");
+
+      
+           
+
+            await userManager.CreateAsync(admin);
+            await userManager.AddToRoleAsync(admin, Roles.Administrator.ToString());
+        }
+
+
         public static void IntialiseLogger(this ILoggingBuilder loggingBuilder, Action<DbLoggerOptions> configure)
         {
             //loggingBuilder.Services.AddSingleton<ILoggerProvider, DbLoggerProvider>();

@@ -196,17 +196,17 @@ namespace FinalApp.Services.Helpers
             var user = await userManager.FindByIdAsync(userId);
             if(typeof(T) == typeof(Client))
             {
-               await userManager.RemoveFromRoleAsync(user, "Client");
+               await userManager.RemoveFromRoleAsync(user, Roles.Client.ToString());
             }
             if (typeof(T) == typeof(TechTeam))
             {
-                await userManager.RemoveFromRoleAsync(user, "TechnicalSpecialist");
+                await userManager.RemoveFromRoleAsync(user, Roles.TechnicalSpecialist.ToString());
             }
             if (typeof(T) == typeof(SupportOperator))
             {
-                await userManager.RemoveFromRoleAsync(user, "TechnicalSupportOperator");
-                await userManager.RemoveFromRoleAsync(user, "Moderator");
-                await userManager.RemoveFromRoleAsync(user, "Administrator");
+                await userManager.RemoveFromRoleAsync(user, Roles.TechnicalSupportOperator.ToString());
+                await userManager.RemoveFromRoleAsync(user, Roles.Moderator.ToString());
+                await userManager.RemoveFromRoleAsync(user, Roles.Administrator.ToString());
             }
             return user;
         }
