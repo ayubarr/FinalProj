@@ -1,4 +1,4 @@
-﻿namespace FinalApp.Api.Authentication
+﻿namespace FinalProj.Api.Authentication
 {
     public static class UserRoles
     {

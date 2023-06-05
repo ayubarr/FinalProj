@@ -1,10 +1,10 @@
-﻿using FinalApp.ApiModels.DTOs.CommonDTOs.BaseDTOs;
-using FinalApp.ApiModels.Response.Helpers;
-using FinalApp.ApiModels.Response.Interfaces;
-using FinalApp.DAL.Repository.Interfaces;
-using FinalApp.Domain.Models.Abstractions.BaseEntities;
-using FinalApp.Services.Interfaces;
-using FinalApp.Services.Mapping.Helpers;
+﻿using FinalProj.ApiModels.DTOs.CommonDTOs.BaseDTOs;
+using FinalProj.ApiModels.Response.Helpers;
+using FinalProj.ApiModels.Response.Interfaces;
+using FinalProj.DAL.Repository.Interfaces;
+using FinalProj.Domain.Models.Abstractions.BaseEntities;
+using FinalProj.Services.Interfaces;
+using FinalProj.Services.Mapping.Helpers;
 using FinallApp.ValidationHelper;
 using Microsoft.EntityFrameworkCore;
 

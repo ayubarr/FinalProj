@@ -1,8 +1,8 @@
-﻿using FinalApp.Domain.Models.Abstractions.BaseRequests;
-using FinalApp.Domain.Models.Entities.Persons.Users;
-using FinalApp.Domain.Models.Enums;
+﻿using FinalProj.Domain.Models.Abstractions.BaseRequests;
+using FinalProj.Domain.Models.Entities.Persons.Users;
+using FinalProj.Domain.Models.Enums;
 
-namespace FinalApp.Domain.Models.Entities.Requests.RequestsInfo
+namespace FinalProj.Domain.Models.Entities.Requests.RequestsInfo
 {
     public class Request : RequestInfo
     {

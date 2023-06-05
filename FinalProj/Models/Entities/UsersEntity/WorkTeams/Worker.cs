@@ -1,7 +1,7 @@
-﻿using FinalApp.Domain.Models.Abstractions.BaseUsers;
-using FinalApp.Domain.Models.Enums;
+﻿using FinalProj.Domain.Models.Abstractions.BaseUsers;
+using FinalProj.Domain.Models.Enums;
 
-namespace FinalApp.Domain.Models.Entities.Persons.WorkTeams
+namespace FinalProj.Domain.Models.Entities.Persons.WorkTeams
 {
     public class Worker : BasePerson
     {

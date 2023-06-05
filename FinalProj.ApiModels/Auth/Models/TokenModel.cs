@@ -1,4 +1,4 @@
-﻿namespace FinalApp.ApiModels.Auth.Models
+﻿namespace FinalProj.ApiModels.Auth.Models
 {
     public class TokenModel
     {

@@ -1,4 +1,4 @@
-﻿using FinalApp.Domain.Models.Entities.Persons.Users;
+﻿using FinalProj.Domain.Models.Entities.Persons.Users;
 
 namespace FinalProj.DAL.Repository.Interfaces
 {

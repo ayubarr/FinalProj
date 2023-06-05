@@ -1,6 +1,6 @@
-﻿using FinalApp.Domain.Models.Abstractions.BaseEntities;
+﻿using FinalProj.Domain.Models.Abstractions.BaseEntities;
 
-namespace FinalApp.DAL.Repository.Interfaces
+namespace FinalProj.DAL.Repository.Interfaces
 {
     /// <summary>
     /// Represents a repository for managing entities.

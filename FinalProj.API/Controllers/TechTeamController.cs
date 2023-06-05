@@ -1,12 +1,12 @@
-﻿using FinalApp.ApiModels.Auth.Models;
-using FinalApp.ApiModels.DTOs.EntitiesDTOs.UsersDTOs;
-using FinalApp.Domain.Models.Entities.Persons.Users;
-using FinalApp.Services.Interfaces;
+﻿using FinalProj.ApiModels.Auth.Models;
+using FinalProj.ApiModels.DTOs.EntitiesDTOs.UsersDTOs;
+using FinalProj.Domain.Models.Entities.Persons.Users;
+using FinalProj.Services.Interfaces;
 using FinalProj.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FinalApp.Api.Controllers
+namespace FinalProj.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

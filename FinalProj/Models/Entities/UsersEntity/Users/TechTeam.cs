@@ -1,9 +1,9 @@
-﻿using FinalApp.Domain.Models.Abstractions.BaseUsers;
-using FinalApp.Domain.Models.Entities.Persons.WorkTeams;
-using FinalApp.Domain.Models.Entities.Requests.RequestsInfo;
-using FinalApp.Domain.Models.Enums;
+﻿using FinalProj.Domain.Models.Abstractions.BaseUsers;
+using FinalProj.Domain.Models.Entities.Persons.WorkTeams;
+using FinalProj.Domain.Models.Entities.Requests.RequestsInfo;
+using FinalProj.Domain.Models.Enums;
 
-namespace FinalApp.Domain.Models.Entities.Persons.Users
+namespace FinalProj.Domain.Models.Entities.Persons.Users
 {
     public class TechTeam : User
     {

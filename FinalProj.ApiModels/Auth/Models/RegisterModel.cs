@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace FinalApp.ApiModels.Auth.Models
+namespace FinalProj.ApiModels.Auth.Models
 {
     public class RegisterModel
     {

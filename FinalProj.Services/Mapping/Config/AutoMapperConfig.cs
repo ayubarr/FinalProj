@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using FinalApp.ApiModels.DTOs.CommonDTOs.BaseDTOs;
-using FinalApp.Domain.Models.Abstractions.BaseEntities;
+using FinalProj.ApiModels.DTOs.CommonDTOs.BaseDTOs;
+using FinalProj.Domain.Models.Abstractions.BaseEntities;
 
-namespace FinalApp.Services.Mapping.Config
+namespace FinalProj.Services.Mapping.Config
 {
     /// <summary>
     /// Configuration class for AutoMapper to map entities between two models.

@@ -1,10 +1,10 @@
-﻿using FinalApp.Api.Authentication;
-using FinalApp.ApiModels.Auth.Models;
-using FinalApp.ApiModels.Response.Helpers;
-using FinalApp.ApiModels.Response.Interfaces;
-using FinalApp.Domain.Models.Abstractions.BaseUsers;
-using FinalApp.Domain.Models.Enums;
-using FinalApp.Services.Helpers;
+﻿using FinalProj.Api.Authentication;
+using FinalProj.ApiModels.Auth.Models;
+using FinalProj.ApiModels.Response.Helpers;
+using FinalProj.ApiModels.Response.Interfaces;
+using FinalProj.Domain.Models.Abstractions.BaseUsers;
+using FinalProj.Domain.Models.Enums;
+using FinalProj.Services.Helpers;
 using FinallApp.ValidationHelper;
 using FinalProj.ApiModels.Auth.Models;
 using FinalProj.Services.Interfaces;

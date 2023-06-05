@@ -1,5 +1,5 @@
-using FinalApp.Api;
-using FinalApp.DAL.SqlServer;
+using FinalProj.Api;
+using FinalProj.DAL.SqlServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 

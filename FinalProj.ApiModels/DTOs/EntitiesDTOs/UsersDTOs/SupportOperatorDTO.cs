@@ -1,7 +1,7 @@
-﻿using FinalApp.ApiModels.DTOs.CommonDTOs.BaseDTOs;
-using FinalApp.Domain.Models.Enums;
+﻿using FinalProj.ApiModels.DTOs.CommonDTOs.BaseDTOs;
+using FinalProj.Domain.Models.Enums;
 
-namespace FinalApp.ApiModels.DTOs.EntitiesDTOs.UsersDTOs
+namespace FinalProj.ApiModels.DTOs.EntitiesDTOs.UsersDTOs
 {
     public class SupportOperatorDTO : BaseUserDTO
     {

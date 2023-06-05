@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
-using FinalApp.ApiModels.DTOs.CommonDTOs.BaseDTOs;
-using FinalApp.ApiModels.DTOs.EntitiesDTOs.UsersDTOs;
-using FinalApp.Domain.Models.Abstractions.BaseUsers;
-using FinalApp.Domain.Models.Entities.Persons.Users;
+using FinalProj.ApiModels.DTOs.CommonDTOs.BaseDTOs;
+using FinalProj.ApiModels.DTOs.EntitiesDTOs.UsersDTOs;
+using FinalProj.Domain.Models.Abstractions.BaseUsers;
+using FinalProj.Domain.Models.Entities.Persons.Users;
 
-namespace FinalApp.Services.Mapping.UsersMap
+namespace FinalProj.Services.Mapping.UsersMap
 {
     public class MappingProfile : Profile
     {

@@ -1,14 +1,13 @@
-﻿using FinalApp.Domain.Models.Abstractions.BaseUsers;
-using FinalApp.Domain.Models.Entities.Persons.Users;
-using FinalApp.Domain.Models.Entities.Persons.WorkTeams;
-using FinalApp.Domain.Models.Entities.Requests.EcoBoxInfo;
-using FinalApp.Domain.Models.Entities.Requests.RequestsInfo;
+﻿using FinalProj.Domain.Models.Abstractions.BaseUsers;
 using FinalProj.Domain.Models.Entities.Logs;
-using Microsoft.AspNetCore.Identity;
+using FinalProj.Domain.Models.Entities.Persons.Users;
+using FinalProj.Domain.Models.Entities.Persons.WorkTeams;
+using FinalProj.Domain.Models.Entities.Requests.EcoBoxInfo;
+using FinalProj.Domain.Models.Entities.Requests.RequestsInfo;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace FinalApp.DAL.SqlServer
+namespace FinalProj.DAL.SqlServer
 {
     public class AppDbContext : IdentityDbContext<ApplicationUser>
     {

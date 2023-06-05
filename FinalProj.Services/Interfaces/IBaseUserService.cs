@@ -1,9 +1,9 @@
-﻿using FinalApp.ApiModels.DTOs.EntitiesDTOs.RequestsDTO;
-using FinalApp.ApiModels.Response.Interfaces;
-using FinalApp.Domain.Models.Abstractions.BaseUsers;
-using FinalApp.Domain.Models.Enums;
+﻿using FinalProj.ApiModels.DTOs.EntitiesDTOs.RequestsDTO;
+using FinalProj.ApiModels.Response.Interfaces;
+using FinalProj.Domain.Models.Abstractions.BaseUsers;
+using FinalProj.Domain.Models.Enums;
 
-namespace FinalApp.Services.Interfaces
+namespace FinalProj.Services.Interfaces
 {
     /// <summary>
     /// Interface for a base user service that provides CRUD operations and additional functionality for a specific user type.

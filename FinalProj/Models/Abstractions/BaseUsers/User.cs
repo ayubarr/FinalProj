@@ -1,6 +1,6 @@
-﻿using FinalApp.Domain.Models.Enums;
+﻿using FinalProj.Domain.Models.Enums;
 
-namespace FinalApp.Domain.Models.Abstractions.BaseUsers
+namespace FinalProj.Domain.Models.Abstractions.BaseUsers
 {
     public class User : PersonalContactInfo
     {

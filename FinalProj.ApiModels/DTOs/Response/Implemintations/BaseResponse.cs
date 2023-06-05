@@ -1,8 +1,8 @@
-﻿using FinalApp.ApiModels.Response.Interfaces;
+﻿using FinalProj.ApiModels.Response.Interfaces;
 using FinallApp.ValidationHelper;
 using Newtonsoft.Json;
 
-namespace FinalApp.ApiModels.Response.Implemintations
+namespace FinalProj.ApiModels.Response.Implemintations
 {
     public class BaseResponse<T> : IBaseResponse<T>
     {

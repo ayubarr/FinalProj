@@ -1,15 +1,15 @@
-﻿using FinalApp.ApiModels.Auth.Models;
-using FinalApp.DAL.Repository.Interfaces;
-using FinalApp.Domain.Models.Abstractions.BaseUsers;
-using FinalApp.Domain.Models.Entities.Persons.Users;
-using FinalApp.Domain.Models.Entities.Requests.RequestsInfo;
-using FinalApp.Domain.Models.Enums;
+﻿using FinalProj.ApiModels.Auth.Models;
+using FinalProj.DAL.Repository.Interfaces;
+using FinalProj.Domain.Models.Abstractions.BaseUsers;
+using FinalProj.Domain.Models.Entities.Persons.Users;
+using FinalProj.Domain.Models.Entities.Requests.RequestsInfo;
+using FinalProj.Domain.Models.Enums;
 using FinallApp.ValidationHelper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace FinalApp.Services.Helpers
+namespace FinalProj.Services.Helpers
 {
     public static class TypeHelper<T>
         where T : ApplicationUser

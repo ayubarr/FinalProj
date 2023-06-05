@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinalProj.Domain", "FinalProj\FinalProj.Domain.csproj", "{3E5CA42B-5FEE-4632-9EAA-EB99884E181E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinalProj.Domain", "FinalProj\FinalProj.Domain.csproj", "{3E5CA42B-5FEE-4632-9EAA-EB99884E181E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{006CE723-FED6-4569-BC92-925597F79711}"
 EndProject
@@ -11,17 +11,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{306B9F
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DAL", "DAL", "{D8D877E5-3B50-4D4E-A481-3FAF94476D93}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinalProj.DAL", "FinalProj.DAL\FinalProj.DAL.csproj", "{A55ADE6A-2F43-4919-AABB-4F8CE6F15609}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinalProj.DAL", "FinalProj.DAL\FinalProj.DAL.csproj", "{A55ADE6A-2F43-4919-AABB-4F8CE6F15609}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BL", "BL", "{1E05E4B5-C227-4269-96BA-C1D723EDCAD6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinalProj.Services", "FinalProj.Services\FinalProj.Services.csproj", "{08FE4C4B-4D22-40E7-A101-9BF13D5BA77F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinalProj.Services", "FinalProj.Services\FinalProj.Services.csproj", "{08FE4C4B-4D22-40E7-A101-9BF13D5BA77F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Helpers", "Helpers", "{213F2152-8E21-4D4A-A48F-79F99E20D22B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Validation", "Validation", "{A0C201FA-2879-41FA-8255-ED3DDFDA81BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinalProj.ValidationHelper", "FinalProj.ValidationHelper\FinalProj.ValidationHelper.csproj", "{A36D35E5-3729-42FB-AE02-2636F4419BCD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinalProj.ValidationHelper", "FinalProj.ValidationHelper\FinalProj.ValidationHelper.csproj", "{A36D35E5-3729-42FB-AE02-2636F4419BCD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApi", "WebApi", "{236F98C6-D584-405D-B41C-B47C580736F9}"
 EndProject
@@ -29,9 +29,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Models", "Models", "{90903B
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{346D7F64-1548-43F2-8D10-0B4CB41727CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinalProj.API", "FinalProj.API\FinalProj.API.csproj", "{43BA1940-A098-48A5-B8A3-785DCF56FFAA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinalProj.API", "FinalProj.API\FinalProj.API.csproj", "{43BA1940-A098-48A5-B8A3-785DCF56FFAA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinalProj.ApiModels", "FinalProj.ApiModels\FinalProj.ApiModels.csproj", "{9DB67EAE-D68A-467A-A750-9D401481FF3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinalProj.ApiModels", "FinalProj.ApiModels\FinalProj.ApiModels.csproj", "{9DB67EAE-D68A-467A-A750-9D401481FF3B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F5E2C509-66EC-4F7E-84B1-230F339F4C7C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinalProj.Tests", "FinalProj.Tests\FinalProj.Tests.csproj", "{6B83DED5-2A68-493A-A47A-EC9CAA0E0A09}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +67,10 @@ Global
 		{9DB67EAE-D68A-467A-A750-9D401481FF3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DB67EAE-D68A-467A-A750-9D401481FF3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9DB67EAE-D68A-467A-A750-9D401481FF3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B83DED5-2A68-493A-A47A-EC9CAA0E0A09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B83DED5-2A68-493A-A47A-EC9CAA0E0A09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B83DED5-2A68-493A-A47A-EC9CAA0E0A09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B83DED5-2A68-493A-A47A-EC9CAA0E0A09}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -80,6 +88,7 @@ Global
 		{346D7F64-1548-43F2-8D10-0B4CB41727CD} = {236F98C6-D584-405D-B41C-B47C580736F9}
 		{43BA1940-A098-48A5-B8A3-785DCF56FFAA} = {346D7F64-1548-43F2-8D10-0B4CB41727CD}
 		{9DB67EAE-D68A-467A-A750-9D401481FF3B} = {90903B37-89B4-44A1-96EF-55E455B2DED8}
+		{6B83DED5-2A68-493A-A47A-EC9CAA0E0A09} = {F5E2C509-66EC-4F7E-84B1-230F339F4C7C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4230E147-D7CE-4C24-AE47-65F4945D3316}

@@ -1,9 +1,9 @@
-﻿using FinalApp.ApiModels.DTOs.EntitiesDTOs.RequestsDTO;
-using FinalApp.ApiModels.Response.Interfaces;
-using FinalApp.Domain.Models.Entities.Requests.RequestsInfo;
-using FinalApp.Domain.Models.Enums;
+﻿using FinalProj.ApiModels.DTOs.EntitiesDTOs.RequestsDTO;
+using FinalProj.ApiModels.Response.Interfaces;
+using FinalProj.Domain.Models.Entities.Requests.RequestsInfo;
+using FinalProj.Domain.Models.Enums;
 
-namespace FinalApp.Services.Interfaces
+namespace FinalProj.Services.Interfaces
 {
     /// <summary>
     /// Interface for the request service that handles operations related to requests.

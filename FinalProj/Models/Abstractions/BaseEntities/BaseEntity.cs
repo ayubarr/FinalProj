@@ -1,4 +1,4 @@
-﻿namespace FinalApp.Domain.Models.Abstractions.BaseEntities
+﻿namespace FinalProj.Domain.Models.Abstractions.BaseEntities
 {
     public abstract class BaseEntity
     {

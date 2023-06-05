@@ -1,7 +1,7 @@
-﻿using FinalApp.Domain.Models.Abstractions.BaseEntities;
-using FinalApp.Domain.Models.Enums;
+﻿using FinalProj.Domain.Models.Abstractions.BaseEntities;
+using FinalProj.Domain.Models.Enums;
 
-namespace FinalApp.Domain.Models.Entities.Requests.RequestsInfo
+namespace FinalProj.Domain.Models.Entities.Requests.RequestsInfo
 {
     public class RequestStatusHistory : BaseEntity
     {

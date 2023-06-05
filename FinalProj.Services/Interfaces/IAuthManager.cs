@@ -1,6 +1,6 @@
-﻿using FinalApp.ApiModels.Auth.Models;
-using FinalApp.ApiModels.Response.Interfaces;
-using FinalApp.Domain.Models.Abstractions.BaseUsers;
+﻿using FinalProj.ApiModels.Auth.Models;
+using FinalProj.ApiModels.Response.Interfaces;
+using FinalProj.Domain.Models.Abstractions.BaseUsers;
 using FinalProj.ApiModels.Auth.Models;
 
 namespace FinalProj.Services.Interfaces

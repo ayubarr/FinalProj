@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 
-namespace FinalApp.DAL.SqlServer.Migrations
+namespace FinalProj.DAL.SqlServer.Migrations
 {
     public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
     {

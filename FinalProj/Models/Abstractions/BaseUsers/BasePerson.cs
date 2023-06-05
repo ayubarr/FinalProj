@@ -1,6 +1,6 @@
-﻿using FinalApp.Domain.Models.Abstractions.BaseEntities;
+﻿using FinalProj.Domain.Models.Abstractions.BaseEntities;
 
-namespace FinalApp.Domain.Models.Abstractions.BaseUsers
+namespace FinalProj.Domain.Models.Abstractions.BaseUsers
 {
     public abstract class BasePerson : BaseEntity
     {

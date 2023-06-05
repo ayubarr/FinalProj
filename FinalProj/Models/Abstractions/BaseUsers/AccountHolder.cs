@@ -1,4 +1,4 @@
-﻿namespace FinalApp.Domain.Models.Abstractions.BaseUsers
+﻿namespace FinalProj.Domain.Models.Abstractions.BaseUsers
 {
     public class AccountHolder : ApplicationUser
     {

@@ -1,12 +1,12 @@
-﻿using FinalApp.ApiModels.DTOs.EntitiesDTOs.RequestsDTO;
-using FinalApp.Domain.Models.Entities.Requests.RequestsInfo;
-using FinalApp.Domain.Models.Enums;
-using FinalApp.Services.Interfaces;
+﻿using FinalProj.ApiModels.DTOs.EntitiesDTOs.RequestsDTO;
+using FinalProj.Domain.Models.Entities.Requests.RequestsInfo;
+using FinalProj.Domain.Models.Enums;
+using FinalProj.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FinalApp.Api.Controllers
+namespace FinalProj.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

@@ -1,4 +1,4 @@
-﻿namespace FinalApp.Domain.Models.Enums
+﻿namespace FinalProj.Domain.Models.Enums
 {
     public enum Types
     {

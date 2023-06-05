@@ -1,10 +1,10 @@
-﻿using FinalApp.DAL.Repository.Interfaces;
-using FinalApp.DAL.SqlServer;
-using FinalApp.Domain.Models.Abstractions.BaseEntities;
+﻿using FinalProj.DAL.Repository.Interfaces;
+using FinalProj.DAL.SqlServer;
+using FinalProj.Domain.Models.Abstractions.BaseEntities;
 using FinallApp.ValidationHelper;
 using Microsoft.EntityFrameworkCore;
 
-namespace FinalApp.DAL.Repository.Implemintations
+namespace FinalProj.DAL.Repository.Implemintations
 {
     public class BaseAsyncRepository<T> : IBaseAsyncRepository<T>
         where T : BaseEntity

@@ -1,4 +1,4 @@
-﻿using FinalApp.DAL.Repository.Interfaces;
+﻿using FinalProj.DAL.Repository.Interfaces;
 using FinalProj.Domain.Models.Entities.Logs;
 using System.Diagnostics.CodeAnalysis;
 

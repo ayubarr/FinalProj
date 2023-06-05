@@ -1,23 +1,22 @@
-﻿using FinalApp.ApiModels.DTOs.EntitiesDTOs.RequestsDTO;
-using FinalApp.DAL.Repository.Implemintations;
-using FinalApp.DAL.Repository.Interfaces;
-using FinalApp.DAL.SqlServer;
-using FinalApp.Domain.Models.Abstractions.BaseUsers;
-using FinalApp.Domain.Models.Entities.Persons.Users;
-using FinalApp.Domain.Models.Entities.Requests.RequestsInfo;
-using FinalApp.Domain.Models.Enums;
-using FinalApp.Services.Interfaces;
+﻿using FinalProj.ApiModels.DTOs.EntitiesDTOs.RequestsDTO;
+using FinalProj.DAL.Repository.Implemintations;
+using FinalProj.DAL.Repository.Interfaces;
+using FinalProj.DAL.SqlServer;
+using FinalProj.Domain.Models.Abstractions.BaseUsers;
+using FinalProj.Domain.Models.Entities.Persons.Users;
+using FinalProj.Domain.Models.Entities.Requests.RequestsInfo;
+using FinalProj.Domain.Models.Enums;
+using FinalProj.Services.Interfaces;
 using FinalProj.API.Logs;
 using FinalProj.Services.Implemintations.RequestServices;
 using FinalProj.Services.Implemintations.UserServices;
-using FinalProj.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace FinalApp.Api
+namespace FinalProj.Api
 {
     public static class Initializer
     {

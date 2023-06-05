@@ -1,6 +1,6 @@
-﻿using FinalApp.Domain.Models.Abstractions.BaseRequests;
+﻿using FinalProj.Domain.Models.Abstractions.BaseRequests;
 
-namespace FinalApp.Domain.Models.Entities.Requests.EcoBoxInfo
+namespace FinalProj.Domain.Models.Entities.Requests.EcoBoxInfo
 {
     public class SupplierCompany : CompanyContactInfo
     {

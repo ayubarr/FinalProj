@@ -1,7 +1,7 @@
-﻿using FinalApp.ApiModels.DTOs.CommonDTOs.BaseDTOs;
-using FinalApp.Domain.Models.Abstractions.BaseEntities;
-using FinalApp.Domain.Models.Abstractions.BaseUsers;
-using FinalApp.Services.Mapping.Config;
+﻿using FinalProj.ApiModels.DTOs.CommonDTOs.BaseDTOs;
+using FinalProj.Domain.Models.Abstractions.BaseEntities;
+using FinalProj.Domain.Models.Abstractions.BaseUsers;
+using FinalProj.Services.Mapping.Config;
 using FinallApp.ValidationHelper;
 using System;
 using System.Collections.Generic;

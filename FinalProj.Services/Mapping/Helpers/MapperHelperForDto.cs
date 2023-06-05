@@ -1,9 +1,9 @@
-﻿using FinalApp.ApiModels.DTOs.CommonDTOs.BaseDTOs;
-using FinalApp.Domain.Models.Abstractions.BaseEntities;
-using FinalApp.Services.Mapping.Config;
+﻿using FinalProj.ApiModels.DTOs.CommonDTOs.BaseDTOs;
+using FinalProj.Domain.Models.Abstractions.BaseEntities;
+using FinalProj.Services.Mapping.Config;
 using FinallApp.ValidationHelper;
 
-namespace FinalApp.Services.Mapping.Helpers
+namespace FinalProj.Services.Mapping.Helpers
 {
     /// <summary>
     /// Helper class for mapping between source entities of type T and destination DTOs of type Tmodel.

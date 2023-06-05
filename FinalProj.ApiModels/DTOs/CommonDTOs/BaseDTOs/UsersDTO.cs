@@ -1,5 +1,5 @@
 ﻿
-namespace FinalApp.ApiModels.DTOs.CommonDTOs.BaseDTOs
+namespace FinalProj.ApiModels.DTOs.CommonDTOs.BaseDTOs
 {
     public class BaseUserDTO : BaseEntityDTO
     {

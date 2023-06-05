@@ -1,6 +1,6 @@
-﻿using FinalApp.Domain.Models.Entities.Persons.Users;
+﻿using FinalProj.Domain.Models.Entities.Persons.Users;
 
-namespace FinalApp.Domain.Models.Entities.Persons.WorkTeams
+namespace FinalProj.Domain.Models.Entities.Persons.WorkTeams
 {
     public class TechnicalTeamWorker
     {

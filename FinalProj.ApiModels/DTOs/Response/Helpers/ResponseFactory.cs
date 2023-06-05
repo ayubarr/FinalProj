@@ -1,8 +1,8 @@
-﻿using FinalApp.ApiModels.DTOs.CommonDTOs.BaseDTOs;
-using FinalApp.ApiModels.Response.Implemintations;
+﻿using FinalProj.ApiModels.DTOs.CommonDTOs.BaseDTOs;
+using FinalProj.ApiModels.Response.Implemintations;
 using Microsoft.AspNetCore.Identity;
 
-namespace FinalApp.ApiModels.Response.Helpers
+namespace FinalProj.ApiModels.Response.Helpers
 {
     public static class ResponseFactory<T>
     {

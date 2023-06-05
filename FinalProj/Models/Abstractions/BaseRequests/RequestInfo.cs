@@ -1,6 +1,6 @@
-﻿using FinalApp.Domain.Models.Enums;
+﻿using FinalProj.Domain.Models.Enums;
 
-namespace FinalApp.Domain.Models.Abstractions.BaseRequests
+namespace FinalProj.Domain.Models.Abstractions.BaseRequests
 {
     public abstract class RequestInfo : BaseRequest
     {

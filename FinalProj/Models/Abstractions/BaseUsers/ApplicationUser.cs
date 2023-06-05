@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace FinalApp.Domain.Models.Abstractions.BaseUsers
+namespace FinalProj.Domain.Models.Abstractions.BaseUsers
 {
     public class ApplicationUser : IdentityUser
     {

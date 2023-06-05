@@ -1,7 +1,7 @@
-﻿using FinalApp.ApiModels.DTOs.CommonDTOs.BaseDTOs;
-using FinalApp.Domain.Models.Enums;
+﻿using FinalProj.ApiModels.DTOs.CommonDTOs.BaseDTOs;
+using FinalProj.Domain.Models.Enums;
 
-namespace FinalApp.ApiModels.DTOs.EntitiesDTOs.RequestsDTO
+namespace FinalProj.ApiModels.DTOs.EntitiesDTOs.RequestsDTO
 {
     public class RequestStatusHistoryDTO : BaseEntityDTO
     {

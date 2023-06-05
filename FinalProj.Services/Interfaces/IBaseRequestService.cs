@@ -1,10 +1,10 @@
-﻿using FinalApp.ApiModels.DTOs.CommonDTOs.BaseDTOs;
-using FinalApp.ApiModels.Response.Interfaces;
-using FinalApp.Domain.Models.Abstractions.BaseEntities;
+﻿using FinalProj.ApiModels.DTOs.CommonDTOs.BaseDTOs;
+using FinalProj.ApiModels.Response.Interfaces;
+using FinalProj.Domain.Models.Abstractions.BaseEntities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace FinalApp.Services.Interfaces
+namespace FinalProj.Services.Interfaces
 {
     /// <summary>
     /// Represents a base service for managing entities of type T and their corresponding DTOs of type Tmodel.

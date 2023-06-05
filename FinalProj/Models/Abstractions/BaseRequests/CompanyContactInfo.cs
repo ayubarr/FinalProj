@@ -1,4 +1,4 @@
-﻿namespace FinalApp.Domain.Models.Abstractions.BaseRequests
+﻿namespace FinalProj.Domain.Models.Abstractions.BaseRequests
 {
     public abstract class CompanyContactInfo : BaseLocation
     {

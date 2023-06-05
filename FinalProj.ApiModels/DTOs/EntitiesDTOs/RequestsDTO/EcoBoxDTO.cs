@@ -1,6 +1,6 @@
-﻿using FinalApp.ApiModels.DTOs.CommonDTOs.BaseDTOs;
+﻿using FinalProj.ApiModels.DTOs.CommonDTOs.BaseDTOs;
 
-namespace FinalApp.ApiModels.DTOs.EntitiesDTOs.RequestsDTO
+namespace FinalProj.ApiModels.DTOs.EntitiesDTOs.RequestsDTO
 {
     public class EcoBoxDTO : BaseEntityDTO
     {

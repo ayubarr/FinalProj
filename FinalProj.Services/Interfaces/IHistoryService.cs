@@ -1,7 +1,7 @@
-﻿using FinalApp.ApiModels.DTOs.EntitiesDTOs.RequestsDTO;
-using FinalApp.ApiModels.Response.Interfaces;
+﻿using FinalProj.ApiModels.DTOs.EntitiesDTOs.RequestsDTO;
+using FinalProj.ApiModels.Response.Interfaces;
 
-namespace FinalApp.Services.Interfaces
+namespace FinalProj.Services.Interfaces
 {
     /// <summary>
     /// Represents a service that handles the history of request statuses.

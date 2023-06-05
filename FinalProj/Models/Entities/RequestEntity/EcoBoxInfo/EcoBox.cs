@@ -1,7 +1,7 @@
-﻿using FinalApp.Domain.Models.Abstractions.BaseRequests;
-using FinalApp.Domain.Models.Entities.Requests.RequestsInfo;
+﻿using FinalProj.Domain.Models.Abstractions.BaseRequests;
+using FinalProj.Domain.Models.Entities.Requests.RequestsInfo;
 
-namespace FinalApp.Domain.Models.Entities.Requests.EcoBoxInfo
+namespace FinalProj.Domain.Models.Entities.Requests.EcoBoxInfo
 {
     public class EcoBox : BaseEcoBox
     {

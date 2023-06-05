@@ -1,7 +1,7 @@
-﻿using FinalApp.ApiModels.Response.Interfaces;
-using FinalApp.Domain.Models.Entities.Persons.Users;
+﻿using FinalProj.ApiModels.Response.Interfaces;
+using FinalProj.Domain.Models.Entities.Persons.Users;
 
-namespace FinalApp.Services.Interfaces
+namespace FinalProj.Services.Interfaces
 {
     public interface IClientService
     {

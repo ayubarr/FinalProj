@@ -1,8 +1,8 @@
-﻿using FinalApp.ApiModels.DTOs.CommonDTOs.BaseDTOs;
-using FinalApp.ApiModels.DTOs.EntitiesDTOs.UsersDTOs;
-using FinalApp.Domain.Models.Enums;
+﻿using FinalProj.ApiModels.DTOs.CommonDTOs.BaseDTOs;
+using FinalProj.ApiModels.DTOs.EntitiesDTOs.UsersDTOs;
+using FinalProj.Domain.Models.Enums;
 
-namespace FinalApp.ApiModels.DTOs.EntitiesDTOs.RequestsDTO
+namespace FinalProj.ApiModels.DTOs.EntitiesDTOs.RequestsDTO
 {
     public class RequestDTO : BaseEntityDTO
     {

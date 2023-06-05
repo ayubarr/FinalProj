@@ -1,12 +1,7 @@
-﻿using FinalApp.DAL.SqlServer;
-using FinalApp.Domain.Models.Entities.Persons.Users;
+﻿using FinalProj.DAL.SqlServer;
+using FinalProj.Domain.Models.Entities.Persons.Users;
 using FinalProj.DAL.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FinalProj.DAL.Repository.Implemintations
 {

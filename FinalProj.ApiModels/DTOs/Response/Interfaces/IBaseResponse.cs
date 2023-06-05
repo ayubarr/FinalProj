@@ -1,4 +1,4 @@
-﻿namespace FinalApp.ApiModels.Response.Interfaces
+﻿namespace FinalProj.ApiModels.Response.Interfaces
 {
     public interface IBaseResponse<T>
     {

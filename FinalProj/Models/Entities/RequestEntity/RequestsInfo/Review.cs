@@ -1,6 +1,6 @@
-﻿using FinalApp.Domain.Models.Abstractions.BaseRequests;
+﻿using FinalProj.Domain.Models.Abstractions.BaseRequests;
 
-namespace FinalApp.Domain.Models.Entities.Requests.RequestsInfo
+namespace FinalProj.Domain.Models.Entities.Requests.RequestsInfo
 {
     public class Review : BaseRequest
     {
