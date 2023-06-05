@@ -9,5 +9,6 @@ namespace FinalProj.Domain.Models.Entities.Persons.Users
         public override Roles UserType { get; set; } = Roles.Client;
 
         public ICollection<Request>? Requests { get; set; }
+
     }
 }
