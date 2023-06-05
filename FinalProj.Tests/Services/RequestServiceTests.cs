@@ -46,20 +46,20 @@
 //        [TestMethod]
 //        public async Task GetUnassignedRequests_ShouldReturnSuccessResponseWithUnassignedRequests()
 //        {
-//            // Arrange
-//            var requests = new List<Request>
-//            {
+//            Arrange
+//           var requests = new List<Request>
+//           {
 //                new Request { Id = Guid.NewGuid(), RequestStatus = Status.Active, OperatorId = null, TechTeamId = null },
 //                new Request { Id = Guid.NewGuid(), RequestStatus = Status.Active, OperatorId = null, TechTeamId = null }
-//            };
+//           };
 //            var unassignedRequestsDTO = MapperHelperForDto<Request, RequestDTO>.Map(requests);
 
 //            _mockRequestRepository.Setup(x => x.ReadAllAsync()).ReturnsAsync(requests.AsQueryable());
 
-//            // Act
-//            var result = await _service.GetUnassignedRequests();
+//            Act
+//           var result = await _service.GetUnassignedRequests();
 
-//            // Assert
+//            Assert
 //            Assert.IsInstanceOfType<IBaseResponse<IEnumerable<RequestDTO>>>(result);
 //            Assert.IsTrue(result.IsSuccess);
 //            CollectionAssert.AreEqual((List<RequestDTO>)unassignedRequestsDTO, result.Data.ToList());
@@ -68,8 +68,8 @@
 //        [TestMethod]
 //        public async Task GetClosedRequestsByOperatorId_ShouldReturnSuccessResponseWithClosedRequests()
 //        {
-//            // Arrange
-//            var operatorId = "operator1";
+//            Arrange
+//           var operatorId = "operator1";
 //            var requests = new List<Request>
 //            {
 //                new Request { Id = Guid.NewGuid(), RequestStatus = Status.Closed, OperatorId = operatorId },
@@ -79,10 +79,10 @@
 
 //            _mockRequestRepository.Setup(x => x.ReadAllAsync()).ReturnsAsync(requests.AsQueryable());
 
-//            // Act
-//            var result = await _service.GetClosedRequestsByOperatorId(operatorId);
+//            Act
+//           var result = await _service.GetClosedRequestsByOperatorId(operatorId);
 
-//            // Assert
+//            Assert
 //            Assert.IsInstanceOfType<IBaseResponse<IEnumerable<RequestDTO>>>(result);
 //            Assert.IsTrue(result.IsSuccess);
 //            CollectionAssert.AreEqual((List<RequestDTO>)closedRequestsDTO, result.Data.ToList());
@@ -91,8 +91,8 @@
 //        [TestMethod]
 //        public async Task GetActiveRequestsByOperatorId_ShouldReturnSuccessResponseWithActiveRequests()
 //        {
-//            // Arrange
-//            var operatorId = "operator1";
+//            Arrange
+//           var operatorId = "operator1";
 //            var requests = new List<Request>
 //            {
 //                new Request { Id = Guid.NewGuid(), RequestStatus = Status.Active, OperatorId = operatorId },
@@ -102,10 +102,10 @@
 
 //            _mockRequestRepository.Setup(x => x.ReadAllAsync()).ReturnsAsync(requests.AsQueryable());
 
-//            // Act
-//            var result = await _service.GetActiveRequestsByOperatorId(operatorId);
+//            Act
+//           var result = await _service.GetActiveRequestsByOperatorId(operatorId);
 
-//            // Assert
+//            Assert
 //            Assert.IsInstanceOfType<IBaseResponse<IEnumerable<RequestDTO>>>(result);
 //            Assert.IsTrue(result.IsSuccess);
 //            CollectionAssert.AreEqual((List<RequestDTO>)activeRequestsDTO, result.Data.ToList());
@@ -114,17 +114,17 @@
 //        [TestMethod]
 //        public async Task AssignRequestToTeam_ShouldReturnSuccessResponse()
 //        {
-//            // Arrange
-//            var requestId = Guid.NewGuid();
+//            Arrange
+//           var requestId = Guid.NewGuid();
 //            var teamId = "team1";
 //            var request = new Request { Id = requestId };
 
 //            _mockRequestRepository.Setup(x => x.ReadByIdAsync(requestId)).ReturnsAsync(request);
 
-//            // Act
-//            var result = await _service.AssignRequestToTeam(requestId, teamId);
+//            Act
+//           var result = await _service.AssignRequestToTeam(requestId, teamId);
 
-//            // Assert
+//            Assert
 //            Assert.IsInstanceOfType<IBaseResponse<bool>>(result);
 //            Assert.IsTrue(result.IsSuccess);
 //            Assert.IsTrue(result.Data);
@@ -135,17 +135,17 @@
 //        [TestMethod]
 //        public async Task AssignRequestToOperator_ShouldReturnSuccessResponse()
 //        {
-//            // Arrange
-//            var requestId = Guid.NewGuid();
+//            Arrange
+//           var requestId = Guid.NewGuid();
 //            var operatorId = "operator1";
 //            var request = new Request { Id = requestId };
 
 //            _mockRequestRepository.Setup(x => x.ReadByIdAsync(requestId)).ReturnsAsync(request);
 
-//            // Act
-//            var result = await _service.AssignRequestToOperator(requestId, operatorId);
+//            Act
+//           var result = await _service.AssignRequestToOperator(requestId, operatorId);
 
-//            // Assert
+//            Assert
 //            Assert.IsInstanceOfType<IBaseResponse<bool>>(result);
 //            Assert.IsTrue(result.IsSuccess);
 //            Assert.IsTrue(result.Data);
@@ -156,16 +156,16 @@
 //        [TestMethod]
 //        public async Task MarkRequestAsCompleted_ShouldReturnSuccessResponse()
 //        {
-//            // Arrange
-//            var requestId = Guid.NewGuid();
+//            Arrange
+//           var requestId = Guid.NewGuid();
 //            var request = new Request { Id = requestId };
 
 //            _mockRequestRepository.Setup(x => x.ReadByIdAsync(requestId)).ReturnsAsync(request);
 
-//            // Act
-//            var result = await _service.MarkRequestAsCompleted(requestId);
+//            Act
+//           var result = await _service.MarkRequestAsCompleted(requestId);
 
-//            // Assert
+//            Assert
 //            Assert.IsInstanceOfType<IBaseResponse<bool>>(result);
 //            Assert.IsTrue(result.IsSuccess);
 //            Assert.IsTrue(result.Data);
@@ -176,8 +176,8 @@
 //        [TestMethod]
 //        public async Task AssignLocationToRequest_ShouldReturnSuccessResponse()
 //        {
-//            // Arrange
-//            var requestId = Guid.NewGuid();
+//            Arrange
+//           var requestId = Guid.NewGuid();
 //            var locationId = Guid.NewGuid();
 //            var request = new Request { Id = requestId };
 //            var location = new Location { Id = locationId };
@@ -185,10 +185,10 @@
 //            _mockRequestRepository.Setup(x => x.ReadByIdAsync(requestId)).ReturnsAsync(request);
 //            _mockLocationRepository.Setup(x => x.ReadByIdAsync(locationId)).ReturnsAsync(location);
 
-//            // Act
-//            var result = await _service.AssignLocationToRequest(requestId, locationId);
+//            Act
+//           var result = await _service.AssignLocationToRequest(requestId, locationId);
 
-//            // Assert
+//            Assert
 //            Assert.IsInstanceOfType<IBaseResponse<bool>>(result);
 //            Assert.IsTrue(result.IsSuccess);
 //            Assert.IsTrue(result.Data);
@@ -199,8 +199,8 @@
 //        [TestMethod]
 //        public async Task SetEcoBoxQuantityAndTemplate_WithAvailableLocationAndEcoBoxes_ShouldReturnSuccessResponse()
 //        {
-//            // Arrange
-//            var requestId = Guid.NewGuid();
+//            Arrange
+//           var requestId = Guid.NewGuid();
 //            var quantity = 3;
 //            var templateId = Guid.NewGuid();
 //            var request = new Request { Id = requestId };
@@ -216,10 +216,10 @@
 //            _mockLocationRepository.Setup(x => x.ReadByIdAsync(location.Id)).ReturnsAsync(location);
 //            _mockTemplateRepository.Setup(x => x.ReadByIdAsync(templateId)).ReturnsAsync(template);
 
-//            // Act
-//            var result = await _service.SetEcoBoxQuantityAndTemplate(requestId, quantity, templateId);
+//            Act
+//           var result = await _service.SetEcoBoxQuantityAndTemplate(requestId, quantity, templateId);
 
-//            // Assert
+//            Assert
 //            Assert.IsInstanceOfType<IBaseResponse<bool>>(result);
 //            Assert.IsTrue(result.IsSuccess);
 //            Assert.IsTrue(result.Data);
@@ -232,8 +232,8 @@
 //        [TestMethod]
 //        public async Task SetEcoBoxQuantityAndTemplate_WithUnavailableLocation_ShouldReturnNotFoundResponse()
 //        {
-//            // Arrange
-//            var requestId = Guid.NewGuid();
+//            Arrange
+//           var requestId = Guid.NewGuid();
 //            var quantity = 3;
 //            var templateId = Guid.NewGuid();
 //            var request = new Request { Id = requestId };
@@ -242,10 +242,10 @@
 //            _mockRequestRepository.Setup(x => x.ReadAllAsync()).ReturnsAsync(new List<Request> { request }.AsQueryable());
 //            _mockRequestRepository.Setup(x => x.UpdateAsync(request)).Returns(Task.CompletedTask);
 
-//            // Act
-//            var result = await _service.SetEcoBoxQuantityAndTemplate(requestId, quantity, templateId);
+//            Act
+//           var result = await _service.SetEcoBoxQuantityAndTemplate(requestId, quantity, templateId);
 
-//            // Assert
+//            Assert
 //            Assert.IsInstanceOfType<IBaseResponse<bool>>(result);
 //            Assert.IsFalse(result.IsSuccess);
 //            Assert.IsNull(result.Data);
@@ -255,8 +255,8 @@
 //        [TestMethod]
 //        public async Task SetEcoBoxQuantityAndTemplate_WithUnavailableEcoBoxes_ShouldReturnNotFoundResponse()
 //        {
-//            // Arrange
-//            var requestId = Guid.NewGuid();
+//            Arrange
+//           var requestId = Guid.NewGuid();
 //            var quantity = 3;
 //            var templateId = Guid.NewGuid();
 //            var request = new Request { Id = requestId };
@@ -267,10 +267,10 @@
 //            _mockRequestRepository.Setup(x => x.UpdateAsync(request)).Returns(Task.CompletedTask);
 //            _mockLocationRepository.Setup(x => x.ReadByIdAsync(location.Id)).ReturnsAsync(location);
 
-//            // Act
-//            var result = await _service.SetEcoBoxQuantityAndTemplate(requestId, quantity, templateId);
+//            Act
+//           var result = await _service.SetEcoBoxQuantityAndTemplate(requestId, quantity, templateId);
 
-//            // Assert
+//            Assert
 //            Assert.IsInstanceOfType<IBaseResponse<bool>>(result);
 //            Assert.IsFalse(result.IsSuccess);
 //            Assert.IsNull(result.Data);
@@ -280,23 +280,23 @@
 //        [TestMethod]
 //        public async Task CreateRequest_ShouldReturnSuccessResponse()
 //        {
-//            // Arrange
-//            var requestDTO = new RequestDTO
-//            {
-//                BoxQuantity = 0,
-//                WorkType = WorkTypes.EcoBoxInstallation,
-//                RequestType = Types.RequestExecution,
-//                ClientId = "client1"
-//            };
+//            Arrange
+//           var requestDTO = new RequestDTO
+//           {
+//               BoxQuantity = 0,
+//               WorkType = WorkTypes.EcoBoxInstallation,
+//               RequestType = Types.RequestExecution,
+//               ClientId = "client1"
+//           };
 //            var client = new Client { Id = requestDTO.ClientId };
 
 //            _mockUserManager.Setup(x => x.FindByIdAsync(requestDTO.ClientId)).ReturnsAsync(client);
 //            _mockRequestRepository.Setup(x => x.Create(It.IsAny<Request>())).Returns(Task.CompletedTask);
 
-//            // Act
-//            var result = await _service.CreateRequest(requestDTO);
+//            Act
+//           var result = await _service.CreateRequest(requestDTO);
 
-//            // Assert
+//            Assert
 //            Assert.IsInstanceOfType<IBaseResponse<Guid>>(result);
 //            Assert.IsTrue(result.IsSuccess);
 //            Assert.IsNotNull(result.Data);
@@ -306,21 +306,21 @@
 //        [TestMethod]
 //        public async Task CreateRequest_WithInvalidClient_ShouldReturnErrorResponse()
 //        {
-//            // Arrange
-//            var requestDTO = new RequestDTO
-//            {
-//                BoxQuantity = 0,
-//                WorkType = WorkTypes.EcoBoxInstallation,
-//                RequestType = Types.RequestExecution,
-//                ClientId = "client1"
-//            };
+//            Arrange
+//           var requestDTO = new RequestDTO
+//           {
+//               BoxQuantity = 0,
+//               WorkType = WorkTypes.EcoBoxInstallation,
+//               RequestType = Types.RequestExecution,
+//               ClientId = "client1"
+//           };
 
 //            _mockUserManager.Setup(x => x.FindByIdAsync(requestDTO.ClientId)).ReturnsAsync((Client)null);
 
-//            // Act
-//            var result = await _service.CreateRequest(requestDTO);
+//            Act
+//           var result = await _service.CreateRequest(requestDTO);
 
-//            // Assert
+//            Assert
 //            Assert.IsInstanceOfType<IBaseResponse<Guid>>(result);
 //            Assert.IsFalse(result.IsSuccess);
 //            Assert.IsNull(result.Data);

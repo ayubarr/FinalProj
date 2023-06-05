@@ -20,7 +20,7 @@ namespace FinalProj.Api.Controllers
             _reviewService = reviewService;
         }
 
-        //[Authorize(AuthenticationSchemes = "Bearer")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet]
         public IActionResult Get()
         {
@@ -28,7 +28,7 @@ namespace FinalProj.Api.Controllers
             return Ok(response.Data);
         }
 
-        //[Authorize(AuthenticationSchemes = "Bearer")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet("{id}")]
         public IActionResult Get(Guid id)
         {
@@ -36,7 +36,7 @@ namespace FinalProj.Api.Controllers
             return Ok(response.Data);
         }
 
-        //[Authorize(AuthenticationSchemes = "Bearer")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
@@ -44,7 +44,7 @@ namespace FinalProj.Api.Controllers
             return Ok();
         }
 
-        //[Authorize(AuthenticationSchemes = "Bearer")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet("GetReviewsByEvaluation/{evaluation}")]
         public async Task<IActionResult> GetReviewsByEvaluation(int evaluation)
         {
@@ -52,7 +52,7 @@ namespace FinalProj.Api.Controllers
             return Ok(response);
         }
 
-        //[Authorize(AuthenticationSchemes = "Bearer")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet("GetReviewsByRequestId/{requestid}")]
         public async Task<IActionResult> GetReviewsByRequestId(Guid requestId)
         {
@@ -60,7 +60,7 @@ namespace FinalProj.Api.Controllers
             return Ok(response);
         }
 
-        //[Authorize(AuthenticationSchemes = "Bearer")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpPost("CreateReview")]
         public async Task<IActionResult> CreateReview(ReviewDTO review)
         {
@@ -68,7 +68,7 @@ namespace FinalProj.Api.Controllers
             return Ok(response);
         }
 
-        //[Authorize(AuthenticationSchemes = "Bearer")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpPost("CanCreateReview/{requestId}")]
         public async Task<IActionResult> CanCreateReview(Guid requestId)
         {
@@ -76,7 +76,7 @@ namespace FinalProj.Api.Controllers
             return Ok(response);
         }
 
-        //[Authorize(AuthenticationSchemes = "Bearer")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpPost("CanUpdateReview/{reviewId}")]
         public async Task<IActionResult> CanUpdateReview(Guid reviewId)
         {
@@ -84,7 +84,7 @@ namespace FinalProj.Api.Controllers
             return Ok(response);
         }
 
-        //[Authorize(AuthenticationSchemes = "Bearer")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpPut("UpdateReview")]
         public async Task<IActionResult> UpdateReview(ReviewDTO review)
         {
