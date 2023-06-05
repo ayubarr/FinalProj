@@ -13,11 +13,14 @@ namespace FinalProj.DAL.Repository.Implemintations
         protected readonly DbSet<T> _dbSet;
         public BaseAsyncRepository(AppDbContext context)
         {
+            if(context == null)
+                throw new ArgumentNullException(nameof(DbSet<T>));
+
             _context = context;
             _dbSet = _context.Set<T>();
 
-            if (_dbSet == default(DbSet<T>))
-                throw new ArgumentNullException(nameof(DbSet<T>));
+            //if (_dbSet == default(DbSet<T>))
+            //    throw new ArgumentNullException(nameof(DbSet<T>));
         }
 
         public async Task Create(T entity)
@@ -42,7 +45,7 @@ namespace FinalProj.DAL.Repository.Implemintations
         {
             ObjectValidator<Guid>.CheckIsNotNullObject(id);
 
-            var entity = ReadAll().FirstOrDefault(x => x.Id == id);
+            var entity = ReadAll().SingleOrDefault(x => x.Id == id);
 
             return entity == null
              ? throw new ArgumentNullException(nameof(id), $"Entity not found by id {id}")

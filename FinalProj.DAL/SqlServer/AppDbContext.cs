@@ -25,6 +25,12 @@ namespace FinalProj.DAL.SqlServer
         public DbSet<RequestStatusHistory> RequestStatusHistories { get; set; }
         public DbSet<Log> Logs { get; set; }
 
+        public AppDbContext() : base()
+        {
+            // Инициализация контекста
+        }
+
+
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
             //Database.EnsureCreated();

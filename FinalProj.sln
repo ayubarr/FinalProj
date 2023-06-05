@@ -35,7 +35,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinalProj.ApiModels", "Fina
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{6DA1ECD0-B237-492B-BD54-5085C2E7AD92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinalProj.Tests", "FinalProj.Tests\FinalProj.Tests.csproj", "{0839EF82-3909-4C5A-AF77-63DC3CF2EB59}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinalProj.Tests", "FinalProj.Tests\FinalProj.Tests.csproj", "{0839EF82-3909-4C5A-AF77-63DC3CF2EB59}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
