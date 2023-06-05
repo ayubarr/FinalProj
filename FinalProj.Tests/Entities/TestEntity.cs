@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FinalProj.Tests.Repositories
+namespace FinalProj.Tests.Entities
 {
     public class TestEntity : BaseEntity
     {

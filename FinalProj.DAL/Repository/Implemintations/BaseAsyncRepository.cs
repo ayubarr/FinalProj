@@ -45,7 +45,7 @@ namespace FinalProj.DAL.Repository.Implemintations
         {
             ObjectValidator<Guid>.CheckIsNotNullObject(id);
 
-            var entity = ReadAll().SingleOrDefault(x => x.Id == id);
+            var entity = ReadAll().FirstOrDefault(x => x.Id == id);
 
             return entity == null
              ? throw new ArgumentNullException(nameof(id), $"Entity not found by id {id}")
