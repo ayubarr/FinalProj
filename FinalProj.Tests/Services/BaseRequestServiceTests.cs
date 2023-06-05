@@ -39,7 +39,7 @@ namespace FinalProj.Tests.Services
             // Assert
             Assert.IsInstanceOfType(result, typeof(IBaseResponse<TestEntity>));
             Assert.IsTrue(result.IsSuccess);
-           // Assert.AreEqual(entity.Id, result.Data.Id);
+            // Assert.AreEqual(entity.Id, result.Data.Id);
         }
 
         [TestMethod]
@@ -135,7 +135,7 @@ namespace FinalProj.Tests.Services
             // Assert
             Assert.IsInstanceOfType(result, typeof(IBaseResponse<TestEntity>));
             Assert.IsTrue(result.IsSuccess);
-           // Assert.AreEqual(entity, result.Data);
+            // Assert.AreEqual(entity, result.Data);
         }
 
         [TestMethod]
