@@ -78,7 +78,7 @@ namespace FinalProj.Api.Controllers
             return Ok(response.Data);
         }
 
-        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator")]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator, TechnicalSupportOperator")]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -86,7 +86,7 @@ namespace FinalProj.Api.Controllers
             return Ok(response.Data);
         }
 
-        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator")]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator, Moderator, TechnicalSupportOperator")]
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(string id)
         {
