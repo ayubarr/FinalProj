@@ -9,9 +9,9 @@ namespace FinalProj.DAL.Repository.Implemintations
     public class BaseAsyncRepository<T> : IBaseAsyncRepository<T>
         where T : BaseEntity
     {
-        protected readonly AppDbContext _context;
+        protected readonly PgDbContext _context;
         protected readonly DbSet<T> _dbSet;
-        public BaseAsyncRepository(AppDbContext context)
+        public BaseAsyncRepository(PgDbContext context)
         {
             if(context == null)
                 throw new ArgumentNullException(nameof(DbSet<T>));
@@ -23,13 +23,27 @@ namespace FinalProj.DAL.Repository.Implemintations
             //    throw new ArgumentNullException(nameof(DbSet<T>));
         }
 
-        public async Task Create(T entity)
+        public void Create(T entity)
+        {
+
+            ObjectValidator<T>.CheckIsNotNullObject(entity);
+
+            using (var context = _context)
+            {
+                 context.Set<T>().Add(entity);
+                 context.SaveChanges();
+            }
+        }
+
+        public async Task CreateAsync(T entity)
         {
             ObjectValidator<T>.CheckIsNotNullObject(entity);
 
             await _dbSet.AddAsync(entity);
             await _context.SaveChangesAsync();
         }
+
+
 
         public IQueryable<T> ReadAll()
         {

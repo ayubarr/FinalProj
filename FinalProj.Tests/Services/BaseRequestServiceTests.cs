@@ -31,7 +31,7 @@ namespace FinalProj.Tests.Services
             var entityDTO = new TestEntityDTO { Name = "Test" };
             var entity = new TestEntity { Id = Guid.NewGuid(), Name = "Test" };
 
-            _mockRepository.Setup(x => x.Create(It.IsAny<TestEntity>())).Returns(Task.CompletedTask);
+            _mockRepository.Setup(x => x.CreateAsync(It.IsAny<TestEntity>())).Returns(Task.CompletedTask);
 
             // Act
             var result = await _service.CreateAsync(entityDTO);

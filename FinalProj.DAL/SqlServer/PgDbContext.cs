@@ -4,12 +4,14 @@ using FinalProj.Domain.Models.Entities.Persons.Users;
 using FinalProj.Domain.Models.Entities.Persons.WorkTeams;
 using FinalProj.Domain.Models.Entities.Requests.EcoBoxInfo;
 using FinalProj.Domain.Models.Entities.Requests.RequestsInfo;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace FinalProj.DAL.SqlServer
 {
-    public class AppDbContext : IdentityDbContext<ApplicationUser>
+    public class PgDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Client> Clients { get; set; }
         public DbSet<SupportOperator> SupportOperators { get; set; }
@@ -25,22 +27,17 @@ namespace FinalProj.DAL.SqlServer
         public DbSet<RequestStatusHistory> RequestStatusHistories { get; set; }
         public DbSet<Log> Logs { get; set; }
 
-        public AppDbContext() : base()
-        {
-            // Инициализация контекста
-        }
 
-
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+        public PgDbContext(DbContextOptions<PgDbContext> options) : base(options)
         {
-            //Database.EnsureCreated();
+            Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
             base.OnModelCreating(modelBuilder);
-
+       
 
             modelBuilder.Entity<Client>()
                 .HasMany(client => client.Requests)

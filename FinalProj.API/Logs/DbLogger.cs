@@ -46,7 +46,7 @@ namespace FinalProj.API.Logs
         /// <param name="state">The event's state.</param>  
         /// <param name="exception">The event's exception. An instance of <see cref="Exception" /></param>  
         /// <param name="formatter">A delegate that formats </param>  
-        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
+        public async void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
         {
             if (!IsEnabled(logLevel))
             {

@@ -7,11 +7,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 ConfigurationManager configuration = builder.Configuration;
 
-var connection = builder.Configuration.GetConnectionString("ConnectionString");
+var connection = builder.Configuration.GetConnectionString("PgDbContextConnection");
 
-builder.Services.AddDbContext<AppDbContext>(option => option.UseSqlServer(connection));
+//builder.Services.AddDbContext<AppDbContext>(option => option.UseSqlServer(connection));
+builder.Services.AddDbContext<PgDbContext>(option => option.UseNpgsql(connection));
 
-//builder.Services.AddSecondIdentity<Client, >
 
 
 builder.Services
@@ -19,12 +19,14 @@ builder.Services
     .InitializeRepositories()
     .InitializeServices();
 
+
 await builder.Services.InitializeRoles();
 await builder.Services.SeedAdmins();
-//builder.Logging.IntialiseLogger(options =>
-//{
-//    builder.Configuration.GetSection("Logging").GetSection("Database").GetSection("Options").Bind(options);
-//});
+
+builder.Logging.IntialiseLogger(options =>
+{
+    builder.Configuration.GetSection("Logging").GetSection("Database").GetSection("Options").Bind(options);
+});
 
 builder.Services.AddControllers();
 

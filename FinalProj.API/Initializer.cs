@@ -103,12 +103,12 @@ namespace FinalProj.Api
             });
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
-                 .AddEntityFrameworkStores<AppDbContext>()
+                 .AddEntityFrameworkStores<PgDbContext>()
                  .AddDefaultTokenProviders();
 
-            services.AddScoped<IUserStore<Client>, UserStore<Client, IdentityRole, AppDbContext, string>>();
-            services.AddScoped<IUserStore<SupportOperator>, UserStore<SupportOperator, IdentityRole, AppDbContext, string>>();
-            services.AddScoped<IUserStore<TechTeam>, UserStore<TechTeam, IdentityRole, AppDbContext, string>>();
+            services.AddScoped<IUserStore<Client>, UserStore<Client, IdentityRole, PgDbContext, string>>();
+            services.AddScoped<IUserStore<SupportOperator>, UserStore<SupportOperator, IdentityRole, PgDbContext, string>>();
+            services.AddScoped<IUserStore<TechTeam>, UserStore<TechTeam, IdentityRole, PgDbContext, string>>();
 
 
             services.AddScoped<IPasswordHasher<Client>, PasswordHasher<Client>>();
@@ -187,8 +187,8 @@ namespace FinalProj.Api
 
         public static void IntialiseLogger(this ILoggingBuilder loggingBuilder, Action<DbLoggerOptions> configure)
         {
-            //loggingBuilder.Services.AddSingleton<ILoggerProvider, DbLoggerProvider>();
-            //loggingBuilder.Services.Configure(configure);
+            loggingBuilder.Services.AddSingleton<ILoggerProvider, DbLoggerProvider>();
+            loggingBuilder.Services.Configure(configure);
         }
     }
 }

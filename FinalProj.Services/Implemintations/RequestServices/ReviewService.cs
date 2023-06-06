@@ -123,7 +123,7 @@ namespace FinalProj.Services.Implemintations.RequestServices
                 request.ReviewId = newReview.Id;
                 request.Review = newReview;
 
-                await _repository.Create(newReview);
+                await _repository.CreateAsync(newReview);
         
                 await _requestRepository.UpdateAsync(request);
 

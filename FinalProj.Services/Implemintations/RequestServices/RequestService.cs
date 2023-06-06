@@ -259,7 +259,7 @@ namespace FinalProj.Services.Implemintations.RequestServices
 
                 newRequest.Id = Guid.NewGuid();
                 
-                await _repository.Create(newRequest);
+                await _repository.CreateAsync(newRequest);
                 return ResponseFactory<bool>.CreateSuccessResponseWithId(true, newRequest.Id);
             }
             catch (ArgumentNullException argException)

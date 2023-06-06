@@ -9,12 +9,13 @@ namespace FinalProj.DAL.Repository.Interfaces
     public interface IBaseAsyncRepository<T>
         where T : BaseEntity
     {
+        public void Create(T entity);
         /// <summary>
         /// Creates a record in the database and adds the entity.
         /// </summary>
         /// <param name="entity">The entity to be added.</param>
         /// <returns></returns>
-        public Task Create(T entity);
+        public Task CreateAsync(T entity);
 
         /// <summary>
         /// Retrieves all records from the database.
