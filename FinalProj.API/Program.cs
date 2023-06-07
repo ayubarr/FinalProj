@@ -11,8 +11,6 @@ var connection = builder.Configuration.GetConnectionString("ConnectionString");
 
 builder.Services.AddDbContext<AppDbContext>(option => option.UseSqlServer(connection));
 
-//builder.Services.AddSecondIdentity<Client, >
-
 
 builder.Services
     .InitializeIdentity(configuration)
@@ -75,7 +73,6 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-//Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
