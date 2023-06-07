@@ -114,19 +114,7 @@ namespace FinalProj.Api
             services.AddScoped<IPasswordHasher<Client>, PasswordHasher<Client>>();
             services.AddScoped<IPasswordHasher<SupportOperator>, PasswordHasher<SupportOperator>>();
             services.AddScoped<IPasswordHasher<TechTeam>, PasswordHasher<TechTeam>>();
-
-            //services.AddIdentity<Client, IdentityRole>()
-            //    .AddEntityFrameworkStores<AppDbContext>()
-            //    .AddDefaultTokenProviders();
-
-
-            //services.AddIdentity<TechTeam, IdentityRole>()
-            //    .AddEntityFrameworkStores<AppDbContext>()
-            //    .AddDefaultTokenProviders();
-
-            //services.AddIdentity<SupportOperator, IdentityRole>()
-            //    .AddEntityFrameworkStores<AppDbContext>()
-            //    .AddDefaultTokenProviders();
+         
 
             return services;
         }
