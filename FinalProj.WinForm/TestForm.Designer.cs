@@ -28,12 +28,45 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            MainMenu_Label = new Label();
+            StartButton = new Button();
+            SuspendLayout();
+            // 
+            // MainMenu_Label
+            // 
+            MainMenu_Label.AutoSize = true;
+            MainMenu_Label.Font = new Font("Arial Narrow", 24F, FontStyle.Regular, GraphicsUnit.Point);
+            MainMenu_Label.Location = new Point(132, 31);
+            MainMenu_Label.Name = "MainMenu_Label";
+            MainMenu_Label.Size = new Size(514, 46);
+            MainMenu_Label.TabIndex = 0;
+            MainMenu_Label.Text = "Тест на язык программирования";
+            // 
+            // StartButton
+            // 
+            StartButton.Location = new Point(323, 329);
+            StartButton.Name = "StartButton";
+            StartButton.Size = new Size(134, 52);
+            StartButton.TabIndex = 1;
+            StartButton.Text = "НАЧА";
+            StartButton.UseVisualStyleBackColor = true;
+            // 
+            // TestForm
+            // 
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(StartButton);
+            Controls.Add(MainMenu_Label);
+            Name = "TestForm";
             Text = "Form1";
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
+
+        private Label MainMenu_Label;
+        private Button StartButton;
     }
 }

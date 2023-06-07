@@ -22,7 +22,7 @@ namespace FinalProj.DAL.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("FinalApp.Domain.Models.Abstractions.BaseUsers.ApplicationUser", b =>
+            modelBuilder.Entity("FinalProj.Domain.Models.Abstractions.BaseUsers.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -101,7 +101,43 @@ namespace FinalProj.DAL.Migrations
                     b.UseTphMappingStrategy();
                 });
 
-            modelBuilder.Entity("FinalApp.Domain.Models.Entities.Persons.WorkTeams.TechnicalTeamWorker", b =>
+            modelBuilder.Entity("FinalProj.Domain.Models.Entities.Logs.Log", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int?>("EventId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("EventName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ExceptionMessage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ExceptionSource")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ExceptionStackTrace")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LogLevel")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ThreadId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Logs");
+                });
+
+            modelBuilder.Entity("FinalProj.Domain.Models.Entities.Persons.WorkTeams.TechnicalTeamWorker", b =>
                 {
                     b.Property<string>("TechnicalTeamId")
                         .HasColumnType("nvarchar(450)");
@@ -116,7 +152,7 @@ namespace FinalProj.DAL.Migrations
                     b.ToTable("TechnicalTeamWorker");
                 });
 
-            modelBuilder.Entity("FinalApp.Domain.Models.Entities.Persons.WorkTeams.Worker", b =>
+            modelBuilder.Entity("FinalProj.Domain.Models.Entities.Persons.WorkTeams.Worker", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -156,7 +192,7 @@ namespace FinalProj.DAL.Migrations
                     b.ToTable("Workers");
                 });
 
-            modelBuilder.Entity("FinalApp.Domain.Models.Entities.Requests.EcoBoxInfo.EcoBox", b =>
+            modelBuilder.Entity("FinalProj.Domain.Models.Entities.Requests.EcoBoxInfo.EcoBox", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -185,7 +221,7 @@ namespace FinalProj.DAL.Migrations
                     b.ToTable("EcoBoxes");
                 });
 
-            modelBuilder.Entity("FinalApp.Domain.Models.Entities.Requests.EcoBoxInfo.EcoBoxTemplate", b =>
+            modelBuilder.Entity("FinalProj.Domain.Models.Entities.Requests.EcoBoxInfo.EcoBoxTemplate", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -214,7 +250,7 @@ namespace FinalProj.DAL.Migrations
                     b.ToTable("EcoBoxTemplates");
                 });
 
-            modelBuilder.Entity("FinalApp.Domain.Models.Entities.Requests.EcoBoxInfo.SupplierCompany", b =>
+            modelBuilder.Entity("FinalProj.Domain.Models.Entities.Requests.EcoBoxInfo.SupplierCompany", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -255,7 +291,7 @@ namespace FinalProj.DAL.Migrations
                     b.ToTable("SuppliersCompanies");
                 });
 
-            modelBuilder.Entity("FinalApp.Domain.Models.Entities.Requests.RequestsInfo.Location", b =>
+            modelBuilder.Entity("FinalProj.Domain.Models.Entities.Requests.RequestsInfo.Location", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -285,7 +321,7 @@ namespace FinalProj.DAL.Migrations
                     b.ToTable("Locations");
                 });
 
-            modelBuilder.Entity("FinalApp.Domain.Models.Entities.Requests.RequestsInfo.RecyclingPlant", b =>
+            modelBuilder.Entity("FinalProj.Domain.Models.Entities.Requests.RequestsInfo.RecyclingPlant", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -326,7 +362,7 @@ namespace FinalProj.DAL.Migrations
                     b.ToTable("RecyclingPlants");
                 });
 
-            modelBuilder.Entity("FinalApp.Domain.Models.Entities.Requests.RequestsInfo.Request", b =>
+            modelBuilder.Entity("FinalProj.Domain.Models.Entities.Requests.RequestsInfo.Request", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -400,7 +436,7 @@ namespace FinalProj.DAL.Migrations
                     b.ToTable("Requests");
                 });
 
-            modelBuilder.Entity("FinalApp.Domain.Models.Entities.Requests.RequestsInfo.RequestStatusHistory", b =>
+            modelBuilder.Entity("FinalProj.Domain.Models.Entities.Requests.RequestsInfo.RequestStatusHistory", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -429,7 +465,7 @@ namespace FinalProj.DAL.Migrations
                     b.ToTable("RequestStatusHistories");
                 });
 
-            modelBuilder.Entity("FinalApp.Domain.Models.Entities.Requests.RequestsInfo.Review", b =>
+            modelBuilder.Entity("FinalProj.Domain.Models.Entities.Requests.RequestsInfo.Review", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -447,42 +483,6 @@ namespace FinalProj.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Reviews");
-                });
-
-            modelBuilder.Entity("FinalProj.Domain.Models.Entities.Logs.Log", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int?>("EventId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("EventName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ExceptionMessage")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ExceptionSource")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ExceptionStackTrace")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LogLevel")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Message")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ThreadId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Logs");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -618,9 +618,9 @@ namespace FinalProj.DAL.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("FinalApp.Domain.Models.Entities.Persons.Users.Client", b =>
+            modelBuilder.Entity("FinalProj.Domain.Models.Entities.Persons.Users.Client", b =>
                 {
-                    b.HasBaseType("FinalApp.Domain.Models.Abstractions.BaseUsers.ApplicationUser");
+                    b.HasBaseType("FinalProj.Domain.Models.Abstractions.BaseUsers.ApplicationUser");
 
                     b.Property<DateTime>("CreatedTime")
                         .ValueGeneratedOnUpdateSometimes()
@@ -657,9 +657,9 @@ namespace FinalProj.DAL.Migrations
                     b.HasDiscriminator().HasValue("Client");
                 });
 
-            modelBuilder.Entity("FinalApp.Domain.Models.Entities.Persons.Users.SupportOperator", b =>
+            modelBuilder.Entity("FinalProj.Domain.Models.Entities.Persons.Users.SupportOperator", b =>
                 {
-                    b.HasBaseType("FinalApp.Domain.Models.Abstractions.BaseUsers.ApplicationUser");
+                    b.HasBaseType("FinalProj.Domain.Models.Abstractions.BaseUsers.ApplicationUser");
 
                     b.Property<DateTime>("CreatedTime")
                         .ValueGeneratedOnUpdateSometimes()
@@ -702,9 +702,9 @@ namespace FinalProj.DAL.Migrations
                     b.HasDiscriminator().HasValue("SupportOperator");
                 });
 
-            modelBuilder.Entity("FinalApp.Domain.Models.Entities.Persons.Users.TechTeam", b =>
+            modelBuilder.Entity("FinalProj.Domain.Models.Entities.Persons.Users.TechTeam", b =>
                 {
-                    b.HasBaseType("FinalApp.Domain.Models.Abstractions.BaseUsers.ApplicationUser");
+                    b.HasBaseType("FinalProj.Domain.Models.Abstractions.BaseUsers.ApplicationUser");
 
                     b.Property<DateTime>("CreatedTime")
                         .ValueGeneratedOnUpdateSometimes()
@@ -750,15 +750,15 @@ namespace FinalProj.DAL.Migrations
                     b.HasDiscriminator().HasValue("TechTeam");
                 });
 
-            modelBuilder.Entity("FinalApp.Domain.Models.Entities.Persons.WorkTeams.TechnicalTeamWorker", b =>
+            modelBuilder.Entity("FinalProj.Domain.Models.Entities.Persons.WorkTeams.TechnicalTeamWorker", b =>
                 {
-                    b.HasOne("FinalApp.Domain.Models.Entities.Persons.Users.TechTeam", "TechnicalTeam")
+                    b.HasOne("FinalProj.Domain.Models.Entities.Persons.Users.TechTeam", "TechnicalTeam")
                         .WithMany("Workers")
                         .HasForeignKey("TechnicalTeamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FinalApp.Domain.Models.Entities.Persons.WorkTeams.Worker", "Worker")
+                    b.HasOne("FinalProj.Domain.Models.Entities.Persons.WorkTeams.Worker", "Worker")
                         .WithMany("TechnicalTeams")
                         .HasForeignKey("WorkerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -769,15 +769,15 @@ namespace FinalProj.DAL.Migrations
                     b.Navigation("Worker");
                 });
 
-            modelBuilder.Entity("FinalApp.Domain.Models.Entities.Requests.EcoBoxInfo.EcoBox", b =>
+            modelBuilder.Entity("FinalProj.Domain.Models.Entities.Requests.EcoBoxInfo.EcoBox", b =>
                 {
-                    b.HasOne("FinalApp.Domain.Models.Entities.Requests.RequestsInfo.Location", "Location")
+                    b.HasOne("FinalProj.Domain.Models.Entities.Requests.RequestsInfo.Location", "Location")
                         .WithMany("EcoBoxes")
                         .HasForeignKey("LocationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FinalApp.Domain.Models.Entities.Requests.EcoBoxInfo.EcoBoxTemplate", "Template")
+                    b.HasOne("FinalProj.Domain.Models.Entities.Requests.EcoBoxInfo.EcoBoxTemplate", "Template")
                         .WithMany("EcoBoxes")
                         .HasForeignKey("TemplateId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -788,45 +788,45 @@ namespace FinalProj.DAL.Migrations
                     b.Navigation("Template");
                 });
 
-            modelBuilder.Entity("FinalApp.Domain.Models.Entities.Requests.EcoBoxInfo.EcoBoxTemplate", b =>
+            modelBuilder.Entity("FinalProj.Domain.Models.Entities.Requests.EcoBoxInfo.EcoBoxTemplate", b =>
                 {
-                    b.HasOne("FinalApp.Domain.Models.Entities.Requests.EcoBoxInfo.SupplierCompany", "SupplierCompany")
+                    b.HasOne("FinalProj.Domain.Models.Entities.Requests.EcoBoxInfo.SupplierCompany", "SupplierCompany")
                         .WithMany("EcoBoxTemplates")
                         .HasForeignKey("SupplierId");
 
                     b.Navigation("SupplierCompany");
                 });
 
-            modelBuilder.Entity("FinalApp.Domain.Models.Entities.Requests.RequestsInfo.Request", b =>
+            modelBuilder.Entity("FinalProj.Domain.Models.Entities.Requests.RequestsInfo.Request", b =>
                 {
-                    b.HasOne("FinalApp.Domain.Models.Entities.Persons.Users.Client", "Client")
+                    b.HasOne("FinalProj.Domain.Models.Entities.Persons.Users.Client", "Client")
                         .WithMany("Requests")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.HasOne("FinalApp.Domain.Models.Entities.Requests.RequestsInfo.Location", "Location")
+                    b.HasOne("FinalProj.Domain.Models.Entities.Requests.RequestsInfo.Location", "Location")
                         .WithOne("Request")
-                        .HasForeignKey("FinalApp.Domain.Models.Entities.Requests.RequestsInfo.Request", "LocationId")
+                        .HasForeignKey("FinalProj.Domain.Models.Entities.Requests.RequestsInfo.Request", "LocationId")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.HasOne("FinalApp.Domain.Models.Entities.Persons.Users.SupportOperator", "SupportOperator")
+                    b.HasOne("FinalProj.Domain.Models.Entities.Persons.Users.SupportOperator", "SupportOperator")
                         .WithMany("Requests")
                         .HasForeignKey("OperatorId")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.HasOne("FinalApp.Domain.Models.Entities.Requests.RequestsInfo.RecyclingPlant", "RecyclingPlant")
+                    b.HasOne("FinalProj.Domain.Models.Entities.Requests.RequestsInfo.RecyclingPlant", "RecyclingPlant")
                         .WithMany("Requests")
                         .HasForeignKey("PlantId")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.HasOne("FinalApp.Domain.Models.Entities.Requests.RequestsInfo.Review", "Review")
+                    b.HasOne("FinalProj.Domain.Models.Entities.Requests.RequestsInfo.Review", "Review")
                         .WithOne("Request")
-                        .HasForeignKey("FinalApp.Domain.Models.Entities.Requests.RequestsInfo.Request", "ReviewId")
+                        .HasForeignKey("FinalProj.Domain.Models.Entities.Requests.RequestsInfo.Request", "ReviewId")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.HasOne("FinalApp.Domain.Models.Entities.Persons.Users.TechTeam", "TechnicalTeam")
+                    b.HasOne("FinalProj.Domain.Models.Entities.Persons.Users.TechTeam", "TechnicalTeam")
                         .WithOne("Request")
-                        .HasForeignKey("FinalApp.Domain.Models.Entities.Requests.RequestsInfo.Request", "TechTeamId")
+                        .HasForeignKey("FinalProj.Domain.Models.Entities.Requests.RequestsInfo.Request", "TechTeamId")
                         .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("Client");
@@ -842,9 +842,9 @@ namespace FinalProj.DAL.Migrations
                     b.Navigation("TechnicalTeam");
                 });
 
-            modelBuilder.Entity("FinalApp.Domain.Models.Entities.Requests.RequestsInfo.RequestStatusHistory", b =>
+            modelBuilder.Entity("FinalProj.Domain.Models.Entities.Requests.RequestsInfo.RequestStatusHistory", b =>
                 {
-                    b.HasOne("FinalApp.Domain.Models.Entities.Requests.RequestsInfo.Request", "Request")
+                    b.HasOne("FinalProj.Domain.Models.Entities.Requests.RequestsInfo.Request", "Request")
                         .WithMany("StatusHistory")
                         .HasForeignKey("RequestId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -864,7 +864,7 @@ namespace FinalProj.DAL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("FinalApp.Domain.Models.Abstractions.BaseUsers.ApplicationUser", null)
+                    b.HasOne("FinalProj.Domain.Models.Abstractions.BaseUsers.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -873,7 +873,7 @@ namespace FinalProj.DAL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("FinalApp.Domain.Models.Abstractions.BaseUsers.ApplicationUser", null)
+                    b.HasOne("FinalProj.Domain.Models.Abstractions.BaseUsers.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -888,7 +888,7 @@ namespace FinalProj.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FinalApp.Domain.Models.Abstractions.BaseUsers.ApplicationUser", null)
+                    b.HasOne("FinalProj.Domain.Models.Abstractions.BaseUsers.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -897,61 +897,61 @@ namespace FinalProj.DAL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("FinalApp.Domain.Models.Abstractions.BaseUsers.ApplicationUser", null)
+                    b.HasOne("FinalProj.Domain.Models.Abstractions.BaseUsers.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("FinalApp.Domain.Models.Entities.Persons.WorkTeams.Worker", b =>
+            modelBuilder.Entity("FinalProj.Domain.Models.Entities.Persons.WorkTeams.Worker", b =>
                 {
                     b.Navigation("TechnicalTeams");
                 });
 
-            modelBuilder.Entity("FinalApp.Domain.Models.Entities.Requests.EcoBoxInfo.EcoBoxTemplate", b =>
+            modelBuilder.Entity("FinalProj.Domain.Models.Entities.Requests.EcoBoxInfo.EcoBoxTemplate", b =>
                 {
                     b.Navigation("EcoBoxes");
                 });
 
-            modelBuilder.Entity("FinalApp.Domain.Models.Entities.Requests.EcoBoxInfo.SupplierCompany", b =>
+            modelBuilder.Entity("FinalProj.Domain.Models.Entities.Requests.EcoBoxInfo.SupplierCompany", b =>
                 {
                     b.Navigation("EcoBoxTemplates");
                 });
 
-            modelBuilder.Entity("FinalApp.Domain.Models.Entities.Requests.RequestsInfo.Location", b =>
+            modelBuilder.Entity("FinalProj.Domain.Models.Entities.Requests.RequestsInfo.Location", b =>
                 {
                     b.Navigation("EcoBoxes");
 
                     b.Navigation("Request");
                 });
 
-            modelBuilder.Entity("FinalApp.Domain.Models.Entities.Requests.RequestsInfo.RecyclingPlant", b =>
+            modelBuilder.Entity("FinalProj.Domain.Models.Entities.Requests.RequestsInfo.RecyclingPlant", b =>
                 {
                     b.Navigation("Requests");
                 });
 
-            modelBuilder.Entity("FinalApp.Domain.Models.Entities.Requests.RequestsInfo.Request", b =>
+            modelBuilder.Entity("FinalProj.Domain.Models.Entities.Requests.RequestsInfo.Request", b =>
                 {
                     b.Navigation("StatusHistory");
                 });
 
-            modelBuilder.Entity("FinalApp.Domain.Models.Entities.Requests.RequestsInfo.Review", b =>
+            modelBuilder.Entity("FinalProj.Domain.Models.Entities.Requests.RequestsInfo.Review", b =>
                 {
                     b.Navigation("Request");
                 });
 
-            modelBuilder.Entity("FinalApp.Domain.Models.Entities.Persons.Users.Client", b =>
+            modelBuilder.Entity("FinalProj.Domain.Models.Entities.Persons.Users.Client", b =>
                 {
                     b.Navigation("Requests");
                 });
 
-            modelBuilder.Entity("FinalApp.Domain.Models.Entities.Persons.Users.SupportOperator", b =>
+            modelBuilder.Entity("FinalProj.Domain.Models.Entities.Persons.Users.SupportOperator", b =>
                 {
                     b.Navigation("Requests");
                 });
 
-            modelBuilder.Entity("FinalApp.Domain.Models.Entities.Persons.Users.TechTeam", b =>
+            modelBuilder.Entity("FinalProj.Domain.Models.Entities.Persons.Users.TechTeam", b =>
                 {
                     b.Navigation("Request");
 
