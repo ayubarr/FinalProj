@@ -139,7 +139,7 @@ namespace FinalProj.WinForm
             YesButtonQ6.Visible = false;
             NoButtonQ6.Visible = false;
 
-            JavaResultLabel.Visible = true;
+            CPlusPlusResLable.Visible = true;
             ExitButton.Visible = true;
         }
 
@@ -149,7 +149,7 @@ namespace FinalProj.WinForm
             YesButtonQ6.Visible = false;
             NoButtonQ6.Visible = false;
 
-            CPlusPlusResLable.Visible = true;
+            JavaResultLabel.Visible = true;
             ExitButton.Visible = true;
         }
 
