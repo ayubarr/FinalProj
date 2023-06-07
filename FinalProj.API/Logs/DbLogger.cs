@@ -62,88 +62,39 @@ public class DbLogger : ILogger
         {
             connection.Open();
 
-            // Add to database.
-
-            // LogLevel
-            // ThreadId
-            // EventId
-            // Exception Message (use formatter)
-            // Exception Stack Trace
-            // Exception Source
-
-            var values = new JObject();
-
-            if (_dbLoggerProvider?.Options?.LogFields?.Any() ?? false)
-            {
-                foreach (var logField in _dbLoggerProvider.Options.LogFields)
-                {
-                    switch (logField)
-                    {
-                        case "LogLevel":
-                            if (!string.IsNullOrWhiteSpace(logLevel.ToString()))
-                            {
-                                values["LogLevel"] = logLevel.ToString();
-                            }
-                            break;
-                        case "ThreadId":
-                            values["ThreadId"] = threadId;
-                            break;
-                        case "EventId":
-                            values["EventId"] = eventId.Id;
-                            break;
-                        case "EventName":
-                            if (!string.IsNullOrWhiteSpace(eventId.Name))
-                            {
-                                values["EventName"] = eventId.Name;
-                            }
-                            break;
-                        case "Message":
-                            if (!string.IsNullOrWhiteSpace(formatter(state, exception)))
-                            {
-                                values["Message"] = formatter(state, exception);
-                            }
-                            break;
-                        case "ExceptionMessage":
-                            if (exception != null && !string.IsNullOrWhiteSpace(exception.Message))
-                            {
-                                values["ExceptionMessage"] = exception?.Message;
-                            }
-                            break;
-                        case "ExceptionStackTrace":
-                            if (exception != null && !string.IsNullOrWhiteSpace(exception.StackTrace))
-                            {
-                                values["ExceptionStackTrace"] = exception?.StackTrace;
-                            }
-                            break;
-                        case "ExceptionSource":
-                            if (exception != null && !string.IsNullOrWhiteSpace(exception.Source))
-                            {
-                                values["ExceptionSource"] = exception?.Source;
-                            }
-                            break;
-                    }
-                }
-            }
-
-
             using (var command = new SqlCommand())
             {
                 command.Connection = connection;
                 command.CommandType = System.Data.CommandType.Text;
-                command.CommandText = string.Format("INSERT INTO {0} ([Values], [Created]) VALUES (@Values, @Created)", _dbLoggerProvider.Options.LogTable);
+                command.CommandText = string.Format("INSERT INTO {0} ([Id], [LogLevel], [ThreadId], [EventId], [EventName], [Message], [ExceptionMessage], [ExceptionSource], [ExceptionStackTrace])" +
+                    " VALUES (@Id, @LogLevel, @ThreadId, @EventId, @EventName, @Message, @ExceptionMessage, @ExceptionSource, @ExceptionStackTrace)", _dbLoggerProvider.Options.LogTable);
 
-                command.Parameters.Add(new SqlParameter("@Values", JsonConvert.SerializeObject(values, new JsonSerializerSettings
-                {
-                    NullValueHandling = NullValueHandling.Ignore,
-                    DefaultValueHandling = DefaultValueHandling.Ignore,
-                    Formatting = Formatting.None
-                }).ToString()));
-                command.Parameters.Add(new SqlParameter("@Created", DateTimeOffset.Now));
+                
+                command.Parameters.Add(MakeParam("@Id", Guid.NewGuid()));
+                command.Parameters.Add(MakeParam("@LogLevel", logLevel.ToString()));
+                command.Parameters.Add(MakeParam("@ThreadId", threadId));
+                command.Parameters.Add(MakeParam("@EventId", eventId.Id));
+                command.Parameters.Add(MakeParam("@EventName", eventId.Name));
+                command.Parameters.Add(MakeParam("@Message", formatter(state, exception)));
+                command.Parameters.Add(MakeParam("@ExceptionMessage", exception?.Message));
+                command.Parameters.Add(MakeParam("@ExceptionSource", exception?.Source));
+                command.Parameters.Add(MakeParam("@ExceptionStackTrace", exception?.StackTrace));
 
                 command.ExecuteNonQuery();
             }
 
             connection.Close();
         }
+    }
+
+    private SqlParameter MakeParam(string key, object value)
+    {
+        if(value == null)
+        {
+            value = DBNull.Value;
+        }
+        SqlParameter param = new SqlParameter(key, value);
+
+        return param;
     }
 }
