@@ -187,8 +187,8 @@ namespace FinalProj.Api
 
         public static void IntialiseLogger(this ILoggingBuilder loggingBuilder, Action<DbLoggerOptions> configure)
         {
-            //loggingBuilder.Services.AddSingleton<ILoggerProvider, DbLoggerProvider>();
-            //loggingBuilder.Services.Configure(configure);
+            loggingBuilder.Services.AddSingleton<ILoggerProvider, DbLoggerProvider>();
+            loggingBuilder.Services.Configure(configure);
         }
     }
 }

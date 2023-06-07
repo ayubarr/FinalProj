@@ -1,79 +1,149 @@
-﻿using FinalProj.DAL.Repository.Interfaces;
-using FinalProj.Domain.Models.Entities.Logs;
+﻿using FinalProj.API.Logs;
+using Microsoft.Data.SqlClient;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 using System.Diagnostics.CodeAnalysis;
 
-namespace FinalProj.API.Logs
+public class DbLogger : ILogger
 {
-    public class DbLogger : ILogger
+    /// <summary>
+    /// <summary>  
+    /// Instance of <see cref="DbLoggerProvider" />.  
+    /// </summary>  
+    private readonly DbLoggerProvider _dbLoggerProvider;
+    private readonly IServiceScopeFactory _scopeFactory;
+    /// <summary>  
+    /// Creates a new instance of <see cref="FileLogger" />.  
+    /// </summary>  
+    /// <param name="fileLoggerProvider">Instance of <see cref="FileLoggerProvider" />.</param>  
+    public DbLogger([NotNull] DbLoggerProvider dbLoggerProvider, IServiceScopeFactory scopeFactory)
     {
-        /// <summary>  
-        /// Instance of <see cref="DbLoggerProvider" />.  
-        /// </summary>  
-        private readonly DbLoggerProvider _dbLoggerProvider;
-        private readonly IServiceScopeFactory _scopeFactory;
-        /// <summary>  
-        /// Creates a new instance of <see cref="FileLogger" />.  
-        /// </summary>  
-        /// <param name="fileLoggerProvider">Instance of <see cref="FileLoggerProvider" />.</param>  
-        public DbLogger([NotNull] DbLoggerProvider dbLoggerProvider, IServiceScopeFactory scopeFactory)
+        _dbLoggerProvider = dbLoggerProvider;
+        _scopeFactory = scopeFactory;
+    }
+
+    public IDisposable BeginScope<TState>(TState state)
+    {
+        return null;
+    }
+
+    /// <summary>
+    /// Whether to log the entry.
+    /// </summary>
+    /// <param name="logLevel"></param>
+    /// <returns></returns>
+    public bool IsEnabled(LogLevel logLevel)
+    {
+        return logLevel != LogLevel.None;
+    }
+
+
+    /// <summary>
+    /// Used to log the entry.
+    /// </summary>
+    /// <typeparam name="TState"></typeparam>
+    /// <param name="logLevel">An instance of <see cref="LogLevel"/>.</param>
+    /// <param name="eventId">The event's ID. An instance of <see cref="EventId"/>.</param>
+    /// <param name="state">The event's state.</param>
+    /// <param name="exception">The event's exception. An instance of <see cref="Exception" /></param>
+    /// <param name="formatter">A delegate that formats </param>
+    public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
+    {
+        if (!IsEnabled(logLevel))
         {
-            _dbLoggerProvider = dbLoggerProvider;
-            _scopeFactory = scopeFactory;
+            // Don't log the entry if it's not enabled.
+            return;
         }
 
-        public IDisposable BeginScope<TState>(TState state)
-        {
-            return null;
-        }
+        var threadId = Thread.CurrentThread.ManagedThreadId; // Get the current thread ID to use in the log file. 
 
-        /// <summary>  
-        /// Whether to log the entry.  
-        /// </summary>  
-        /// <param name="logLevel"></param>  
-        /// <returns></returns>  
-        public bool IsEnabled(LogLevel logLevel)
+        // Store record.
+        using (var connection = new SqlConnection(_dbLoggerProvider.Options.ConnectionString))
         {
-            return logLevel != LogLevel.None;
-        }
+            connection.Open();
 
+            // Add to database.
 
-        /// <summary>  
-        /// Used to log the entry.  
-        /// </summary>  
-        /// <typeparam name="TState"></typeparam>  
-        /// <param name="logLevel">An instance of <see cref="LogLevel"/>.</param>  
-        /// <param name="eventId">The event's ID. An instance of <see cref="EventId"/>.</param>  
-        /// <param name="state">The event's state.</param>  
-        /// <param name="exception">The event's exception. An instance of <see cref="Exception" /></param>  
-        /// <param name="formatter">A delegate that formats </param>  
-        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
-        {
-            if (!IsEnabled(logLevel))
+            // LogLevel
+            // ThreadId
+            // EventId
+            // Exception Message (use formatter)
+            // Exception Stack Trace
+            // Exception Source
+
+            var values = new JObject();
+
+            if (_dbLoggerProvider?.Options?.LogFields?.Any() ?? false)
             {
-                // Don't log the entry if it's not enabled.  
-                return;
+                foreach (var logField in _dbLoggerProvider.Options.LogFields)
+                {
+                    switch (logField)
+                    {
+                        case "LogLevel":
+                            if (!string.IsNullOrWhiteSpace(logLevel.ToString()))
+                            {
+                                values["LogLevel"] = logLevel.ToString();
+                            }
+                            break;
+                        case "ThreadId":
+                            values["ThreadId"] = threadId;
+                            break;
+                        case "EventId":
+                            values["EventId"] = eventId.Id;
+                            break;
+                        case "EventName":
+                            if (!string.IsNullOrWhiteSpace(eventId.Name))
+                            {
+                                values["EventName"] = eventId.Name;
+                            }
+                            break;
+                        case "Message":
+                            if (!string.IsNullOrWhiteSpace(formatter(state, exception)))
+                            {
+                                values["Message"] = formatter(state, exception);
+                            }
+                            break;
+                        case "ExceptionMessage":
+                            if (exception != null && !string.IsNullOrWhiteSpace(exception.Message))
+                            {
+                                values["ExceptionMessage"] = exception?.Message;
+                            }
+                            break;
+                        case "ExceptionStackTrace":
+                            if (exception != null && !string.IsNullOrWhiteSpace(exception.StackTrace))
+                            {
+                                values["ExceptionStackTrace"] = exception?.StackTrace;
+                            }
+                            break;
+                        case "ExceptionSource":
+                            if (exception != null && !string.IsNullOrWhiteSpace(exception.Source))
+                            {
+                                values["ExceptionSource"] = exception?.Source;
+                            }
+                            break;
+                    }
+                }
             }
 
-            using var serviceScope = _scopeFactory.CreateScope();
-            var provider = serviceScope.ServiceProvider;
-            // resolve scoped service, for example db context: 
-            var logRepository = provider.GetRequiredService<IBaseAsyncRepository<Log>>();
 
-            var threadId = Thread.CurrentThread.ManagedThreadId; // Get the current thread ID to use in the log file.   
-
-            Log log = new Log()
+            using (var command = new SqlCommand())
             {
-                LogLevel = logLevel.ToString(),
-                ThreadId = threadId,
-                EventId = eventId.Id,
-                EventName = eventId.Name,
-                Message = formatter(state, exception),
-                ExceptionMessage = exception?.Message,
-                ExceptionSource = exception?.Source,
-                ExceptionStackTrace = exception?.StackTrace,
-            };
+                command.Connection = connection;
+                command.CommandType = System.Data.CommandType.Text;
+                command.CommandText = string.Format("INSERT INTO {0} ([Values], [Created]) VALUES (@Values, @Created)", _dbLoggerProvider.Options.LogTable);
 
-            logRepository.Create(log);
+                command.Parameters.Add(new SqlParameter("@Values", JsonConvert.SerializeObject(values, new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Ignore,
+                    DefaultValueHandling = DefaultValueHandling.Ignore,
+                    Formatting = Formatting.None
+                }).ToString()));
+                command.Parameters.Add(new SqlParameter("@Created", DateTimeOffset.Now));
+
+                command.ExecuteNonQuery();
+            }
+
+            connection.Close();
         }
     }
 }
