@@ -27,24 +27,18 @@ namespace FinalProj.DAL.SqlServer
 
         public AppDbContext() : base()
         {
-            // Инициализация контекста
         }
 
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-            //Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
             base.OnModelCreating(modelBuilder);
-            //modelBuilder.Ignore<IdentityUserLogin<string>>();
-            //modelBuilder.Ignore<IdentityUserRole<string>>();
-            //modelBuilder.Ignore<IdentityUserClaim<string>>();
-            //modelBuilder.Ignore<IdentityUserToken<string>>();
-            //modelBuilder.Ignore<IdentityUser<string>>();
+       
 
             modelBuilder.Entity<Client>()
                 .HasMany(client => client.Requests)

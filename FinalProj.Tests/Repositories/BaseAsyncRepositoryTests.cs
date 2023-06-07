@@ -21,9 +21,7 @@ namespace FinalProj.Tests.Repositories
             _mockDbContext = new Mock<AppDbContext>();
             _mockDbSet = new Mock<DbSet<TestEntity>>();
 
-            // Настройка макета для _dbSet и передача его в _mockDbContext
             _mockDbContext.Setup(x => x.Set<TestEntity>()).Returns(_mockDbSet.Object);
-
             _repository = new BaseAsyncRepository<TestEntity>(_mockDbContext.Object);
         }
 
