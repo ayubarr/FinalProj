@@ -94,6 +94,10 @@ namespace FinalProj.WinForm
             LabelQ4.Visible = false;
             NoButtonQ4.Visible = false;
             YesButtonQ4.Visible = false;
+
+            labelQ11.Visible = true;
+            NoQ11.Visible = true;
+            YesQ11.Visible = true;
         }
 
         private void NoButtonQ4_Click(object sender, EventArgs e)
@@ -101,6 +105,10 @@ namespace FinalProj.WinForm
             LabelQ4.Visible = false;
             NoButtonQ4.Visible = false;
             YesButtonQ4.Visible = false;
+
+            LabelQ8.Visible = true;
+            YesQ8.Visible = true;
+            NoQ8.Visible = true;
         }
 
         private void NoButtonQ5_Click(object sender, EventArgs e)
@@ -112,7 +120,7 @@ namespace FinalProj.WinForm
             LabelQ6.Visible = true;
             YesButtonQ6.Visible = true;
             NoButtonQ6.Visible = true;
-    
+
         }
 
         private void YesButtonQ5_Click(object sender, EventArgs e)
@@ -152,7 +160,7 @@ namespace FinalProj.WinForm
             YesButtonQ7.Visible = false;
 
             FortranResultLabel.Visible = true;
-            ExitButton.Visible=true;
+            ExitButton.Visible = true;
 
         }
 
@@ -163,7 +171,111 @@ namespace FinalProj.WinForm
             YesButtonQ7.Visible = false;
 
             MatLabResultLabel.Visible = true;
-            ExitButton.Visible=true;
+            ExitButton.Visible = true;
+        }
+
+        private void NoQ8_Click(object sender, EventArgs e)
+        {
+            LabelQ8.Visible = false;
+            YesQ8.Visible = false;
+            NoQ8.Visible = false;
+
+            labelQ9.Visible = true;
+            NoQ9.Visible = true;
+            YesQ9.Visible = true;
+        }
+
+        private void YesQ8_Click(object sender, EventArgs e)
+        {
+            LabelQ8.Visible = false;
+            YesQ8.Visible = false;
+            NoQ8.Visible = false;
+
+            PythonResultLabel.Visible = true;
+            ExitButton.Visible = true;
+        }
+
+        private void YesQ9_Click(object sender, EventArgs e)
+        {
+            labelQ9.Visible = false;
+            NoQ9.Visible = false;
+            YesQ9.Visible = false;
+
+            CSharpResultLable.Visible = true;
+            ExitButton.Visible = true;
+        }
+
+        private void NoQ9_Click(object sender, EventArgs e)
+        {
+            labelQ9.Visible = false;
+            NoQ9.Visible = false;
+            YesQ9.Visible = false;
+
+            labelQ10.Visible = true;
+            NoQ10.Visible = true;
+            YesQ10.Visible = true;
+        }
+
+        private void YesQ10_Click(object sender, EventArgs e)
+        {
+            labelQ10.Visible = false;
+            NoQ10.Visible = false;
+            YesQ10.Visible = false;
+
+            SwiftResLable.Visible = true;
+            ExitButton.Visible = true;
+        }
+
+        private void NoQ10_Click(object sender, EventArgs e)
+        {
+            labelQ10.Visible = false;
+            NoQ10.Visible = false;
+            YesQ10.Visible = false;
+
+            PerlResLabel.Visible = true;
+            ExitButton.Visible = true;
+        }
+
+        private void YesQ11_Click(object sender, EventArgs e)
+        {
+            labelQ11.Visible = false;
+            NoQ11.Visible = false;
+            YesQ11.Visible = false;
+
+            labelQ12.Visible = true;
+            NoQ12.Visible = true;
+            YesQ12.Visible = true;
+        }
+
+        private void NoQ11_Click(object sender, EventArgs e)
+        {
+            labelQ11.Visible = false;
+            NoQ11.Visible = false;
+            YesQ11.Visible = false;
+
+            PHPResLabel.Visible = true;
+            ExitButton.Visible = true;
+        }
+
+        private void YesQ12_Click(object sender, EventArgs e)
+        {
+            labelQ12.Visible = false;
+            NoQ12.Visible = false;
+            YesQ12.Visible = false;
+
+            JavaScriptResLabel.Visible = true;
+            ExitButton.Visible = true;
+
+        }
+
+        private void NoQ12_Click(object sender, EventArgs e)
+        {
+            labelQ12.Visible = false;
+            NoQ12.Visible = false;
+            YesQ12.Visible = false;
+
+            RubyResLabel.Visible = true;
+            ExitButton.Visible = true;
         }
     }
 }

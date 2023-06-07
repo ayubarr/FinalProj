@@ -58,6 +58,28 @@
             NoButtonQ7 = new Button();
             FortranResultLabel = new Label();
             MatLabResultLabel = new Label();
+            LabelQ8 = new Label();
+            YesQ8 = new Button();
+            NoQ8 = new Button();
+            PythonResultLabel = new Label();
+            labelQ9 = new Label();
+            YesQ9 = new Button();
+            NoQ9 = new Button();
+            CSharpResultLable = new Label();
+            labelQ10 = new Label();
+            YesQ10 = new Button();
+            NoQ10 = new Button();
+            SwiftResLable = new Label();
+            PerlResLabel = new Label();
+            labelQ11 = new Label();
+            YesQ11 = new Button();
+            NoQ11 = new Button();
+            PHPResLabel = new Label();
+            labelQ12 = new Label();
+            YesQ12 = new Button();
+            NoQ12 = new Button();
+            RubyResLabel = new Label();
+            JavaScriptResLabel = new Label();
             SuspendLayout();
             // 
             // MainMenu_Label
@@ -214,7 +236,7 @@
             // 
             // YesButtonQ4
             // 
-            YesButtonQ4.Location = new Point(97, 262);
+            YesButtonQ4.Location = new Point(97, 320);
             YesButtonQ4.Name = "YesButtonQ4";
             YesButtonQ4.Size = new Size(134, 52);
             YesButtonQ4.TabIndex = 14;
@@ -225,7 +247,7 @@
             // 
             // NoButtonQ4
             // 
-            NoButtonQ4.Location = new Point(568, 262);
+            NoButtonQ4.Location = new Point(568, 329);
             NoButtonQ4.Name = "NoButtonQ4";
             NoButtonQ4.Size = new Size(134, 52);
             NoButtonQ4.TabIndex = 15;
@@ -291,7 +313,7 @@
             // 
             // YesButtonQ6
             // 
-            YesButtonQ6.Location = new Point(97, 262);
+            YesButtonQ6.Location = new Point(97, 320);
             YesButtonQ6.Name = "YesButtonQ6";
             YesButtonQ6.Size = new Size(134, 52);
             YesButtonQ6.TabIndex = 21;
@@ -302,7 +324,7 @@
             // 
             // NoButtonQ6
             // 
-            NoButtonQ6.Location = new Point(568, 262);
+            NoButtonQ6.Location = new Point(568, 329);
             NoButtonQ6.Name = "NoButtonQ6";
             NoButtonQ6.Size = new Size(134, 52);
             NoButtonQ6.TabIndex = 22;
@@ -388,11 +410,275 @@
             MatLabResultLabel.Text = "Вам подойдет язык MatLab";
             MatLabResultLabel.Visible = false;
             // 
+            // LabelQ8
+            // 
+            LabelQ8.AutoSize = true;
+            LabelQ8.Font = new Font("Arial Narrow", 24F, FontStyle.Regular, GraphicsUnit.Point);
+            LabelQ8.Location = new Point(190, 31);
+            LabelQ8.Name = "LabelQ8";
+            LabelQ8.Size = new Size(491, 46);
+            LabelQ8.TabIndex = 30;
+            LabelQ8.Text = "Вы хотите быть безработным?";
+            LabelQ8.Visible = false;
+            // 
+            // YesQ8
+            // 
+            YesQ8.Location = new Point(97, 320);
+            YesQ8.Name = "YesQ8";
+            YesQ8.Size = new Size(134, 52);
+            YesQ8.TabIndex = 31;
+            YesQ8.Text = "Да";
+            YesQ8.UseVisualStyleBackColor = true;
+            YesQ8.Visible = false;
+            YesQ8.Click += YesQ8_Click;
+            // 
+            // NoQ8
+            // 
+            NoQ8.Location = new Point(568, 329);
+            NoQ8.Name = "NoQ8";
+            NoQ8.Size = new Size(134, 52);
+            NoQ8.TabIndex = 32;
+            NoQ8.Text = "Нет";
+            NoQ8.UseVisualStyleBackColor = true;
+            NoQ8.Visible = false;
+            NoQ8.Click += NoQ8_Click;
+            // 
+            // PythonResultLabel
+            // 
+            PythonResultLabel.AutoSize = true;
+            PythonResultLabel.Font = new Font("Arial Narrow", 24F, FontStyle.Regular, GraphicsUnit.Point);
+            PythonResultLabel.Location = new Point(214, 107);
+            PythonResultLabel.Name = "PythonResultLabel";
+            PythonResultLabel.Size = new Size(434, 46);
+            PythonResultLabel.TabIndex = 33;
+            PythonResultLabel.Text = "Вам подойдет язык  Python";
+            PythonResultLabel.Visible = false;
+            // 
+            // labelQ9
+            // 
+            labelQ9.AutoSize = true;
+            labelQ9.Font = new Font("Arial Narrow", 24F, FontStyle.Regular, GraphicsUnit.Point);
+            labelQ9.Location = new Point(190, 31);
+            labelQ9.Name = "labelQ9";
+            labelQ9.Size = new Size(395, 46);
+            labelQ9.TabIndex = 34;
+            labelQ9.Text = "Вам Нравится Windows?";
+            labelQ9.Visible = false;
+            // 
+            // YesQ9
+            // 
+            YesQ9.Location = new Point(97, 329);
+            YesQ9.Name = "YesQ9";
+            YesQ9.Size = new Size(134, 52);
+            YesQ9.TabIndex = 35;
+            YesQ9.Text = "Да";
+            YesQ9.UseVisualStyleBackColor = true;
+            YesQ9.Visible = false;
+            YesQ9.Click += YesQ9_Click;
+            // 
+            // NoQ9
+            // 
+            NoQ9.Location = new Point(568, 329);
+            NoQ9.Name = "NoQ9";
+            NoQ9.Size = new Size(134, 52);
+            NoQ9.TabIndex = 36;
+            NoQ9.Text = "Нет";
+            NoQ9.UseVisualStyleBackColor = true;
+            NoQ9.Visible = false;
+            NoQ9.Click += NoQ9_Click;
+            // 
+            // CSharpResultLable
+            // 
+            CSharpResultLable.AutoSize = true;
+            CSharpResultLable.Font = new Font("Arial Narrow", 24F, FontStyle.Regular, GraphicsUnit.Point);
+            CSharpResultLable.Location = new Point(208, 31);
+            CSharpResultLable.Name = "CSharpResultLable";
+            CSharpResultLable.Size = new Size(386, 46);
+            CSharpResultLable.TabIndex = 37;
+            CSharpResultLable.Text = "Вам подойдет язык  C# ";
+            CSharpResultLable.Visible = false;
+            // 
+            // labelQ10
+            // 
+            labelQ10.AutoSize = true;
+            labelQ10.Font = new Font("Arial Narrow", 24F, FontStyle.Regular, GraphicsUnit.Point);
+            labelQ10.Location = new Point(292, 31);
+            labelQ10.Name = "labelQ10";
+            labelQ10.Size = new Size(179, 46);
+            labelQ10.TabIndex = 38;
+            labelQ10.Text = "Вы Пи**р?";
+            labelQ10.Visible = false;
+            // 
+            // YesQ10
+            // 
+            YesQ10.Location = new Point(97, 329);
+            YesQ10.Name = "YesQ10";
+            YesQ10.Size = new Size(134, 52);
+            YesQ10.TabIndex = 39;
+            YesQ10.Text = "Да";
+            YesQ10.UseVisualStyleBackColor = true;
+            YesQ10.Visible = false;
+            YesQ10.Click += YesQ10_Click;
+            // 
+            // NoQ10
+            // 
+            NoQ10.Location = new Point(568, 329);
+            NoQ10.Name = "NoQ10";
+            NoQ10.Size = new Size(134, 52);
+            NoQ10.TabIndex = 40;
+            NoQ10.Text = "Нет";
+            NoQ10.UseVisualStyleBackColor = true;
+            NoQ10.Visible = false;
+            NoQ10.Click += NoQ10_Click;
+            // 
+            // SwiftResLable
+            // 
+            SwiftResLable.AutoSize = true;
+            SwiftResLable.Font = new Font("Arial Narrow", 24F, FontStyle.Regular, GraphicsUnit.Point);
+            SwiftResLable.Location = new Point(214, 98);
+            SwiftResLable.Name = "SwiftResLable";
+            SwiftResLable.Size = new Size(404, 46);
+            SwiftResLable.TabIndex = 41;
+            SwiftResLable.Text = "Вам подойдет язык  Swift";
+            SwiftResLable.Visible = false;
+            // 
+            // PerlResLabel
+            // 
+            PerlResLabel.AutoSize = true;
+            PerlResLabel.Font = new Font("Arial Narrow", 24F, FontStyle.Regular, GraphicsUnit.Point);
+            PerlResLabel.Location = new Point(199, 98);
+            PerlResLabel.Name = "PerlResLabel";
+            PerlResLabel.Size = new Size(382, 46);
+            PerlResLabel.TabIndex = 42;
+            PerlResLabel.Text = "Вам подойдет язык Perl";
+            PerlResLabel.Visible = false;
+            // 
+            // labelQ11
+            // 
+            labelQ11.AutoSize = true;
+            labelQ11.Font = new Font("Arial Narrow", 24F, FontStyle.Regular, GraphicsUnit.Point);
+            labelQ11.Location = new Point(259, 31);
+            labelQ11.Name = "labelQ11";
+            labelQ11.Size = new Size(306, 46);
+            labelQ11.TabIndex = 43;
+            labelQ11.Text = "У вас есть друзья?";
+            labelQ11.Visible = false;
+            // 
+            // YesQ11
+            // 
+            YesQ11.Location = new Point(97, 329);
+            YesQ11.Name = "YesQ11";
+            YesQ11.Size = new Size(134, 52);
+            YesQ11.TabIndex = 44;
+            YesQ11.Text = "Да";
+            YesQ11.UseVisualStyleBackColor = true;
+            YesQ11.Visible = false;
+            YesQ11.Click += YesQ11_Click;
+            // 
+            // NoQ11
+            // 
+            NoQ11.Location = new Point(568, 329);
+            NoQ11.Name = "NoQ11";
+            NoQ11.Size = new Size(134, 52);
+            NoQ11.TabIndex = 45;
+            NoQ11.Text = "Нет";
+            NoQ11.UseVisualStyleBackColor = true;
+            NoQ11.Visible = false;
+            NoQ11.Click += NoQ11_Click;
+            // 
+            // PHPResLabel
+            // 
+            PHPResLabel.AutoSize = true;
+            PHPResLabel.Font = new Font("Arial Narrow", 24F, FontStyle.Regular, GraphicsUnit.Point);
+            PHPResLabel.Location = new Point(212, 98);
+            PHPResLabel.Name = "PHPResLabel";
+            PHPResLabel.Size = new Size(392, 46);
+            PHPResLabel.TabIndex = 46;
+            PHPResLabel.Text = "Вам подойдет язык PHP";
+            PHPResLabel.Visible = false;
+            // 
+            // labelQ12
+            // 
+            labelQ12.AutoSize = true;
+            labelQ12.Font = new Font("Arial Narrow", 24F, FontStyle.Regular, GraphicsUnit.Point);
+            labelQ12.Location = new Point(263, 31);
+            labelQ12.Name = "labelQ12";
+            labelQ12.Size = new Size(282, 46);
+            labelQ12.TabIndex = 47;
+            labelQ12.Text = "Они тоже тупые?";
+            labelQ12.Visible = false;
+            // 
+            // YesQ12
+            // 
+            YesQ12.Location = new Point(97, 329);
+            YesQ12.Name = "YesQ12";
+            YesQ12.Size = new Size(134, 52);
+            YesQ12.TabIndex = 48;
+            YesQ12.Text = "Да";
+            YesQ12.UseVisualStyleBackColor = true;
+            YesQ12.Visible = false;
+            YesQ12.Click += YesQ12_Click;
+            // 
+            // NoQ12
+            // 
+            NoQ12.Location = new Point(577, 329);
+            NoQ12.Name = "NoQ12";
+            NoQ12.Size = new Size(134, 52);
+            NoQ12.TabIndex = 49;
+            NoQ12.Text = "Нет";
+            NoQ12.UseVisualStyleBackColor = true;
+            NoQ12.Visible = false;
+            NoQ12.Click += NoQ12_Click;
+            // 
+            // RubyResLabel
+            // 
+            RubyResLabel.AutoSize = true;
+            RubyResLabel.Font = new Font("Arial Narrow", 24F, FontStyle.Regular, GraphicsUnit.Point);
+            RubyResLabel.Location = new Point(230, 107);
+            RubyResLabel.Name = "RubyResLabel";
+            RubyResLabel.Size = new Size(400, 46);
+            RubyResLabel.TabIndex = 50;
+            RubyResLabel.Text = "Вам подойдет язык Ruby";
+            RubyResLabel.Visible = false;
+            // 
+            // JavaScriptResLabel
+            // 
+            JavaScriptResLabel.AutoSize = true;
+            JavaScriptResLabel.Font = new Font("Arial Narrow", 24F, FontStyle.Regular, GraphicsUnit.Point);
+            JavaScriptResLabel.Location = new Point(208, 107);
+            JavaScriptResLabel.Name = "JavaScriptResLabel";
+            JavaScriptResLabel.Size = new Size(475, 46);
+            JavaScriptResLabel.TabIndex = 51;
+            JavaScriptResLabel.Text = "Вам подойдет язык JavaScript";
+            JavaScriptResLabel.Visible = false;
+            // 
             // TestForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(JavaScriptResLabel);
+            Controls.Add(RubyResLabel);
+            Controls.Add(NoQ12);
+            Controls.Add(YesQ12);
+            Controls.Add(labelQ12);
+            Controls.Add(PHPResLabel);
+            Controls.Add(NoQ11);
+            Controls.Add(YesQ11);
+            Controls.Add(labelQ11);
+            Controls.Add(PerlResLabel);
+            Controls.Add(SwiftResLable);
+            Controls.Add(NoQ10);
+            Controls.Add(YesQ10);
+            Controls.Add(labelQ10);
+            Controls.Add(CSharpResultLable);
+            Controls.Add(NoQ9);
+            Controls.Add(YesQ9);
+            Controls.Add(labelQ9);
+            Controls.Add(PythonResultLabel);
+            Controls.Add(NoQ8);
+            Controls.Add(YesQ8);
+            Controls.Add(LabelQ8);
             Controls.Add(MatLabResultLabel);
             Controls.Add(FortranResultLabel);
             Controls.Add(NoButtonQ7);
@@ -461,5 +747,27 @@
         private Button NoButtonQ7;
         private Label FortranResultLabel;
         private Label MatLabResultLabel;
+        private Label LabelQ8;
+        private Button YesQ8;
+        private Button NoQ8;
+        private Label PythonResultLabel;
+        private Label labelQ9;
+        private Button YesQ9;
+        private Button NoQ9;
+        private Label CSharpResultLable;
+        private Label labelQ10;
+        private Button YesQ10;
+        private Button NoQ10;
+        private Label SwiftResLable;
+        private Label PerlResLabel;
+        private Label labelQ11;
+        private Button YesQ11;
+        private Button NoQ11;
+        private Label PHPResLabel;
+        private Label labelQ12;
+        private Button YesQ12;
+        private Button NoQ12;
+        private Label RubyResLabel;
+        private Label JavaScriptResLabel;
     }
 }
