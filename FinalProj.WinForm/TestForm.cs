@@ -151,6 +151,8 @@ namespace FinalProj.WinForm
             NoButtonQ7.Visible = false;
             YesButtonQ7.Visible = false;
 
+            FortranResultLabel.Visible = true;
+            ExitButton.Visible=true;
 
         }
 
@@ -160,7 +162,8 @@ namespace FinalProj.WinForm
             NoButtonQ7.Visible = false;
             YesButtonQ7.Visible = false;
 
-
+            MatLabResultLabel.Visible = true;
+            ExitButton.Visible=true;
         }
     }
 }
