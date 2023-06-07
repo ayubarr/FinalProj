@@ -19,8 +19,6 @@ namespace FinalProj.DAL.Repository.Implemintations
             _context = context;
             _dbSet = _context.Set<T>();
 
-            //if (_dbSet == default(DbSet<T>))
-            //    throw new ArgumentNullException(nameof(DbSet<T>));
         }
 
         public async Task Create(T entity)
